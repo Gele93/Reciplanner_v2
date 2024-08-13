@@ -1,0 +1,13 @@
+
+.recipe-list-container {
+    display: flex;
+    position: absolute;
+    left:23vw;
+    top:50%;
+    transform: translateY(-50%);
+    width: 75vw;
+    height: 75vh;
+    border-radius: 10px ;
+
+    border: 1px solid #387F39 ;
+}

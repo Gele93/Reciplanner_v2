@@ -1,0 +1,17 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 7vh;
+    width: auto;
+    align-items: center;
+}
+
+.navbar-link {
+
+    color: #387F39;
+    font-weight: 800;
+    font-size: 2.5vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+}

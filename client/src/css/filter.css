@@ -1,0 +1,23 @@
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 18vw;
+    height: 55vh;
+    text-align: center;
+    align-items: center;
+    background-color: #bfdc7463;
+    top:50%;
+    transform: translateY(-50%);
+    left: 3vw;
+    border-radius: 15px;
+    border: 1px solid #387F39 ;
+}
+
+.filter-row {
+    display: flex;
+    flex-direction: row;
+    width: 16vw;
+    margin-top: 2vh;
+    justify-content: space-between;
+}
