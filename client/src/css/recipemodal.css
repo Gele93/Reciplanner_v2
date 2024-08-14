@@ -1,0 +1,283 @@
+.modal-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #A2CA71;
+  border-radius: 20px;
+  width: 70%;
+  padding: 20px;
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "image description"
+    "kcal info"
+    "time info"
+    "add add";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto auto auto;
+  gap: 20px;
+  position: relative;
+  border: 1.5px solid black;
+}
+
+.modal-header {
+  grid-area: header;
+  width: 100%;
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  background-color: rgb(105, 165, 25);
+  border-radius: 10px 10px 0 0;
+}
+
+.modal-close-button {
+  display: flex;
+  padding: 5px;
+  position: relative;
+  left: 29vw;
+  height: 1.5vw;
+  background-color: rgb(105, 165, 25);
+  border: none;
+  font-size: 1vw;
+  cursor: pointer;
+}
+
+.modal-body {
+  display: contents;
+}
+
+.modal-image img {
+  grid-area: image;
+  display: flex;
+  position: relative;
+  width: 21vw;
+  border: 1px solid black;
+  border-radius: 10px;
+  left: 3vw;
+  top: 0vw;
+}
+.modal-description {
+  grid-area: description;
+  display: flex;
+  flex-direction: column;
+  padding: 5px; 
+  border: 1px solid #000;
+  border-radius: 10px;
+  height: auto; 
+  max-height: 40vh; 
+  box-sizing: border-box;
+  position: relative;
+  right: 7vw;
+  background-color: rgb(238, 234, 234);
+  font-size: 0.85vw; 
+  line-height: 1.1; 
+  overflow-y: auto; 
+}
+
+#descriptionTitle {
+  text-align: center;
+  background-color: rgba(175, 170, 170, 0.822);
+  border-radius: 1vw;
+  height: 2.2vw; 
+  font-size: 1vw; 
+  border: 1px solid black;
+  margin-bottom: 5px; 
+}
+
+#descriptionTitle p {
+  position: relative;
+  bottom: 0.2vw; 
+}
+
+.kcal-container {
+  grid-area: kcal;
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  left: 3vw;
+  border: 1px solid black;
+  width: 21vw;
+  height: 3vw;
+  border-radius: 1vw;
+  background-color: rgb(238, 234, 234);
+}
+
+.time-container {
+  grid-area: time;
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  display: flex;
+  position: relative;
+  left: 3vw;
+  border: 1px solid black;
+  width: 21vw;
+  height: 3vw;
+  border-radius: 1vw;
+  background-color: rgb(238, 234, 234);
+}
+
+.info-container {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  border: 1px solid black;
+  right: 7vw;
+  background-color: rgb(238, 234, 234);
+  border-radius: 1vw;
+  padding: 1vw;
+  align-items: center;
+}
+
+.servings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  width: 80%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.servings-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.servings-button {
+  background-color: #387F39;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.servings-button:hover {
+  background-color: rgba(33, 136, 55, 0.726);
+}
+
+.servings-container input {
+  width: 50px;
+  text-align: center;
+  font-size: 1.2em;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.info-container input {
+  width: 30%;
+  padding: 8px; 
+  border: 1px solid black;
+  border-radius: 5px; 
+  background-color: #ffffff; 
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.servings-container label {
+  flex: 1;
+}
+
+.servings-container input {
+  flex: 2;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.date-container {
+  display: flex;
+  font-weight: bold;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  width: 80%;
+  text-align: center;
+}
+
+.date-container label {
+  flex: 1;
+}
+
+.date-container input {
+  flex: 2;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.meal-types-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.meal-types-container label {
+  flex: 1;
+}
+
+.meal-types-container input {
+  transform: scale(1.2);
+  margin-right: 10px;
+}
+
+.modal-footer {
+  grid-area: add;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-footer button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #387F39;
+  color: #ffffff;
+  display: flex;
+  position: relative;
+  left: 11vw;
+  width: 34vw;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.modal-footer button:hover {
+  background-color: rgba(33, 136, 55, 0.726);
+}

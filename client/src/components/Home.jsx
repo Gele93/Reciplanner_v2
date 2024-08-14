@@ -1,130 +1,134 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import '../css/home.css'
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import '../css/home.css';
+
+function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe }) {
+    const [recipes, setRecipes] = useState([]);
+    const [randomIngredient, setRandomIngredient] = useState('');
+    const [isLoading, setIsLoading] = useState(false)
+
+    const ingredients = [
+        "chicken", "beef", "carrot", "broccoli", "tofu", "salmon",
+        "rice", "potato", "mushroom", "spinach", "tomato", "pork",
+        "zucchini", "eggplant", "lentils", "quinoa", "shrimp",
+        "avocado", "garlic", "onion", "bell pepper", "cauliflower",
+        "cabbage", "kale", "sweet potato", "turkey", "bacon",
+        "peanut butter", "almond", "walnut", "cucumber", "chickpeas"
+    ];
 
 
-function Home() {
+    const shortenTitle = (title) => {
+        const maxLength = 25
+        if (title.length < maxLength) {
+            return title
+        }
 
-    const healthLabels = [
-        "Sugar-Conscious",
-        "Keto-Friendly",
-        "Gluten-Free",
-        "Wheat-Free",
-        "Egg-Free",
-        "Peanut-Free",
-        "Tree-Nut-Free",
-        "Soy-Free",
-        "Fish-Free",
-        "Shellfish-Free",
-        "Pork-Free",
-        "Red-Meat-Free",
-        "Crustacean-Free",
-        "Celery-Free",
-        "Mustard-Free",
-        "Sesame-Free",
-        "Lupine-Free",
-        "Mollusk-Free",
-        "Alcohol-Free",
-        "Sulfite-Free",
-        "FODMAP-Free",
-        "Immuno-Supportive"
-    ]
+        const words = title.split(" ")
+        let wordIndex = 0
+        let totalChar = 0
+
+        for (let i = 0; i < words.length; i++) {
+            totalChar += words[i].length + 1
+            if (totalChar > maxLength) {
+                wordIndex = i - 1
+                break
+            }
+        }
+
+        const wordsOfShortTitle = []
+        for (let i = 0; i < wordIndex; i++) {
+            wordsOfShortTitle.push(words[i])
+        }
+
+        let shortenedTitle = wordsOfShortTitle.join(" ")
+        shortenedTitle = shortenedTitle + "..."
+        return shortenedTitle
+
+    }
+
+
+
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                setIsLoading(true)
+                const app_id = "178c9822";
+                const app_key = "431ecb24042ab21d36088d8d4e110c38";
+
+                const randomIngredient = ingredients[Math.floor(Math.random() * ingredients.length)];
+                setRandomIngredient(randomIngredient);
+                const response = await fetch(`https://api.edamam.com/search?q=${randomIngredient}&app_id=${app_id}&app_key=${app_key}`);
+                const data = await response.json();
+
+                const recipeTitles = [];
+
+                const uniqueRecipes = data.hits.map(hit => hit.recipe).filter(recipe => {
+                    if (recipeTitles.includes(recipe.label)) {
+                        return false;
+                    } else {
+                        recipeTitles.push(recipe.label);
+                        return true;
+                    }
+                });
+
+                setRecipes(uniqueRecipes.slice(0, 10));
+
+            }
+            catch (error) {
+                console.log(error);
+            }
+            finally {
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 500)
+            }
+
+        };
+        fetchRecipes();
+    }, []);
+
+    const openModal = (recipe) => {
+        setSelectedRecipe(recipe);
+        setIsRecipeModalAdd(true);
+        setIsRecipeModal(true);
+    };
 
     return (
         <div className='home'>
             <div className='login-container'>
                 <h1 className='welcome-title'>Welcome to reciPlanner!</h1>
-                <p className='welcome-msg'> Welcome to our recipe haven! Discover a world of culinary inspiration with our handpicked recipes, tips, and tricks. Whether you're a seasoned chef or a kitchen newbie, we have something to spark your cooking creativity and make every meal special. Dive in and start exploring today!</p>
+                <p className='welcome-msg'> Dive into a culinary journey with reciPlanner, your ultimate tool for meal planning and recipe discovery. Whether you're a seasoned chef or just getting started in the kitchen, our platform is designed to help you organize your meals with ease. Plan your weekly menus, discover new and exciting recipes, and keep track of your nutritional intake—all in one place. With our intuitive calendar feature, you can schedule your meals ahead of time, ensuring a balanced diet that suits your lifestyle. Start exploring today and make every meal a delight!</p>
                 <Link className='login-button' to="/recipes">See recipes</Link>
             </div>
             <div className='slide-outter-container'>
-                <div className='slide-title'>Hottest Dishes</div>
-                <div className='slide-container'>
-                    <div className='slide-elements'>
-                        <div className='slide-recipe'>
-                            <h2 className='slide-recipe-title'>Pörkölt1</h2>
-                            <img className='slide-recipe-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJUh7lRyRNXAW6lCuH01i0bRjfBtj3ZuuUMw&s'></img>
-                            <div className='slide-recipe-details'>
-                                <h3 className='slide-recipe-detail'>120 mins</h3>
-                                <h3 className='slide-recipe-detail'>500 kcal</h3>
-                            </div>
-                            <div className='label-container'>
-                                {healthLabels.map((l, i) => (
-                                    <h3 key={i} className='recipe-labels'>{l}</h3>
+                {isLoading ? <div className='loading'></div> :
+                    <>
+                        <div className='slide-title'> {`Dishes with ${randomIngredient}`} </div>
+                        <div className='slide-container'>
+                            <div className='slide-elements'>
+                                {recipes.map((recipe) => (
+                                    <div className='slide-recipe' key={recipe.label} onClick={() => openModal(recipe)}>
+                                        <h2 className='slide-recipe-title'>{shortenTitle(recipe.label)}</h2>
+                                        <img className='slide-recipe-img' src={recipe.image}></img>
+                                        <div className='slide-recipe-details'>
+                                            <h3 className='slide-recipe-detail'>{recipe.totalTime} mins</h3>
+                                            <h3 className='slide-recipe-detail'>{Math.round(recipe.calories)} kcal</h3>
+                                        </div>
+                                        <div className='label-container'>
+                                            {recipe.dietLabels.map((label, i) => (
+                                                <h3 key={i} className='recipe-labels'>{label}</h3>
+                                            ))}
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         </div>
-                        <div className='slide-recipe'>
-                            <h2 className='slide-recipe-title'>Pörkölt2</h2>
-                            <img className='slide-recipe-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJUh7lRyRNXAW6lCuH01i0bRjfBtj3ZuuUMw&s'></img>
-                            <div className='slide-recipe-details'>
-                                <h3 className='slide-recipe-detail'>120 mins</h3>
-                                <h3 className='slide-recipe-detail'>500 kcal</h3>
-                            </div>
-                            <div className='label-container'>
-                                {healthLabels.map((l, i) => (
-                                    <h3 key={i} className='recipe-labels'>{l}</h3>
-                                ))}
-                            </div>
-                        </div>
-                        <div className='slide-recipe'>
-                            <h2 className='slide-recipe-title'>Pörkölt3</h2>
-                            <img className='slide-recipe-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJUh7lRyRNXAW6lCuH01i0bRjfBtj3ZuuUMw&s'></img>
-                            <div className='slide-recipe-details'>
-                                <h3 className='slide-recipe-detail'>120 mins</h3>
-                                <h3 className='slide-recipe-detail'>500 kcal</h3>
-                            </div>
-                            <div className='label-container'>
-                                {healthLabels.map((l, i) => (
-                                    <h3 key={i} className='recipe-labels'>{l}</h3>
-                                ))}
-                            </div>
-                        </div>
-                        <div className='slide-recipe'>
-                            <h2 className='slide-recipe-title'>Pörkölt4</h2>
-                            <img className='slide-recipe-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJUh7lRyRNXAW6lCuH01i0bRjfBtj3ZuuUMw&s'></img>
-                            <div className='slide-recipe-details'>
-                                <h3 className='slide-recipe-detail'>120 mins</h3>
-                                <h3 className='slide-recipe-detail'>500 kcal</h3>
-                            </div>
-                            <div className='label-container'>
-                                {healthLabels.map((l, i) => (
-                                    <h3 key={i} className='recipe-labels'>{l}</h3>
-                                ))}
-                            </div>
-                        </div>
-                        <div className='slide-recipe'>
-                            <h2 className='slide-recipe-title'>Pörkölt5</h2>
-                            <img className='slide-recipe-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJUh7lRyRNXAW6lCuH01i0bRjfBtj3ZuuUMw&s'></img>
-                            <div className='slide-recipe-details'>
-                                <h3 className='slide-recipe-detail'>120 mins</h3>
-                                <h3 className='slide-recipe-detail'>500 kcal</h3>
-                            </div>
-                            <div className='label-container'>
-                                {healthLabels.map((l, i) => (
-                                    <h3 key={i} className='recipe-labels'>{l}</h3>
-                                ))}
-                            </div>
-                        </div>
-                        <div className='slide-recipe'>
-                            <h2 className='slide-recipe-title'>Pörkölt6</h2>
-                            <img className='slide-recipe-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJUh7lRyRNXAW6lCuH01i0bRjfBtj3ZuuUMw&s'></img>
-                            <div className='slide-recipe-details'>
-                                <h3 className='slide-recipe-detail'>120 mins</h3>
-                                <h3 className='slide-recipe-detail'>500 kcal</h3>
-                            </div>
-                            <div className='label-container'>
-                                {healthLabels.map((l, i) => (
-                                    <h3 key={i} className='recipe-labels'>{l}</h3>
-                                ))}
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                    </>
+                }
             </div>
         </div>
-    )
+    );
 }
 
 export default Home

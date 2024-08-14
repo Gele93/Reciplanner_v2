@@ -4,8 +4,12 @@ body {
     font-family: "Quicksand";
     background-color: #f8f6e8;
 }
-
-
+button {
+    font-family: "Quicksand";
+}
+input {
+    font-family: "Quicksand";
+}
 a {
     text-decoration: none;
     color: inherit;
@@ -45,12 +49,16 @@ a {
     justify-content: space-evenly;
     flex-direction: row;
     position: absolute;
-    bottom: 0;
+    bottom: 0vh;
     height: 4vh;
     width: 100vw;
     background-color: #bfdc74a6;
     left: 50%;
     border-top: 3px solid #387F39 ;
     transform: translateX(-50%);
+}
 
+.copyright {
+    position: absolute;
+    bottom: -1vh;
 }
