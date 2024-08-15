@@ -245,7 +245,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
               <p><strong>Dish Type:</strong> {selectedRecipe.dishType}</p>
               <p><strong>Ingredients:</strong> {selectedRecipe.ingredientLines.join(', ')}</p>
               <p><strong>Nutrition:</strong> Fat: {adjustedFat.toFixed(2)}g, Protein: {adjustedProtein.toFixed(2)}g, Carbs: {adjustedCarbs.toFixed(2)}g</p>
-              <p><strong>Vitamins:</strong> Vitamin A: {adjustedVitaminA.toFixed(2)}%, Vitamin C: {adjustedVitaminC.toFixed(2)}%</p>
+              <p><strong>Vitamins:</strong> Vitamin A: {adjustedVitaminA.toFixed(2)}, Vitamin C: {adjustedVitaminC.toFixed(2)}</p>
               <p><strong>Diet Labels:</strong> {selectedRecipe.dietLabels.join(', ')}</p>
               <p><strong>Health Labels:</strong> {selectedRecipe.healthLabels.join(', ')}</p>
               <a href={selectedRecipe.url}>View Full Recipe</a>

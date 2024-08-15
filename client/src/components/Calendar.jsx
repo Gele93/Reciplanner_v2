@@ -12,6 +12,23 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
     const [curWeek, setCurWeek] = useState([])
 
 
+    
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch("/api/recipes")
+        if (!response.ok) {
+          throw new Error("fetching recipes went wrong")
+        }
+        const recipes = await response.json()
+        setRecipes(recipes)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchRecipes()
+  }, [])
+
     useEffect(() => {
         if (curFirstDay) {
             let currentWeek = []

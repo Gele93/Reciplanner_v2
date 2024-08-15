@@ -1,13 +1,110 @@
 
 .recipe-list-container {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     position: absolute;
+    justify-content: space-around;
+    align-items: center;
     left:23vw;
-    top:50%;
+    top:52%;
     transform: translateY(-50%);
     width: 75vw;
-    height: 75vh;
+    height: 88vh;
     border-radius: 10px ;
+}
 
-    border: 1px solid #387F39 ;
+.recipe {
+    position: relative;
+    width: 16vw;
+    height: 35vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid 1px black;
+    border-radius: 15px;
+    background-color: #fdfcee;
+    transition: transform 0.3s;
+}
+.recipe-img {
+    height: 20vh;
+    max-width: 16vw;
+    border-radius: 5px;
+}
+.recipe-title {
+    position: relative;
+    background-color: #bfdc74be;
+    width: 100%;
+    font-size: 2vh;
+    height: 3vh;
+    text-align: center;
+    align-content: center;
+}
+.recipe:hover {
+cursor: pointer;
+border: solid 1px #387F39;
+transform: scale(1.05);
+}
+.label-container {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 90%;
+    height: 10vh;
+}
+.recipe-labels{
+    font-size: 1.2vh;
+    padding: 0;
+    margin: 0;
+    margin-left: 0.3vw; 
+}
+.recipe-details {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+.pages {
+    display: flex;
+    width: 64vw;
+    align-content: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0.5vh;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+
+.prev-page, .next-page, .page-number {
+    border: solid 1px #387F39;
+    color: #387F39 ;
+    font-weight: 500;
+    height: 3vh;
+    width: 4vw;
+    font-size: 1.5vh;
+    background-color: #BEDC74;
+    cursor: pointer;
+}
+.prev-page {
+    border-right: none;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.next-page {
+    border-left: none;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.prev-page:hover, .next-page:hover, .page-number:hover {
+    background-color: #387F39;
+    color: #BEDC74;
+}
+.prev-page:active, .next-page:active, .page-number:hover {
+    background-color: #558a56;
 }
