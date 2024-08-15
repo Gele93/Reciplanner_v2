@@ -19,11 +19,11 @@ export const getAllRecipes = async (req, res) => {
 
 export const postRecipe = async (req, res) => {
 
-    const { label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes } = req.body;
+    const { label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url } = req.body;
     const servings = req.body.yield
     let recipe;
     try {
-        recipe = await Recipe.create({ label, image, servings, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes });
+        recipe = await Recipe.create({ label, image, servings, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url });
     }
     catch (error) {
         console.log(error);
@@ -36,14 +36,14 @@ export const patchRecipe = async (req, res) => {
     const { _id } = req.body;
 
     const updates = req.body;
-    const { label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes } = updates;
+    const { label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url } = updates;
     const servings = req.body.yield
 
 
 
     try {
         const updatedRecipe = await Recipe.findByIdAndUpdate(_id, {
-            _id, label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, servings
+            _id, label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, servings, url
         }, { new: true }); //{ new: true } miatt az updatelt receptet adja vissza
 
         if (!updatedRecipe) {

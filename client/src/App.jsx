@@ -19,41 +19,55 @@ function App() {
   const [recipes, setRecipes] = useState([])
 
 
-  const updateCalendar = (recipe) => {
-
-    let counter = recipe.servings
-    let curDate = new Date(recipe.startDate)
+  const updateCalendar = () => {
     let updatedCalendar = { ...calendar }
 
-    for (let i = 0; i < counter;) {
 
-      curDate = new Date(curDate)
-      if (i !== 0) {
-        curDate.setDate(curDate.getDate() + 1)
-      }
-      curDate = curDate.toISOString().slice(0, 10)
+    recipes.map((recipe) => {
 
-      for (let j = 0; j < recipe.mealTypes.length; j++) {
 
-        if (!updatedCalendar[curDate]) {
-          updatedCalendar[curDate] = ["breakfast", "lunch", "dinner"]
+
+      let counter = recipe.servings
+      let curDate = new Date(recipe.startDate)
+
+
+      for (let i = 0; i < recipe.servings;) {
+
+        curDate = new Date(curDate)
+        if (i !== 0) {
+          curDate.setDate(curDate.getDate() + 1)
         }
+        curDate = curDate.toISOString().slice(0, 10)
 
-        let mealIndex = 0
-        switch (recipe.mealTypes[j]) {
-          case "breakfast": mealIndex = 0
-            break;
-          case "lunch": mealIndex = 1
-            break;
-          case "dinner": mealIndex = 2
-            break;
+        for (let j = 0; j < recipe.mealTypes.length; j++) {
+
+          if (!updatedCalendar[curDate]) {
+            updatedCalendar[curDate] = ["breakfast", "lunch", "dinner"]
+          }
+
+          let mealIndex = 0
+          switch (recipe.mealTypes[j]) {
+            case "breakfast": mealIndex = 0
+              break;
+            case "lunch": mealIndex = 1
+              break;
+            case "dinner": mealIndex = 2
+              break;
+          }
+          if (counter > 0) {
+            //      console.log(curDate)
+            //    console.log(updatedCalendar[curDate][mealIndex], recipe.label)
+
+            updatedCalendar[curDate][mealIndex] = recipe
+          }
+
+          counter--
+          i++
+          // if (i.toString() === counter) break
         }
-        updatedCalendar[curDate][mealIndex] = recipe
-
-        i++
-        if (i.toString() === counter) break
       }
-    }
+    })
+    console.log(updatedCalendar)
     setCalendar(updatedCalendar)
   }
 
@@ -77,7 +91,8 @@ function App() {
 
   useEffect(() => {
     if (recipes) {
-      recipes.map(r => updateCalendar(r))
+      updateCalendar()
+      //  recipes.map(r => updateCalendar(r))
     }
   }, [recipes])
 
@@ -95,10 +110,10 @@ function App() {
         </header>
         <Routes>
           <Route path='/' element={<Home setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} setSelectedRecipe={setSelectedRecipe} />} />
-          <Route path='/recipes' element={<Recipes  setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
+          <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
           <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
         </Routes>
-        {isRecipeModal && <RecipeModal isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
+        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
         <footer className='footer'>
           <p>&copy; 2024 reciPlanner. All rights reserved.</p>
         </footer>

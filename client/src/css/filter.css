@@ -14,6 +14,26 @@
     border: 1px solid #387F39 ;
 }
 
+.meal-type-check-box{
+    position: relative;
+    top:10%
+
+}
+
+form {
+    font-weight: bold;
+}
+
+.filter-title {
+    width: 100%;
+    background-color: #bfdc7463;}
+
+.filter-label {
+    display: flex;
+    position: relative;
+    left: 10%;
+}
+
 .filter-row {
     display: flex;
     flex-direction: row;
@@ -21,3 +41,54 @@
     margin-top: 2vh;
     justify-content: space-between;
 }
+
+  .filterButton {
+    position: relative;
+    top:10vh;
+    width: 12vw;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 3vh;
+    border: solid 1px #387F39;
+    color: #387F39;
+    background-color: #A2CA71;
+    cursor: pointer;
+}
+.filterButton:hover {
+    color: #A2CA71;
+    background-color: #387F39;
+}
+
+  .filter-input {
+    width: 8vw;
+    text-align: center;
+  }
+
+
+
+  .meal-type-check-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #c5e67000;
+    
+    font-weight: bold;
+  }
+  
+  .meal-type-check-box {
+    flex: 1;
+  }
+  
+  .meal-type-input {
+    transform: scale(1.2);
+    margin-right: 10px;
+  }
+  .check-box-row {
+    display: flex;
+    flex-direction: row;
+    width: 6vw;
+    justify-content: space-between;
+  }

@@ -5,29 +5,30 @@ import Piechart from "./Piechart.jsx"
 
 function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar, setCalendar }) {
 
-    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     const meals = ["breakfast", "lunch", "dinner"]
 
     const [curFirstDay, setCurFirstDay] = useState(new Date().toISOString().slice(0, 10))
     const [curWeek, setCurWeek] = useState([])
 
 
-    
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await fetch("/api/recipes")
-        if (!response.ok) {
-          throw new Error("fetching recipes went wrong")
+
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                const response = await fetch("/api/recipes")
+                if (!response.ok) {
+                    throw new Error("fetching recipes went wrong")
+                }
+                const updatedRecipes = await response.json()
+
+                setRecipes(updatedRecipes)
+            } catch (error) {
+                console.error(error)
+            }
         }
-        const recipes = await response.json()
-        setRecipes(recipes)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    fetchRecipes()
-  }, [])
+        fetchRecipes()
+    }, [])
 
     useEffect(() => {
         if (curFirstDay) {
@@ -59,8 +60,8 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
         setCurFirstDay(nextWeekStart)
     }
 
-
     const fillMealDetails = (curDate, curMeal, curKey) => {
+
 
         let mealIndex = 0
 
@@ -138,6 +139,41 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
         setSelectedRecipe(recipe)
     }
 
+    const shortenTitle = (title) => {
+        const maxLength = 20
+        if (title.length < maxLength) {
+            return title
+        }
+
+        const words = title.split(" ")
+        let wordIndex = 0
+        let totalChar = 0
+
+        for (let i = 0; i < words.length; i++) {
+            totalChar += words[i].length + 1
+            if (totalChar > maxLength) {
+                wordIndex = i - 1
+                break
+            }
+        }
+
+        const wordsOfShortTitle = []
+        for (let i = 0; i < wordIndex; i++) {
+            wordsOfShortTitle.push(words[i])
+        }
+
+        let shortenedTitle = wordsOfShortTitle.join(" ")
+        shortenedTitle = shortenedTitle + "..."
+        return shortenedTitle
+
+    }
+
+    const writeDayFromDate = (date) => {
+        const currentDate = new Date(date)
+        const dayOfWeek = currentDate.getDay()
+        return daysOfWeek[dayOfWeek]
+    }
+
     return (
         <div className='calendar'>
             <div className='date'>
@@ -151,14 +187,14 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
                     <div className='meal-type-d'>Dinner</div>
                 </div>
                 {curWeek.map((d, i) => (
-                    <div key={i} className={`${daysOfWeek[i]} day`} >
+                    <div key={d} className={`${daysOfWeek[i]} day`} >
                         <div className='day-date'>{d}</div>
-                        <div className='day-title'>{daysOfWeek[i]}</div>
+                        <div className='day-title'>{writeDayFromDate(d)}</div>
                         {meals.map((m, i) => (
                             fillMealDetails(d, m, "label") ? (
-                                <div key={i} className={`${m} food`} onClick={() => handleFoodClick(getCurFood(d, m))}>
+                                <div key={`${d}${m}`} className={`${m} food`} onClick={() => handleFoodClick(getCurFood(d, m))}>
                                     {fillMealDetails(d, m, "label") &&
-                                        <div className='food-title'>{fillMealDetails(d, m, "label")}</div>
+                                        <div className='food-title'>{shortenTitle(fillMealDetails(d, m, "label"))}</div>
                                     }
                                     {fillMealDetails(d, m, "image") &&
                                         <img className='food-img' src={fillMealDetails(d, m, "image")} />
@@ -168,7 +204,7 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
                                     }
                                 </div>
                             ) : (
-                                <div></div>
+                                <div key={`${d}${m}`}></div>
                             )
 
                         ))}

@@ -91,6 +91,9 @@ transform: scale(1.05);
     background-color: #BEDC74;
     cursor: pointer;
 }
+.page-number {
+    width: 2vw;
+}
 .prev-page {
     border-right: none;
     border-bottom-left-radius: 15px;

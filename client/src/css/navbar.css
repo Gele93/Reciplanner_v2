@@ -8,10 +8,19 @@
 }
 
 .navbar-link {
-
+    height: 100%;
+    width: 6vw;
+    align-content: center;
+    text-align: center;
     color: #387F39;
     font-weight: 800;
     font-size: 2.5vh;
     margin-left: 3vw;
     margin-right: 3vw;
+    transition: transform 0.2s;
+}
+.navbar-link:hover {
+    transform: scale(1.1);
+    color: #1e9120;
+
 }

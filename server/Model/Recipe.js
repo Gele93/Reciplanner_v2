@@ -17,7 +17,8 @@ const recipeSchema = new Schema({
     cuisineType: Array,
     dishType: Array,
     startDate: String,
-    mealTypes: Array
+    mealTypes: Array,
+    url: String
 })
 
 export default model("Recipe", recipeSchema)

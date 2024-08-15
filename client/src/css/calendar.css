@@ -1,103 +1,9 @@
-/*
-.calendar {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    width: 90vw;
-    height: 80vh;
-    background-color: rgba(0, 0, 0, 0.13);
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%);
-}
-.date {
-    display: flex;
-    flex-direction: row;
-    top:2vh;
-    width: 4vw;
-    height: 10vh;
-    justify-content: space-between;
-    align-items: center;
-}
-.date-minus, .date-plus {
-    width: 3vw;
-    height: 3vh;
-    background-color: inherit;
-    cursor: pointer;
-    border: none;
-    font-weight: 700;
-}
-.current-date {
-    padding: 0;
-    margin: 0;
-    font-size: 3vh;
-}
-
-.days-of-week {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    height: 70vh;
-    width: 88vw;
-}
-
-.day-title, .meal-type, .stat-title {
-    font-weight: 800;
-    height: 3vh;
-}
-
-.day, .weekly-stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 10vw;
-    height: 66vh;
-}
-.meal-type-labels {
-    position: relative;
-    top: 10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 10vw;
-    height: 50vh;
-}
-.meal-type {
-    display: flex;
-    align-items: center;
-    height: 20vh;
-}
-
-.breakfast, .lunch, .dinner {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 15vh;
-    margin-top: 1vh;
-    width: 10vw;
-}
-
-.food-img {
-    height: 4vh;
-    border-radius: 30px;
-}
-
-.food-title, .food-kcal {
-    font-size: 1.8vh;
-}
-    */
-
    
     .days-of-week {
         display: grid;
-        grid-template-columns: 6vw 7vw 7vw 7vw 7vw 7vw 7vw 7vw 18vw; /* Adjust column count based on days of the week */
-        grid-template-rows: auto; /* Adjust row height based on content */
-        gap: 2.5vw; /* Optional: add some space between grid items */
+        grid-template-columns: 6vw 7vw 7vw 7vw 7vw 7vw 7vw 7vw 18vw; 
+        grid-template-rows: auto; 
+        gap: 2.5vw; 
         position: absolute;
         top: 14vh;
         left: 50%;
@@ -113,8 +19,10 @@
         justify-items: center;
         font-size: 2.5vh;
         letter-spacing: 0.5vh;
+    /*
         color: #387F39;
-    }
+    */
+        }
     .meal-type-bf {
         grid-row: 2/3;
     }
@@ -128,7 +36,7 @@
     .day {
         display: grid;
         grid-template-columns: 7vw;
-        grid-template-rows: 3vh 3vh 5vh 20vh 20vh 20vh;
+        grid-template-rows: 3vh 3vh 3vh 22vh 22vh 22vh;
         gap: 0.5vh;
         align-items: center;
         justify-items: center;
@@ -160,7 +68,7 @@
         border: solid 1px #387f39;
     }
     .food-title{
-        font-size: 2vh;
+        font-size: 1.5vh;
     }
     .food-img {
         border-radius: 50px;

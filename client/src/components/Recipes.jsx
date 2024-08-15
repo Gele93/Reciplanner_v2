@@ -11,14 +11,18 @@ function Recipes({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe  }) 
     const [calories, setCalories] = useState(``)
     const [diet, setDiet] = useState(``)
     const [fetchable, setFetchable] = useState(false)
+    const[mealType, setMealType]= useState(``)
+    const[health, setHealth]=useState(``)
 
 
     return (
         <div className='recipes'>
             <Filter setName={setName} setDiet={setDiet}
-                name={name} diet={diet} calories={calories}
+                name={name} diet={diet} calories={calories} mealType={mealType}
+                health={health}
                 setCalories={setCalories} setFetchable={setFetchable}
                 filteredRecepies={filteredRecepies} setfilteredRecepies={setfilteredRecepies}
+                setMealType={setMealType} setHealth={setHealth}
             />
             <RecipeList setSelectedRecipe={setSelectedRecipe} filteredRecepies={filteredRecepies} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />
         </div>

@@ -1,0 +1,168 @@
+.calendar-modal {
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+
+}
+
+.days-of-week-modal {
+    background-color: #fdfcee;
+    border-bottom-right-radius: 30px;
+    border: 2px solid #387F39;
+    display: grid;
+    grid-template-columns: 5vw 6vw 6vw 6vw 6vw 6vw 6vw 6vw; 
+    grid-template-rows: auto; 
+    position: absolute;
+    top: 14vh;
+    left: 50%;
+    transform: translate(-50%);
+    box-shadow: 5px 5px 10px  black;
+}
+
+.meal-type-labels-modal {
+    grid-column: 1 / 2;
+    display: grid;
+    grid-template-columns: 5vw;
+    grid-template-rows: 5vh 10vh 10vh 10vh;
+    align-items: center;
+    justify-items: center;
+    font-size: 1.5vh;
+    position: relative;
+    background-color: #387F39;
+/*
+    color: #387F39;
+*/
+    }
+
+.top-left-corner {
+    grid-row: 1/2;
+    text-align: center;
+    align-content: center;
+    background-color: #fdfcee;
+    width: 100%;
+    height: 100%;
+    color: #387F39
+}
+
+
+.meal-type-bf-modal {
+    grid-row: 2/3;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+}
+.meal-type-bf-modal::after {
+    position: relative;
+    top:4vh ;
+    content: "";
+    border-bottom:  1px solid #8cac8c;
+    width: 47vw;
+    display: block;
+}
+.meal-type-l-modal {
+    grid-row: 3/4;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+}
+.meal-type-l-modal::after {
+    position: relative;
+    top:4vh ;
+    content: "";
+    border-bottom:  1px solid #8cac8c;
+    width: 47vw;
+    display: block;
+}
+.meal-type-d-modal {
+    grid-row: 4/5;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+.day-modal {
+    display: grid;
+    grid-template-columns: 6vw;
+    grid-template-rows: 3vh 2vh 10vh 10vh 10vh;
+    align-items: center;
+    justify-items: center;
+    border-right: 1px solid #8cac8c;
+}
+
+.breakfast-modal {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    grid-row: 3 / 4;
+}
+.lunch-modal {
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    grid-row: 4 / 5;
+}
+.dinner-modal {
+    grid-row: 5/6;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.food-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2vh;
+    border-radius: 30px;
+    width: 2vw;
+    height: 2vw;
+    background-color: #bfdc747e;
+    border: solid 1px #387f3971;
+}
+
+.food-title-modal{
+    font-size: 1vh;
+}
+.food-img-modal {
+    border-radius: 50px;
+    width: 2vw;
+}
+.food-kcal-modal {
+    font-size: 1vh;
+}
+
+.meal-type-labels-modal {
+    font-weight: 700;
+}
+
+.day-date-modal {
+font-weight: 700;
+font-size: 1.5vh;
+width: 100%;
+height: 100%;
+text-align: center;
+align-content: center;
+background-color: #387F39;
+
+}
+.day-title-modal {
+    background-color: #387f39c3;
+    text-align: center;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+font-weight: 500;
+font-size: 1.2vh;
+}

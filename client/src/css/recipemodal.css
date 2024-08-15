@@ -8,13 +8,14 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
 }
 
 .modal-content {
-  background-color: #A2CA71;
+  background-color: #bfdc74f6;
   border-radius: 20px;
-  width: 70%;
-  padding: 20px;
+  width: 70vw;
+  padding: 1vw;
   display: grid;
   grid-template-areas:
     "header header"
@@ -26,31 +27,47 @@
   grid-template-rows: auto 1fr auto auto auto;
   gap: 20px;
   position: relative;
+  /*
   border: 1.5px solid black;
-}
+*/
+border: 2px solid #387F39;
+box-shadow: 5px 5px 15px black;
+  }
 
 .modal-header {
   grid-area: header;
   width: 100%;
   display: flex;
+  align-items: center;
   padding: 5px;
   justify-content: center;
-  background-color: rgb(105, 165, 25);
+  background-color: #98c066d5;
   border-radius: 10px 10px 0 0;
+  color: #387F39;
+  border: 1px solid black;
+  position: relative;
+  right: 0.3vw;  
+}
+.modal-header-title{
+  font-size: 5vh;
+  padding: 0;
+  margin: 0;
 }
 
 .modal-close-button {
+  color:#285728;
   display: flex;
-  padding: 5px;
-  position: relative;
-  left: 29vw;
-  height: 1.5vw;
-  background-color: rgb(105, 165, 25);
+  position: absolute; 
+  right: 30px; 
+  background-color: #97c06600;
   border: none;
   font-size: 1vw;
   cursor: pointer;
+  transition: transform 0.2s;
 }
-
+.modal-close-button:hover {
+  transform: scale(1.5);
+}
 .modal-body {
   display: contents;
 }
@@ -59,73 +76,118 @@
   grid-area: image;
   display: flex;
   position: relative;
-  width: 21vw;
+  width: 29vw;
+  height: 20vw;
   border: 1px solid black;
-  border-radius: 10px;
-  left: 3vw;
+  border-radius: 1vw;
+  left: 1vw;
   top: 0vw;
 }
+
 .modal-description {
   grid-area: description;
   display: flex;
   flex-direction: column;
   padding: 5px; 
   border: 1px solid #000;
-  border-radius: 10px;
-  height: auto; 
-  max-height: 40vh; 
+  border-radius: 1vw;
+  height: 20vw;  
   box-sizing: border-box;
   position: relative;
-  right: 7vw;
-  background-color: rgb(238, 234, 234);
+  right: 1vw;
+  background-color: #fdfcee;
   font-size: 0.85vw; 
   line-height: 1.1; 
   overflow-y: auto; 
 }
 
+
+.modal-description::-webkit-scrollbar {
+  width: 12px;
+}
+
+.modal-description::-webkit-scrollbar-thumb {
+  background-color: #387F39; 
+  border-radius: 10px;
+  border: 3px solid #c4e670ea; 
+}
+
+.modal-description::-webkit-scrollbar-thumb:hover {
+  background-color: #285728;
+}
+
 #descriptionTitle {
   text-align: center;
-  background-color: rgba(175, 170, 170, 0.822);
+  align-items: center;
+  background-color: #A2CA71;
   border-radius: 1vw;
-  height: 2.2vw; 
+  height: 2.5vw; 
   font-size: 1vw; 
   border: 1px solid black;
   margin-bottom: 5px; 
+  color: #387F39;
+  position: relative;
 }
 
-#descriptionTitle p {
-  position: relative;
-  bottom: 0.2vw; 
-}
-
-.kcal-container {
-  grid-area: kcal;
-  text-align: center;
-  align-self: center;
-  justify-content: center;
-  display: flex;
-  position: relative;
-  left: 3vw;
-  border: 1px solid black;
-  width: 21vw;
-  height: 3vw;
+.details-container {
+  padding: 1vw;
+  background-color: #fdfcee; 
   border-radius: 1vw;
-  background-color: rgb(238, 234, 234);
+  border: 1px solid #387F39; 
+  display: flex;
+  flex-direction: column;
+  gap: 13px; 
+  width: 27vw;
+  position: relative;
+  left:1vw;
+  height: 11vw;
+  top:1vw;
+  overflow-y: auto; 
 }
 
-.time-container {
-  grid-area: time;
-  text-align: center;
-  align-self: center;
-  justify-content: center;
+
+.details-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.details-container::-webkit-scrollbar-thumb {
+  background-color: #387F39; 
+  border-radius: 10px;
+  border: 3px solid #c4e670ea; 
+}
+
+.details-container::-webkit-scrollbar-thumb:hover {
+  background-color: #285728;
+}
+
+.details-container h3 {
+  margin: 0;
+  font-size: 1.1em;
+  color: #000000; 
+}
+
+.details-container p {
+  margin: 0;
+  font-size: 1em;
+}
+
+.span{
+  font-weight: lighter;
+}
+
+.ingredients{
   display: flex;
+  flex-direction: row;
+}
+.ingredients li{
   position: relative;
-  left: 3vw;
-  border: 1px solid black;
-  width: 21vw;
-  height: 3vw;
-  border-radius: 1vw;
-  background-color: rgb(238, 234, 234);
+  bottom:1vw;
+  font-size: 16px;
+}
+
+.nutrition{
+  position: relative;
+  bottom: 2vw
 }
 
 .info-container {
@@ -135,10 +197,12 @@
   gap: 10px;
   position: relative;
   border: 1px solid black;
-  right: 7vw;
-  background-color: rgb(238, 234, 234);
+  right: 1vw;
+  top: 1vw;
+  background-color: #fdfcee;
   border-radius: 1vw;
   padding: 1vw;
+  height: 11vw;
   align-items: center;
 }
 
@@ -147,10 +211,9 @@
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  border: 1px solid black;
   padding: 10px;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: #c5e67000;
   width: 80%;
   text-align: center;
   font-weight: bold;
@@ -171,6 +234,7 @@
   padding: 5px 10px;
   cursor: pointer;
   font-size: 1em;
+  width: 2vw;
 }
 
 .servings-button:hover {
@@ -181,14 +245,12 @@
   width: 50px;
   text-align: center;
   font-size: 1.2em;
-  border: 1px solid black;
   border-radius: 5px;
 }
 
 .info-container input {
   width: 30%;
   padding: 8px; 
-  border: 1px solid black;
   border-radius: 5px; 
   background-color: #ffffff; 
   font-size: 1em;
@@ -205,21 +267,19 @@
 .servings-container input {
   flex: 2;
   padding: 5px;
-  border: 1px solid black;
   border-radius: 5px;
 }
 
 .date-container {
   display: flex;
   font-weight: bold;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
   justify-content: flex-start;
-  border: 1px solid black;
   padding: 5px;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: #c5e67002;
   width: 80%;
   text-align: center;
 }
@@ -233,16 +293,17 @@
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 13vw;
+  border: 1px solid black;
 }
 
 .meal-types-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid black;
   padding: 5px;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: #c5e67000;
   gap: 10px;
   font-weight: bold;
 }
@@ -257,27 +318,111 @@
 }
 
 .modal-footer {
+  position: relative;
   grid-area: add;
   display: flex;
   justify-content: center;
 }
 
-.modal-footer button {
+.modal-footer-Add {
   padding: 10px 20px;
-  font-size: 1em;
-  border-radius: 10px;
-  border: none;
+  font-size: 3vh;
+  border-radius: 25px;
+  border: solid 1px #387F39;
   cursor: pointer;
-  background-color: #387F39;
-  color: #ffffff;
+  background-color: #A2CA71;
+  color: #387F39;
   display: flex;
   position: relative;
-  left: 11vw;
   width: 34vw;
   justify-content: center;
   border: 1px solid black;
+  font-weight: 600;
 }
 
-.modal-footer button:hover {
-  background-color: rgba(33, 136, 55, 0.726);
+.modal-footer-Add:hover {
+  color: #A2CA71;
+  background-color: #387F39;}
+
+
+  .modal-footer-edit-delete {
+    width: 45vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+
+.modal-footer-Edit{
+  padding: 10px 20px;
+  font-size: 3vh;
+  border-radius: 25px;
+  border: solid 1px #387F39;
+  cursor: pointer;
+  background-color: #A2CA71;
+  color: #387F39;
+  display: flex;
+  position: relative;
+  /*
+  left: 14vw;
+  */
+  width: 20vw;
+  justify-content: center;
+  border: 1px solid black;
+  font-weight: 600;
+}
+
+.modal-footer-Edit:hover {
+  color: #A2CA71;
+  background-color: #387F39;
+}
+
+.modal-footer-Delete{
+  padding: 10px 20px;
+  font-size: 3vh;
+  border-radius: 25px;
+  border: solid 1px #387F39;
+  cursor: pointer;
+  background-color: #A2CA71;
+  color: #387F39;
+  display: flex;
+  position: relative;
+  /*
+  left: 16vw;
+  */
+  width: 20vw;
+  justify-content: center;
+  border: 1px solid black;
+  font-weight: 600;
+}
+
+.modal-footer-Delete:hover {
+  color: #A2CA71;
+  background-color: #387F39;
+}
+
+.modal-description a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #A2CA71; 
+    color: #387F39; 
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 25px;
+    border: 1px solid black;
+}
+  
+.modal-description a:hover {
+    background-color: #45a049; 
+}
+
+
+.calendar-modal-div {
+  position: absolute;
+  right: 4vw;
+}
+.calendar-modal-icon {
+  width: 4vw;
 }
