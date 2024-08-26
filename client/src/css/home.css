@@ -24,7 +24,9 @@
     width: 100%;
 }
 .welcome-msg {
-    padding: 3vw;
+    text-align: justify;
+    margin-left: 2vw;
+    margin-right: 2vw;
 }
 
 .login-button {

@@ -10,7 +10,7 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
 
     const [curFirstDay, setCurFirstDay] = useState(new Date().toISOString().slice(0, 10))
     const [curWeek, setCurWeek] = useState([])
-
+    const [weeklyTotalKcal, setWeeklyTotalkcal] = useState(0)
 
 
     useEffect(() => {
@@ -92,7 +92,7 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
     const calculateTotalWeeklyKcal = () => {
         try {
             let updatedTotalWeeklyKcal = 0
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 7; i++) {
                 let checkDay = new Date(curFirstDay)
                 checkDay.setDate(checkDay.getDate() + i)
                 checkDay = checkDay.toISOString().slice(0, 10)
@@ -105,11 +105,15 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
                     })
                 }
             }
-            return Math.round(updatedTotalWeeklyKcal)
+            setWeeklyTotalkcal(Math.round(updatedTotalWeeklyKcal))
         } catch (error) {
             console.error(error)
         }
     }
+
+    useEffect(()=>{
+        calculateTotalWeeklyKcal()
+    },[curWeek])
 
 
     const getCurFood = (curDate, curMeal) => {
@@ -216,7 +220,7 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
                 <div className='weekly-stat'>
                     <div className='stat-title'>Stats</div>
                     <div className='stat-weekly-kcal-title'>Total kcal:</div>
-                    <div className='stat-weekly-kcal'>{calculateTotalWeeklyKcal()}</div>
+                    <div className='stat-weekly-kcal'>{weeklyTotalKcal}</div>
                     <div className='stat-chart'>
                         <Piechart curFirstDay={curFirstDay} calendar={calendar} />
                     </div>

@@ -153,7 +153,6 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
     let updatedCalendar = { ...calendar }
 
     for (let i = 0; i < servings;) {
-
       curDate = new Date(curDate)
       if (i !== 0) {
         curDate.setDate(curDate.getDate() + 1)
@@ -161,12 +160,9 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
       curDate = curDate.toISOString().slice(0, 10)
 
       for (let j = 0; j < recipe.mealTypes.length; j++) {
-
         if (!updatedCalendar[curDate]) {
           updatedCalendar[curDate] = ["breakfast", "lunch", "dinner"]
         }
-
-
 
         let mealIndex = 0
         switch (recipe.mealTypes[j]) {
@@ -183,10 +179,8 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
 
         counter--
         i++
-        //  if (i.toString() === counter) break
       }
     }
-
     setCalendar(updatedCalendar)
   }
 

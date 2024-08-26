@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Login from "../pages/Login.jsx"
 import '../css/home.css';
 
 function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe }) {
@@ -98,8 +99,8 @@ function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe }) {
         <div className='home'>
             <div className='login-container'>
                 <h1 className='welcome-title'>Welcome to reciPlanner!</h1>
-                <p className='welcome-msg'> Dive into a culinary journey with reciPlanner, your ultimate tool for meal planning and recipe discovery. Whether you're a seasoned chef or just getting started in the kitchen, our platform is designed to help you organize your meals with ease. Plan your weekly menus, discover new and exciting recipes, and keep track of your nutritional intake—all in one place. With our intuitive calendar feature, you can schedule your meals ahead of time, ensuring a balanced diet that suits your lifestyle. Start exploring today and make every meal a delight!</p>
-                <Link className='login-button' to="/recipes">See recipes</Link>
+                <p className='welcome-msg'> Dive into a culinary journey with reciPlanner, your ultimate tool for meal planning and recipe discovery. Whether you're a seasoned chef or just getting started in the kitchen, our platform is designed to help you organize your meals with ease.</p>
+                <Login />
             </div>
             <div className='slide-outter-container'>
                 {isLoading ? <div className='loading'></div> :

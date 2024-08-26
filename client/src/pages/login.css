@@ -1,0 +1,44 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 3vh;
+    padding: 3vh;
+    width: 80%;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    border: #387F39 1px solid;
+    border-radius: 10px;
+    background-color: #bfdc7463;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom:2vh;
+    justify-content: space-around;
+    align-items: center;
+}
+.form-row > .login-button {
+    position: relative;
+    cursor: pointer;
+    bottom:0;
+    width: 70%;
+}
+.create-p {
+    width: 100%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 2vh;
+}
+.click-here {
+    font-weight: 600;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.click-here:hover {
+    text-decoration: underline;
+    color: #387F39;
+    cursor: pointer;
+}

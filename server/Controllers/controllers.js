@@ -1,11 +1,12 @@
 import express from "express"
 import mongoose from "mongoose"
 import Recipe from "../Model/Recipe.js"
+import User from "../Model/User.js"
 
 
-const findAllRecipes = async () => {
+const findAllRecipes = async (curUserId) => {
     try {
-        const allRecipes = await Recipe.find({})
+        const allRecipes = await Recipe.find({ userId: curUserId })
         return allRecipes
     } catch (error) {
         console.error(error)
@@ -13,17 +14,20 @@ const findAllRecipes = async () => {
 }
 
 export const getAllRecipes = async (req, res) => {
-    const recipes = await findAllRecipes()
-    res.send(recipes)
+    const curUserId = req.params.userId
+    const recipes = await findAllRecipes(curUserId)
+    return res.send(recipes)
 }
 
 export const postRecipe = async (req, res) => {
+
+    const userId = req.params.userId
 
     const { label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url } = req.body;
     const servings = req.body.yield
     let recipe;
     try {
-        recipe = await Recipe.create({ label, image, servings, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url });
+        recipe = await Recipe.create({ label, image, servings, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url, userId });
     }
     catch (error) {
         console.log(error);
@@ -38,8 +42,6 @@ export const patchRecipe = async (req, res) => {
     const updates = req.body;
     const { label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url } = updates;
     const servings = req.body.yield
-
-
 
     try {
         const updatedRecipe = await Recipe.findByIdAndUpdate(_id, {
@@ -72,5 +74,37 @@ export const deleteRecipe = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Error deleting recipe", error: error.message });
+    }
+}
+
+
+//USERS
+export const getAllUsers = async (req, res) => {
+    try {
+        const allUsers = await User.find({})
+        return res.send(allUsers)
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const getUserByName = async (req, res) => {
+    try {
+        const curUsername = req.params.username
+        const user = await User.find({ username: curUsername })
+        return res.send(user)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const postUser = async (req, res) => {
+    try {
+        const user = req.body
+        const addedUser = await User.create(user)
+        return res.send(addedUser)
+    } catch (error) {
+        console.error(error)
     }
 }

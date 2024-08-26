@@ -18,7 +18,8 @@ const recipeSchema = new Schema({
     dishType: Array,
     startDate: String,
     mealTypes: Array,
-    url: String
+    url: String,
+    user: { type: Schema.Types.ObjectId, ref: "User" }
 })
 
 export default model("Recipe", recipeSchema)

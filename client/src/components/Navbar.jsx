@@ -1,8 +1,8 @@
 import React from 'react'
 import '../css/navbar.css'
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({ isLogedIn }) {
   return (
     <div className='navbar'>
       <Link className='navbar-link' to="/recipes" >Recipes</Link>
