@@ -4,7 +4,7 @@ export const RecipeContext = createContext(null)
 
 function ContextProvider({ children }) {
 
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState("")
 
     return (
         <RecipeContext.Provider value={{ user, setUser }}>

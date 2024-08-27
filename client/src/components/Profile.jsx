@@ -1,0 +1,36 @@
+import React, { useContext, useState } from 'react'
+import { RecipeContext } from '../ContextProvider'
+import { Link } from 'react-router-dom';
+
+function Profile() {
+
+    const [isProfileOpen, setIsProfileOpen] = useState(false)
+    const { user, setUser } = useContext(RecipeContext)
+
+    const handleLogout = () => {
+        setUser("")
+        setIsProfileOpen(false)
+        localStorage.setItem("curUserId", "")
+    }
+
+    return (
+        <>
+            <div className='profile' >
+                {user &&
+                    <img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src={user.profilePic ? `/static/${user.profilePic}` : '/anonimuser.png'} />
+                }
+            </div>
+            {
+                isProfileOpen &&
+                <div className='profile-menu'>
+                    <Link to={`/edit-profile/${user._id}`}><button onClick={() => setIsProfileOpen(false)} className='login-button menu-button' type="button">Profile</button></Link>
+                    <Link to="/calendar"><button onClick={() => setIsProfileOpen(false)} className='login-button menu-button' type="button">My calendar</button></Link>
+                    <button className='login-button menu-button' type="button">My recipes</button>
+                    <button onClick={handleLogout} className='login-button menu-button' type="button">Logout</button>
+                </div>
+            }
+        </>
+    )
+}
+
+export default Profile

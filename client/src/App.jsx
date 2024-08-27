@@ -1,14 +1,17 @@
 import { useEffect, useState, useContext } from 'react'
 import './css/App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Recipes from "./components/Recipes.jsx"
-import Calendar from "./components/Calendar.jsx"
+import Recipes from "./pages/Recipes.jsx"
+import Calendar from "./pages/Calendar.jsx"
 import RecipeModal from './components/RecipeModal.jsx';
-import Home from "./components/Home.jsx"
+import Home from "./pages/Home.jsx"
 import Navbar from './components/Navbar.jsx';
 import CreateUser from './pages/CreateUser.jsx';
+import Profile from './components/Profile.jsx';
 import { Link } from 'react-router-dom';
-import  ContextProvider  from './ContextProvider.jsx';
+import { RecipeContext } from "./ContextProvider"
+import EditProfile from './pages/EditProfile.jsx';
+
 
 function App() {
 
@@ -18,8 +21,12 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [recipes, setRecipes] = useState([])
 
+  const { user, setUser } = useContext(RecipeContext)
+
+
   const updateCalendar = () => {
     let updatedCalendar = { ...calendar }
+
 
     recipes.map((recipe) => {
 
@@ -50,8 +57,6 @@ function App() {
               break;
           }
           if (counter > 0) {
-            //      console.log(curDate)
-            //    console.log(updatedCalendar[curDate][mealIndex], recipe.label)
 
             updatedCalendar[curDate][mealIndex] = recipe
           }
@@ -62,15 +67,41 @@ function App() {
         }
       }
     })
-    console.log(updatedCalendar)
     setCalendar(updatedCalendar)
   }
+
+
+  useEffect(()=>{
+    setCalendar({})
+    setRecipes([])
+  },[user])
+
+  useEffect(() => {
+    if (localStorage.getItem("curUserId")) {
+      const curUserId = localStorage.getItem("curUserId")
+      const fetchUser = async () => {
+        try {
+          const response = await fetch(`/api/users/${curUserId}`)
+          if (!response.ok) {
+            throw new Error(`fetching user went wrong`)
+          }
+          const curUser = await response.json()
+          setUser(curUser)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      fetchUser()
+    }
+  }, [localStorage.getItem("curUserId")])
+
+
 
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch("/api/recipes")
+        const response = await fetch(`/api/recipes/${user._id}`)
         if (!response.ok) {
           throw new Error("fetching recipes went wrong")
         }
@@ -80,42 +111,43 @@ function App() {
         console.error(error)
       }
     }
-    fetchRecipes()
-  }, [])
+    if (user) {
+      fetchRecipes()
+    }
+  }, [user])
 
 
   useEffect(() => {
-    if (recipes) {
+    if (recipes && user) {
       updateCalendar()
-      //  recipes.map(r => updateCalendar(r))
     }
-  }, [recipes])
+  }, [recipes, user])
 
 
   return (
     <Router>
-      <ContextProvider>
-        <div className='app'>
-          <header className='header'>
-            <div className='header-title'>
-              <Link to="/">
-                reci<span className='p'>P</span>lanner
-              </Link>
-            </div>
-            <Navbar />
-          </header>
-          <Routes>
-            <Route path='/' element={<Home setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} setSelectedRecipe={setSelectedRecipe} />} />
-            <Route path='/create-user' element={<CreateUser />} />
-            <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
-            <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
-          </Routes>
-          {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
-          <footer className='footer'>
-            <p>&copy; 2024 reciPlanner. All rights reserved.</p>
-          </footer>
-        </div>
-      </ContextProvider>
+      <div className='app'>
+        <header className='header'>
+          <div className='header-title'>
+            <Link to="/">
+              reci<span className='p'>P</span>lanner
+            </Link>
+          </div>
+          <Navbar />
+          <Profile />
+        </header>
+        <Routes>
+          <Route path='/' element={<Home setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} setSelectedRecipe={setSelectedRecipe} />} />
+          <Route path='/create-user' element={<CreateUser />} />
+          <Route path='/edit-profile/:userid' element={<EditProfile />} />
+          <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
+          <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
+        </Routes>
+        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
+        <footer className='footer'>
+          <p className='copyright'>&copy; 2024 reciPlanner. All rights reserved.</p>
+        </footer>
+      </div>
     </Router>
   )
 }

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../css/recipemodal.css';
 import Draggable from "react-draggable";
 import CalendarModal from './CalendarModal';
+import { RecipeContext } from '../ContextProvider';
 
 const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calendar, setCalendar }) => {
   const [servings, setServings] = useState(1);
@@ -16,6 +17,7 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
   const [adjustedVitaminC, setAdjustedVitaminC] = useState(0)
   const [adjustedIngredients, setAdjustedIngredients] = useState([]);
 
+  const {user, setUser} = useContext(RecipeContext)
 
   //calendarmodal
   const [isCalendarModal, setIsCalendarModal] = useState(false)
@@ -55,7 +57,7 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
 
   const fetchPostNewRecipe = async (recipe) => {
     try {
-      const response = await fetch('/api/recipes', {
+      const response = await fetch(`/api/recipes/${user._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,12 +115,9 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
         curDate.setDate(curDate.getDate() + 1)
       }
       curDate = curDate.toISOString().slice(0, 10)
-      console.log(curDate, i)
       for (let j = 0; j < recipe.mealTypes.length; j++) {
         if (calendar[curDate]) {
           if (!calendar[curDate].includes(recipe.mealTypes[j])) {
-
-            console.log(calendar[curDate])
 
             let mealIndex = 0
             switch (recipe.mealTypes[j]) {
@@ -187,6 +186,7 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
 
   const handleAddRecipe = async () => {
 
+    if (!user) return
     if (mealTypes.length === 0) return
 
     let recipeToAdd = { ...selectedRecipe }
@@ -212,7 +212,6 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
     recipeToEdit.yield = servings;
     recipeToEdit["startDate"] = date;
     recipeToEdit["mealTypes"] = mealTypes;
-    console.log(mealTypes)
 
     if (checkEditAvailability(recipeToEdit)) {
       await fetchPatchEditedRecipe(recipeToEdit);

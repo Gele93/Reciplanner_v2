@@ -8,13 +8,14 @@
         top: 14vh;
         left: 50%;
         transform: translate(-50%);
+        z-index: -1;
     }
     
     .meal-type-labels {
         grid-column: 1 / 2;
         display: grid;
         grid-template-columns: 6vw;
-        grid-template-rows: 11vh 20vh 20vh 20vh;
+        grid-template-rows: 15vh 18vh 18vh 18vh 3vh 2vh 2vh 2vh;
         align-items: center;
         justify-items: center;
         font-size: 2.5vh;
@@ -32,11 +33,24 @@
     .meal-type-d {
         grid-row: 4/5;
     }
+    .meal-type-cal-needed {
+        grid-row: 6/7;
+        font-size: 1.2vh;
+    }
+    .meal-type-cal-ate {
+        grid-row: 7/8;
+        font-size: 1.2vh;
+    }
+    .meal-type-cal-dif {
+        grid-row: 8/9;
+        font-size: 1.2vh;
+    }
+
 
     .day {
         display: grid;
         grid-template-columns: 7vw;
-        grid-template-rows: 3vh 3vh 3vh 22vh 22vh 22vh;
+        grid-template-rows: 3vh 3vh 3vh 19vh 19vh 19vh 2vh 2vh 2vh 2vh;
         gap: 0.5vh;
         align-items: center;
         justify-items: center;
@@ -50,6 +64,22 @@
     .dinner {
         grid-row: 6 / 7;
     }
+    .kcal-need {
+        grid-row: 8/9
+    }    
+    .kcal-took {
+        grid-row: 9/10
+    }
+    .kcal-diff {
+        font-weight: 600;
+        grid-row: 10/11
+    }
+    .positive {
+        color: red;
+    }
+    .negative{
+        color: green
+    }
     
     .food {
         display: flex;
@@ -58,7 +88,7 @@
         text-align: center;
         padding: 2vh;
         border-radius: 30px;
-        width: 7vw;
+        width: 7vw; 
         background-color: #bfdc747e;
         border: solid 1px #387f3971;
         cursor: pointer;
@@ -124,6 +154,7 @@
 
 .date {
     display: flex;
+    z-index: -1;
     position: absolute;
     width: 64vw;
     align-content: center;

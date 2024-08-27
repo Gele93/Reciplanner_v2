@@ -2,7 +2,7 @@
         display: flex;
         flex-direction: column;
         position: absolute;
-        top:30%;
+        top:20%;
         padding: 3vh;
         left:50%;
         transform: translateX(-50%);
@@ -19,22 +19,45 @@
 }
 .create-form-row {
     position: relative;
-    left:10%;
-    width: 80%;
+    left:20%;
+    width: 60%;
     display: flex;
     flex-direction: row;
     margin-bottom:2vh;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
-.create-form-row > .login-button {
+.register-row {
+    display: flex;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+}
+.link {
+    position: relative;
+    bottom: 0;
+    left:0;
+    width: 40%
+}
+.link > .login-button {
+width: 100% !important;
+position: relative;
+bottom:0;
+}
+.register-row > .login-button {
     position: relative;
     cursor: pointer;
     bottom:0;
-    width: 70%;
+    left:0;
+    align-self: center !important;
+    width: 40% !important;
+    margin-bottom: 2vh;
 }
 .create-form-row > label {
-width: 30%;
+width: 60%;
+}
+.create-form-row > input {
+width: 40%;
 }
 .create-form-row > .radio-title {
     text-align: left;

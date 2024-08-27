@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import "../css/calendar.css"
-import Piechart from "./Piechart.jsx"
-
+import Piechart from "../components/Piechart.jsx"
+import { RecipeContext } from '../ContextProvider.jsx'
 
 function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar, setCalendar }) {
 
@@ -12,16 +12,19 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
     const [curWeek, setCurWeek] = useState([])
     const [weeklyTotalKcal, setWeeklyTotalkcal] = useState(0)
 
+    const { user, setUser } = useContext(RecipeContext)
 
+    /*
     useEffect(() => {
+        console.log(calendar)
         const fetchRecipes = async () => {
             try {
-                const response = await fetch("/api/recipes")
+                const response = await fetch(`/api/recipes/${user._id}`)
                 if (!response.ok) {
                     throw new Error("fetching recipes went wrong")
                 }
                 const updatedRecipes = await response.json()
-
+                console.log(updatedRecipes)
                 setRecipes(updatedRecipes)
             } catch (error) {
                 console.error(error)
@@ -29,6 +32,8 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
         }
         fetchRecipes()
     }, [])
+
+*/
 
     useEffect(() => {
         if (curFirstDay) {
@@ -61,7 +66,6 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
     }
 
     const fillMealDetails = (curDate, curMeal, curKey) => {
-
 
         let mealIndex = 0
 
@@ -111,9 +115,9 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         calculateTotalWeeklyKcal()
-    },[curWeek])
+    }, [curWeek])
 
 
     const getCurFood = (curDate, curMeal) => {
@@ -144,7 +148,7 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
     }
 
     const shortenTitle = (title) => {
-        const maxLength = 20
+        const maxLength = 18
         if (title.length < maxLength) {
             return title
         }
@@ -178,6 +182,32 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
         return daysOfWeek[dayOfWeek]
     }
 
+
+
+    const calculateDailyCalNeeded = () => {
+        let calNeed = 0
+        if (user.gender === "male") {
+            calNeed = (883 / 10) + ((134 / 10) * parseInt(user.weight)) + ((48 / 10) * parseInt(user.height)) - (57 / 10) * parseInt(user.age)
+        } else {
+            calNeed = (4475 / 10) + ((92 / 10) * user.weight) + ((30 / 10) * user.height) - (43 / 10) * user.age
+        }
+        return Math.round(calNeed)
+    }
+
+    const calculateDailyCalTook = (d, i) => {
+        let dailyCalTook = 0
+        console.log(calendar[d])
+        if (calendar[d]) {
+            calendar[d].map(m => {
+                if (m.caloriesPerServing) {
+                    dailyCalTook += m.caloriesPerServing
+                }
+            })
+        }
+        return Math.round(dailyCalTook)
+    }
+
+
     return (
         <div className='calendar'>
             <div className='date'>
@@ -189,6 +219,9 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
                     <div className='meal-type-bf'>Breakfast</div>
                     <div className='meal-type-l'>Lunch</div>
                     <div className='meal-type-d'>Dinner</div>
+                    <div className='meal-type-cal-needed'>Cal needed</div>
+                    <div className='meal-type-cal-ate'>Cal took</div>
+                    <div className='meal-type-cal-dif'>Cal diff</div>
                 </div>
                 {curWeek.map((d, i) => (
                     <div key={d} className={`${daysOfWeek[i]} day`} >
@@ -213,7 +246,9 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
 
                         ))}
 
-                        <div className='kcal-daily'></div>
+                        <div className='kcal-need'>{calculateDailyCalNeeded()}</div>
+                        <div className='kcal-took'>{calculateDailyCalTook(d, i)}</div>
+                        <div className={`kcal-diff ${calculateDailyCalTook(d, i) - calculateDailyCalNeeded() > 0 ? "positive" : "negative"}`}>{calculateDailyCalTook(d, i)- calculateDailyCalNeeded()}</div>
                     </div>
                 ))}
 

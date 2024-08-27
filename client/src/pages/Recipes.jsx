@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/recipes.css'
-import Filter from './Filter'
-import RecipeList from './RecipeList'
+import Filter from '../components/Filter'
+import RecipeList from '../components/RecipeList'
 import { useEffect, useState } from 'react'
 
 

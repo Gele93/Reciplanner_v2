@@ -8,6 +8,8 @@ const userModel = new Schema({
     gender: String,
     age: Number,
     weight: Number,
+    height: Number,
+    profilePic: String 
 })
 
 export default mongoose.model("User", userModel)

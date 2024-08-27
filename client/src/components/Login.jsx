@@ -1,4 +1,4 @@
-import "./login.css"
+import "../css/login.css"
 import { useState, useContext, useEffect } from "react"
 import { Link } from 'react-router-dom';
 import { RecipeContext } from "../ContextProvider"
@@ -44,6 +44,7 @@ function Login({ }) {
             return
         } else {
             setIsLogedIn(true)
+            localStorage.setItem("curUserId", curUser._id)
             setUser(curUser)
         }
 
@@ -51,10 +52,10 @@ function Login({ }) {
 
     return (
         <>
-            {isLogedIn ? (
+            {user ? (
                 <>
                     <div className="login">
-                        <p>Bon Apetit!</p>
+                        <p>Bon Apetit {user.username} !</p>
                     </div>
                 </>
             ) : (

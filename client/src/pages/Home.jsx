@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Login from "../pages/Login.jsx"
+import Login from "../components/Login.jsx"
 import '../css/home.css';
 
 function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe }) {

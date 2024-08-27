@@ -55,7 +55,7 @@ function Piechart({ curFirstDay, calendar }) {
     // Data for the pie chart
 
     const data = {
-        labels: [`Fat (${(fat/(fat+sugar+chocdf+procnt)).toFixed(2)}%)`, `Sugar (${(sugar/(fat+sugar+chocdf+procnt)).toFixed(2)}%)`, `Carbs (${(chocdf/(fat+sugar+chocdf+procnt)).toFixed(2)}%)`, `Protein (${(procnt/(fat+sugar+chocdf+procnt)).toFixed(2)}%)`],
+        labels: [`Fat (${(fat/(fat+sugar+chocdf+procnt)).toFixed(2)*100}%)`, `Sugar (${(sugar/(fat+sugar+chocdf+procnt)).toFixed(2)*100}%)`, `Carbs (${(chocdf/(fat+sugar+chocdf+procnt)).toFixed(2)*100}%)`, `Protein (${(procnt/(fat+sugar+chocdf+procnt)).toFixed(2)*100}%)`],
         datasets: [
             {
                 label: 'Nutrients',

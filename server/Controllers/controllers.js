@@ -6,7 +6,8 @@ import User from "../Model/User.js"
 
 const findAllRecipes = async (curUserId) => {
     try {
-        const allRecipes = await Recipe.find({ userId: curUserId })
+        console.log(curUserId)
+        const allRecipes = await Recipe.find({ user: curUserId })
         return allRecipes
     } catch (error) {
         console.error(error)
@@ -16,21 +17,22 @@ const findAllRecipes = async (curUserId) => {
 export const getAllRecipes = async (req, res) => {
     const curUserId = req.params.userId
     const recipes = await findAllRecipes(curUserId)
+    console.log(recipes)
     return res.send(recipes)
 }
 
 export const postRecipe = async (req, res) => {
 
-    const userId = req.params.userId
+    const user = req.params.userId
 
     const { label, image, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url } = req.body;
     const servings = req.body.yield
     let recipe;
     try {
-        recipe = await Recipe.create({ label, image, servings, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url, userId });
+        recipe = await Recipe.create({ label, image, servings, dietLabels, healthLabels, ingredients, calories, caloriesPerServing, totalTime, totalNutrients, ingredientLines, source, cuisineType, dishType, startDate, mealTypes, url, user });
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(400).json({ message: 'Error: cannot create recipe', error: error.message });
     }
     return res.status(200).json({ message: 'Recipe created successfully', recipe });
@@ -89,21 +91,58 @@ export const getAllUsers = async (req, res) => {
     }
 }
 
+/*
 export const getUserByName = async (req, res) => {
     try {
         const curUsername = req.params.username
         const user = await User.find({ username: curUsername })
+        return res.send(user)
+        } catch (error) {
+            console.error(error)
+            }
+            }
+*/
+
+export const getUserById = async (req, res) => {
+    try {
+        const curUserId = req.params.userId
+        const user = await User.findById({ _id: curUserId })
         return res.send(user)
     } catch (error) {
         console.error(error)
     }
 }
 
+
 export const postUser = async (req, res) => {
     try {
         const user = req.body
         const addedUser = await User.create(user)
         return res.send(addedUser)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const patchUser = async (req, res) => {
+    try {
+        const user = req.body
+        const _id  = req.params.userId
+        const updatedUser = await User.findByIdAndUpdate(_id, { ...user })
+        console.log(user, _id)
+        return res.send(updatedUser)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const uploadFile = async (req, res) => {
+    try {
+        if (!req.file) {
+            res.status(400).json({ message: "No file uploaded" })
+        }
+        console.log(req.file)
+        res.send(req.file.filename)
     } catch (error) {
         console.error(error)
     }

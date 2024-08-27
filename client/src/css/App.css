@@ -46,6 +46,7 @@ a {
 
 .footer {
     display: flex;
+    align-items: center;
     justify-content: space-evenly;
     flex-direction: row;
     position: absolute;
@@ -59,6 +60,6 @@ a {
 }
 
 .copyright {
-    position: absolute;
-    bottom: -1vh;
+    margin: 0;
+    font-size: 2vh;
 }
