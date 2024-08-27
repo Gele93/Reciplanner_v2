@@ -27,25 +27,26 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
 
     useEffect(() => {
         if (today) {
-            console.log(today)
             let firstDayOfMonth = today.split("-")
             firstDayOfMonth[2] = "01"
             firstDayOfMonth = new Date(firstDayOfMonth.join("-"))
-            // let daysDiffToMonday = firstDayOfMonth.getDay() - 1
-            let daysDiffToMonday = (firstDayOfMonth.getDay() + 6) % 7; // Adjust for Sunday being 0
-            console.log(firstDayOfMonth)
+        //    let daysDiffToMonday = firstDayOfMonth.getDay() - 1
+                       let daysDiffToMonday = (firstDayOfMonth.getDay() + 6) % 7; // Adjust for Sunday being 0
 
-            let firstMonday = new Date()
-            firstMonday.setDate(firstDayOfMonth.getDate() - daysDiffToMonday)
+            console.log(firstDayOfMonth.toLocaleDateString('en-CA'))
+
             console.log(daysDiffToMonday)
-            console.log(firstMonday)
+
+            let firstMonday = new Date(firstDayOfMonth)
+            firstMonday.setDate(firstDayOfMonth.getDate() - daysDiffToMonday)
+            console.log(firstMonday.toLocaleDateString('en-CA'))
 
             setFirstShownDay(firstMonday.toISOString().slice(0, 10))
             let updatedLastShownDay = new Date(firstMonday)
             updatedLastShownDay.setDate(updatedLastShownDay.getDate() + (5 * 7 - 1))
             setLastShownDay(updatedLastShownDay.toISOString().slice(0, 10))
 
-            let updatedWeeks = [firstMonday = firstMonday.toISOString().slice(0, 10)]
+            let updatedWeeks = [firstMonday.toLocaleDateString('en-CA')]
 
             for (let i = 0; i < 4; i++) {
                 firstMonday = new Date(firstMonday)
@@ -161,7 +162,7 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
     }
     const handleMonthPlusClick = () => {
         let nextMonthFirstDay = new Date(lastShownDay)
-        nextMonthFirstDay.setDate(nextMonthFirstDay.getDate() + 1)
+        nextMonthFirstDay.setDate(nextMonthFirstDay.getDate() + 5)
         setToday(nextMonthFirstDay.toISOString().slice(0, 10))
 
     }
