@@ -3,6 +3,7 @@ import './css/App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Recipes from "./pages/Recipes.jsx"
 import Calendar from "./pages/Calendar.jsx"
+import CalendarMonth from "./pages/CalendarMonth.jsx"
 import RecipeModal from './components/RecipeModal.jsx';
 import Home from "./pages/Home.jsx"
 import Navbar from './components/Navbar.jsx';
@@ -142,6 +143,7 @@ function App() {
           <Route path='/edit-profile/:userid' element={<EditProfile />} />
           <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
           <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
+          <Route path='/calendar-month' element={<CalendarMonth isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
         </Routes>
         {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
         <footer className='footer'>

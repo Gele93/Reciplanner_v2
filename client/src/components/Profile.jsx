@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { RecipeContext } from '../ContextProvider'
 import { Link } from 'react-router-dom';
 
@@ -13,11 +13,25 @@ function Profile() {
         localStorage.setItem("curUserId", "")
     }
 
+    useEffect(() => {
+        const handleClick = (e) => {
+            if (e.target.id !== "profile-pic") {
+                setIsProfileOpen(false)
+            }
+        }
+
+        window.addEventListener("click", (e) => handleClick(e))
+
+        return (
+            window.removeEventListener("click", (e) => handleClick(e))
+        )
+    }, [])
+
     return (
         <>
             <div className='profile' >
                 {user &&
-                    <img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src={user.profilePic ? `/static/${user.profilePic}` : '/anonimuser.png'} />
+                    <img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src={user.profilePic ? `/static/${user.profilePic}` : '/anonimuser.png'} id="profile-pic" />
                 }
             </div>
             {

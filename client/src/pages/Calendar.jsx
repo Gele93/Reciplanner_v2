@@ -234,7 +234,7 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
                                         <div className='food-title'>{shortenTitle(fillMealDetails(d, m, "label"))}</div>
                                     }
                                     {fillMealDetails(d, m, "image") &&
-                                        <img className='food-img' src={fillMealDetails(d, m, "image")} />
+                                        <img className='food-img' src={fillMealDetails(d, m, "image")} alt="Original Image" onError={(e) => e.target.src = "/altfood.png"} />
                                     }
                                     {fillMealDetails(d, m, "calories") &&
                                         <div className='food-kcal'>{fillMealDetails(d, m, "caloriesPerServing")} kcal</div>
@@ -248,7 +248,7 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
 
                         <div className='kcal-need'>{calculateDailyCalNeeded()}</div>
                         <div className='kcal-took'>{calculateDailyCalTook(d, i)}</div>
-                        <div className={`kcal-diff ${calculateDailyCalTook(d, i) - calculateDailyCalNeeded() > 0 ? "positive" : "negative"}`}>{calculateDailyCalTook(d, i)- calculateDailyCalNeeded()}</div>
+                        <div className={`kcal-diff ${calculateDailyCalTook(d, i) - calculateDailyCalNeeded() > 0 ? "positive" : "negative"}`}>{calculateDailyCalTook(d, i) - calculateDailyCalNeeded()}</div>
                     </div>
                 ))}
 

@@ -17,7 +17,7 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
   const [adjustedVitaminC, setAdjustedVitaminC] = useState(0)
   const [adjustedIngredients, setAdjustedIngredients] = useState([]);
 
-  const {user, setUser} = useContext(RecipeContext)
+  const { user, setUser } = useContext(RecipeContext)
 
   //calendarmodal
   const [isCalendarModal, setIsCalendarModal] = useState(false)
@@ -328,7 +328,7 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
           </div>
           <div className="modal-body">
             <div className="modal-image">
-              <img src={selectedRecipe.image} alt={selectedRecipe.label} />
+              <img src={selectedRecipe.image} alt={selectedRecipe.label} onError={(e) => e.target.src = "/altfood.png"} />
             </div>
             <div className="modal-description">
               <div id='descriptionTitle'>

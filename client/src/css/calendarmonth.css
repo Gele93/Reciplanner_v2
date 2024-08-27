@@ -1,0 +1,103 @@
+.days-of-month {
+        display: grid;
+        position: absolute;
+        grid-template-columns: repeat(7, 11vw);
+        grid-template-rows: auto; 
+        top: 14vh;
+        left: 50%;
+        background: rgb(56,127,57);
+        background: linear-gradient(45deg, rgba(56, 127, 57, 0.7) 0%, rgba(191,220,116,0.7) 50%, rgba(56,127,57,0.7) 100%);
+        transform: translate(-50%);
+        border: 1px solid #387F39;
+        z-index: -1;
+}
+
+.food-month-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.food-month {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    width: 11vw;
+    height: 16vh; 
+    border: solid 1px #387f3971;
+}
+.food-date-month {
+    position: absolute;
+    transform: translate(-4.5vw, -5.5vh);
+    font-weight: 600;    
+}
+.food-img-month {
+    width: 1vw;
+    border-radius: 50px;
+}
+.food-title-month {
+    font-size: 2vh;
+    background-color: #3b6b3b44;
+    width: 10vw;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.day-titles{
+    display: flex;
+    position: absolute;
+    top:11.5vh;
+    left:50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+}
+.day-title-month {
+    width: 11vw;
+    text-align: center;
+    font-weight: 700;
+}
+
+.date-minus-month, .date-plus-month {
+    border: solid 1px #387F39;
+    color: #387F39 ;
+    font-weight: 500;
+    height: 4vh;
+    width: 6vw;
+    font-size: 2vh;
+    background-color: #BEDC74;
+    cursor: pointer;
+}
+.date-plus-month {
+    position: absolute;
+    right:3vw;
+    top:50%;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.date-minus-month {
+    position: absolute;
+    left:3vw;
+    top:50%;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.date-minus-month:hover, .date-plus-month:hover {
+    background-color: #387F39;
+    color: #BEDC74;
+}
+.date-minus-month:active, .date-plus-month:active {
+    background-color: #558a56;
+}
+.curmonth {
+    position: relative;
+    left:15vw;
+    width: 70vw;
+    text-align: center;
+    top:8vh;
+    font-size: 2.5vh;
+    font-weight: 1000;
+    letter-spacing: 3vw;
+    border-bottom: 1px solid #387F39 ;
+}

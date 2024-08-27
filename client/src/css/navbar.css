@@ -20,9 +20,12 @@
     transition: transform 0.2s;
 }
 .navbar-link:hover {
+    text-shadow: 2px 2px 4px white;
+   /*
     transform: scale(1.1);
     color: #1e9120;
-}
+*/
+    }
 
 .profile {
     display: flex;
@@ -34,9 +37,14 @@
     align-self: center;
     height: 6vh;
     border-radius: 35px;
+    width: 6vh;
     cursor: pointer;
     border: 2px solid black
 }
+.profile-pic:hover {
+    box-shadow: 0px 0px 10px black;
+}
+
 .profile-menu {
     position: absolute;
     top: calc(7vh + 6px);
@@ -46,6 +54,8 @@
     overflow: hidden;
     z-index: 100;
     animation: slidedown 0.5s;
+    box-shadow: 2px 2px 7px black;
+
 }
 @keyframes slidedown {
     0% {
@@ -60,4 +70,5 @@
     bottom: 0;
     cursor: pointer;
     border-radius: 0px;
+    height: 5vh;
 }

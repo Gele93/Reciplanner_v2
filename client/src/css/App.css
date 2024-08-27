@@ -32,15 +32,19 @@ a {
 }
 .header-title {
     position: absolute;
+    top:-2vh;
     left: 2vw;
-    height: 100%;
     align-content: center;
     font-family: "Permanent Marker";
-    font-size: 4.5vh;
+    font-size: 5.5vh;
     color: #5aa55b;
+    text-shadow: 5px 5px 5px black;
+}
+.header-title:hover {
+    text-shadow: 5px 5px 2px white
 }
 .p {
-    font-size: 5.5vh;
+    font-size: 6.5vh;
     color: #387F39;
 }
 

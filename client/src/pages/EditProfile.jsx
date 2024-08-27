@@ -44,7 +44,7 @@ function CreateUser() {
 
     const fetchPatchUser = async (updatedUser) => {
         try {
-            const response = await fetch(`/api/users/${user._id}`, {
+            const response = await fetch(`/api/users/${params.userid}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -110,9 +110,9 @@ function CreateUser() {
 
     const handleUpdateUser = (e) => {
         e.preventDefault()
-        const userToUpdate = { username, password, email, gender, age, weight, height, profilePic }
+        const userToUpdate = { username, password, email, gender, age, weight, height, profilePic, _id: params.userid }
         console.log(userToUpdate)
-        if (allUsers.find(u => u.username === username)) {
+        if (allUsers.find(u => u.username === username) && username !== user.username) {
             setIsUsernameValid(false)
             setErrorMsg(`There is already a ${username} user`)
             return
@@ -136,6 +136,7 @@ function CreateUser() {
             setIsHeightValid(true)
             setErrorMsg("")
             setIsCreated(true)
+            setUser(userToUpdate)
             fetchPatchUser(userToUpdate)
 
         }
