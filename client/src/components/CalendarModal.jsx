@@ -74,7 +74,7 @@ function CalendarModal({ calendar, date }) {
                                 <div key={`${d}${m}`} className={`${m}-modal food-modal`}>
 
                                     {fillMealDetails(d, m, "image") &&
-                                        <img className='food-img-modal' src={fillMealDetails(d, m, "image")} />
+                                        <img className='food-img-modal' src={fillMealDetails(d, m, "image")} onError={(e) => e.target.src = "/altfood.png"} />
                                     }
                                     {fillMealDetails(d, m, "calories") &&
                                         <div className='food-kcal-modal'>{fillMealDetails(d, m, "caloriesPerServing")} kcal</div>

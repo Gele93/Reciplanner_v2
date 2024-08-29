@@ -1,6 +1,7 @@
 
 .recipe-list-container {
     display: flex;
+    z-index: -1;
     flex-direction: row;
     flex-wrap: wrap;
     position: absolute;

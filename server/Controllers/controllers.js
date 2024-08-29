@@ -6,7 +6,6 @@ import User from "../Model/User.js"
 
 const findAllRecipes = async (curUserId) => {
     try {
-        console.log(curUserId)
         const allRecipes = await Recipe.find({ user: curUserId })
         return allRecipes
     } catch (error) {
@@ -17,7 +16,6 @@ const findAllRecipes = async (curUserId) => {
 export const getAllRecipes = async (req, res) => {
     const curUserId = req.params.userId
     const recipes = await findAllRecipes(curUserId)
-    console.log(recipes)
     return res.send(recipes)
 }
 
@@ -129,7 +127,6 @@ export const patchUser = async (req, res) => {
         const user = req.body
         const _id  = req.params.userId
         const updatedUser = await User.findByIdAndUpdate(_id, { ...user })
-        console.log(user, _id)
         return res.send(updatedUser)
     } catch (error) {
         console.error(error)
@@ -141,7 +138,6 @@ export const uploadFile = async (req, res) => {
         if (!req.file) {
             res.status(400).json({ message: "No file uploaded" })
         }
-        console.log(req.file)
         res.send(req.file.filename)
     } catch (error) {
         console.error(error)

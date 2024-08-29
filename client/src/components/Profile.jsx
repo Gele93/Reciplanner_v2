@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { RecipeContext } from '../ContextProvider'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Profile() {
 
     const [isProfileOpen, setIsProfileOpen] = useState(false)
     const { user, setUser } = useContext(RecipeContext)
 
+    const navigate = useNavigate()
+
     const handleLogout = () => {
         setUser("")
         setIsProfileOpen(false)
+        navigate("/")
         localStorage.setItem("curUserId", "")
     }
 

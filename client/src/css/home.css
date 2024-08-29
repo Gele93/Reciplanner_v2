@@ -18,6 +18,9 @@
     border-radius: 15px;
     border: 1px solid #387F39 ;
 }
+.login-highlight {
+    background-color: #bfdc74;
+}
 .welcome-title {
     
     background-color: #bfdc7463;
@@ -25,6 +28,7 @@
 }
 .welcome-msg {
     text-align: justify;
+    font-size: 2vh;
     margin-left: 2vw;
     margin-right: 2vw;
 }

@@ -21,6 +21,8 @@ function App() {
   const [calendar, setCalendar] = useState({})
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [recipes, setRecipes] = useState([])
+  const [isLoginHighlight, setIsLoginHighlight] = useState(false)
+  const [loginError, setLoginError] = useState("")
 
   const { user, setUser } = useContext(RecipeContext)
 
@@ -72,10 +74,10 @@ function App() {
   }
 
 
-  useEffect(()=>{
+  useEffect(() => {
     setCalendar({})
     setRecipes([])
-  },[user])
+  }, [user])
 
   useEffect(() => {
     if (localStorage.getItem("curUserId")) {
@@ -134,11 +136,11 @@ function App() {
               reci<span className='p'>P</span>lanner
             </Link>
           </div>
-          <Navbar />
+          <Navbar setIsLoginHighlight={setIsLoginHighlight} setLoginError={setLoginError} />
           <Profile />
         </header>
         <Routes>
-          <Route path='/' element={<Home setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} setSelectedRecipe={setSelectedRecipe} />} />
+          <Route path='/' element={<Home isLoginHighlight={isLoginHighlight} setIsLoginHighlight={setIsLoginHighlight} loginError={loginError} setLoginError={setLoginError} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} setSelectedRecipe={setSelectedRecipe} />} />
           <Route path='/create-user' element={<CreateUser />} />
           <Route path='/edit-profile/:userid' element={<EditProfile />} />
           <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />

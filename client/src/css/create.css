@@ -12,6 +12,7 @@
         border: #387F39 1px solid;
         border-radius: 10px;
         background-color: #bfdc7463;
+        z-index: -1;
 }
 
 .create-button {

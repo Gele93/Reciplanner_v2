@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Login from "../components/Login.jsx"
 import '../css/home.css';
 
-function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe }) {
+function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLoginHighlight, loginError, setLoginError, setIsLoginHighlight }) {
     const [recipes, setRecipes] = useState([]);
     const [randomIngredient, setRandomIngredient] = useState('');
     const [isLoading, setIsLoading] = useState(false)
@@ -97,10 +97,10 @@ function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe }) {
 
     return (
         <div className='home'>
-            <div className='login-container'>
+            <div className="login-container">
                 <h1 className='welcome-title'>Welcome to reciPlanner!</h1>
                 <p className='welcome-msg'> Dive into a culinary journey with reciPlanner, your ultimate tool for meal planning and recipe discovery. Whether you're a seasoned chef or just getting started in the kitchen, our platform is designed to help you organize your meals with ease.</p>
-                <Login />
+                <Login isLoginHighlight={isLoginHighlight} loginError={loginError} setLoginError={setLoginError} setIsLoginHighlight={setIsLoginHighlight}/>
             </div>
             <div className='slide-outter-container'>
                 {isLoading ? <div className='loading'></div> :

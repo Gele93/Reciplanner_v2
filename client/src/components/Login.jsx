@@ -3,13 +3,12 @@ import { useState, useContext, useEffect } from "react"
 import { Link } from 'react-router-dom';
 import { RecipeContext } from "../ContextProvider"
 
-function Login({ }) {
+function Login({ isLoginHighlight, loginError, setLoginError, setIsLoginHighlight }) {
 
     const [isLogedIn, setIsLogedIn] = useState(false)
     const [allUsers, setAllUsers] = useState([])
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [errorMsg, setErrorMsg] = useState("")
 
     const { user, setUser } = useContext(RecipeContext)
 
@@ -33,14 +32,15 @@ function Login({ }) {
 
     const handleLogin = (e) => {
         e.preventDefault()
+        setIsLoginHighlight(false)
         const loginData = { username, password }
         const curUser = allUsers.find(u => u.username === username)
 
         if (!curUser) {
-            setErrorMsg("invalid username or password")
+            setLoginError("invalid username or password")
             return
         } else if (curUser.password !== password) {
-            setErrorMsg("invalid username or password")
+            setLoginError("invalid username or password")
             return
         } else {
             setIsLogedIn(true)
@@ -49,6 +49,8 @@ function Login({ }) {
         }
 
     }
+
+
 
     return (
         <>
@@ -60,7 +62,7 @@ function Login({ }) {
                 </>
             ) : (
                 <>
-                    <div className="login">
+                    <div className={`login ${isLoginHighlight ? "login-highlight" : ""}`}>
                         <form onSubmit={(e) => handleLogin(e)} className="login-form">
                             <div className="form-row">
                                 <label htmlFor="username">Username:</label>
@@ -79,9 +81,9 @@ function Login({ }) {
                                 to create a new account.
                             </p>
                         </form>
-                        {errorMsg &&
+                        {loginError &&
                             <div className="error">
-                                {errorMsg}
+                                {loginError}
                             </div>
                         }
                     </div>

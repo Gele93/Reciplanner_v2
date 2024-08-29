@@ -344,7 +344,7 @@ const RecipeModal = ({ isRecipeModal, isRecipeModalAdd, setIsRecipeModal, select
             </div>
             <div>
               <div className="details-container">
-                <h3> Calories: <span className='span'>{adjustedCalories} kcal</span></h3>
+                <h3> Calories: <span className='span'>{adjustedCalories} kcal ({Math.round(selectedRecipe.caloriesPerServing)} kcal / serving)</span></h3>
                 <h3>Preparation time: <span className='span'>{selectedRecipe.totalTime > 0 ? `${selectedRecipe.totalTime} mins` : 'No prep time'}</span></h3>
                 <div className='ingredients'>
                   <h3><strong>Ingredients:</strong></h3>

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import "../css/calendar.css"
 import Piechart from "../components/Piechart.jsx"
 import { RecipeContext } from '../ContextProvider.jsx'
+import { Link } from "react-router-dom"
 
 function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar, setCalendar }) {
 
@@ -261,7 +262,10 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
                     </div>
                 </div>
             </div>
-
+            <div className='calendar-styles'>
+                <Link to="/calendar-month"><button type='button' className='calendar-style monthly'>Monthly</button></Link>
+                <Link to="/calendar"><button type='button' className='calendar-style weekly'>Weekly</button></Link>
+            </div>
         </div >
     )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import "../css/calendarmonth.css"
-import Piechart from "../components/Piechart.jsx"
 import { RecipeContext } from '../ContextProvider.jsx'
+import { Link } from "react-router-dom"
 
 function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar, setCalendar }) {
 
@@ -30,16 +30,10 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
             let firstDayOfMonth = today.split("-")
             firstDayOfMonth[2] = "01"
             firstDayOfMonth = new Date(firstDayOfMonth.join("-"))
-        //    let daysDiffToMonday = firstDayOfMonth.getDay() - 1
-                       let daysDiffToMonday = (firstDayOfMonth.getDay() + 6) % 7; // Adjust for Sunday being 0
-
-            console.log(firstDayOfMonth.toLocaleDateString('en-CA'))
-
-            console.log(daysDiffToMonday)
+            let daysDiffToMonday = (firstDayOfMonth.getDay() + 6) % 7;
 
             let firstMonday = new Date(firstDayOfMonth)
             firstMonday.setDate(firstDayOfMonth.getDate() - daysDiffToMonday)
-            console.log(firstMonday.toLocaleDateString('en-CA'))
 
             setFirstShownDay(firstMonday.toISOString().slice(0, 10))
             let updatedLastShownDay = new Date(firstMonday)
@@ -54,9 +48,6 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
                 firstMonday = firstMonday.toISOString().slice(0, 10)
                 updatedWeeks.push(firstMonday)
             }
-
-            console.log(updatedWeeks)
-
 
             setWeeks(updatedWeeks)
         }
@@ -91,6 +82,8 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
     const getCurFood = (curDate, curMeal) => {
         let mealIndex = 0
 
+        console.log(curDate, curMeal)
+
         switch (curMeal) {
             case "breakfast": mealIndex = 0
                 break;
@@ -99,6 +92,8 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
             case "dinner": mealIndex = 2
                 break;
         }
+
+        console.log(calendar)
 
         if (calendar[curDate]) {
             if (calendar[curDate][mealIndex] !== curMeal) {
@@ -187,16 +182,25 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
                     daysOfWeek.map((w, j) => (
                         <div key={`${d}${j}`} className='food-month-container'>
                             <div className='food-date-month'>{calculateCurDayFromMonday(d, j, true)}</div>
-                            <div key={`${d}${w}`} className={`food-month`} onClick={() => handleFoodClick(getCurFood(d, m))}>
-                                {meals.map((m) => (
-                                    <div key={`${d}${m}`}>
-                                        <div className='food-title-month'>{shortenTitle(fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label"))}</div>
-                                    </div>
-                                ))}
+                            <div key={`${d}${w}`} className={`food-month`} >
+                                <div className='meal-container-month' key={`${d}`}>
+                                    {meals.map((m) => (
+                                        <>
+                                            {fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label") &&
+                                                <div onClick={() => handleFoodClick(getCurFood(calculateCurDayFromMonday(d, j, false), m))} className='food-title-month'>{shortenTitle(fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label"))}</div>
+                                            }
+
+                                        </>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     ))
                 ))}
+            </div>
+            <div className='calendar-styles'>
+                <Link to="/calendar-month"><button type='button' className='calendar-style monthly'>Monthly</button></Link>
+                <Link to="/calendar"><button type='button' className='calendar-style weekly'>Weekly</button></Link>
             </div>
         </div >
     )

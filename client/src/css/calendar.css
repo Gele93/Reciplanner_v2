@@ -211,3 +211,40 @@
     font-weight: 500;
     font-size: 2vh;
 }
+
+.calendar-styles {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 12vh;
+    left:2vw;
+    width: 8vw;
+
+}
+.calendar-style {
+width: 100%;
+border: solid 1px #387F39;
+color: #387F39 ;
+font-weight: 500;
+height: 4vh;
+font-size: 2vh;
+background-color: #BEDC74;
+cursor: pointer;
+}
+.calendar-style:hover {
+    background-color: #387F39;
+    color: #BEDC74;
+}
+.calendar-style:active {
+    background-color: #558a56;
+}
+.monthly {
+    border-bottom: none;
+    border-top-left-radius: 15px ;
+    border-top-right-radius: 15px ;
+}
+.weekly {
+    border-top:none ;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
