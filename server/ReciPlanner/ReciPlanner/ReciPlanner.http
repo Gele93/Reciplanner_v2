@@ -1,0 +1,6 @@
+@ReciPlanner_HostAddress = http://localhost:5057
+
+GET {{ReciPlanner_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
