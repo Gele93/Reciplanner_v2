@@ -6,8 +6,18 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "http://localhost:5050",
-      "/static": "http://localhost:5050"
-    }
+      '/api': {
+        target: 'http://localhost:7034', // Your ASP.NET backend URL
+        changeOrigin: true,
+        secure: false, // Set to false if using self-signed certificates
+      }
+      /*,
+      "/static": {
+        target: "http://localhost:7034",
+        changeOrigin: true,
+        secure: false, // Set to false if using self-signed certificates
+      } 
+        */
+    },
   }
 })

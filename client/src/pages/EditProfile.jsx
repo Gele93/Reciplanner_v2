@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import { useState, useContext, useEffect } from "react"
 import { RecipeContext } from "../ContextProvider"
 
-function CreateUser() {
+function EditProfile() {
 
     const { user, setUser } = useContext(RecipeContext)
 
@@ -26,6 +26,7 @@ function CreateUser() {
     const [allUsers, setAllUsers] = useState([])
     const [errorMsg, setErrorMsg] = useState("")
     const [isCreated, setIsCreated] = useState(false)
+    const [isError, setIsError] = useState(false)
 
     const params = useParams()
 
@@ -41,43 +42,28 @@ function CreateUser() {
         setProfilePic(user.profilePic)
     }, [user])
 
-
     const fetchPatchUser = async (updatedUser) => {
         try {
-            const response = await fetch(`/api/users/${params.userid}`, {
+            const response = await fetch(`https://localhost:7034/User/${params.userid}`, {
                 method: "PATCH",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(updatedUser)
             })
             if (!response.ok) {
-                throw new Error(`updating user went wrong`)
+                const errorData = await response.json()
+                if (response.status === 409) {
+                    setErrorMsg(errorData.error)
+                }
+                return false
             }
-            const addedUser = await response.json()
+            return true
         } catch (error) {
             console.error(error)
         }
     }
-
-    const fetchUsers = async () => {
-        try {
-            const response = await fetch("/api/users")
-            if (!response.ok) {
-                throw new Error("fetching users went wrong")
-            }
-            const users = await response.json()
-            setAllUsers(users)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-
-    useEffect(() => {
-        fetchUsers()
-    }, [])
-
 
     const checkValidity = () => {
         let validity = true
@@ -108,37 +94,28 @@ function CreateUser() {
         return validity
     }
 
-    const handleUpdateUser = (e) => {
+    const handleUpdateUser = async (e) => {
         e.preventDefault()
-        const userToUpdate = { username, password, email, gender, age, weight, height, profilePic, _id: params.userid }
-        console.log(userToUpdate)
-        if (allUsers.find(u => u.username === username) && username !== user.username) {
-            setIsUsernameValid(false)
-            setErrorMsg(`There is already a ${username} user`)
-            return
-        }
+        const userToUpdate = { username, password, email, gender, age, weight, height, profilePic, id: params.userid }
+
         if (password !== confirmPassword) {
             setIsPasswordValid(false)
             setErrorMsg("Password confirmation failed ")
             return
         }
 
-        let validity = checkValidity()
-
-
-        console.log(userToUpdate)
-        if (validity) {
-            setIsUsernameValid(true)
-            setIsPasswordValid(true)
-            setIsEmailValid(true)
-            setIsAgeValid(true)
-            setIsWeightValid(true)
-            setIsHeightValid(true)
-            setErrorMsg("")
-            setIsCreated(true)
-            setUser(userToUpdate)
-            fetchPatchUser(userToUpdate)
-
+        if (checkValidity()) {
+            if (await fetchPatchUser(userToUpdate)) {
+                setIsUsernameValid(true)
+                setIsPasswordValid(true)
+                setIsEmailValid(true)
+                setIsAgeValid(true)
+                setIsWeightValid(true)
+                setIsHeightValid(true)
+                setErrorMsg("")
+                setIsCreated(true)
+                setUser(userToUpdate)
+            }
         }
     }
 
@@ -148,11 +125,10 @@ function CreateUser() {
         formData.append("profilePic", file)
 
         try {
-            const response = await fetch("/api/upload", {
+            const response = await fetch("https://localhost:7034/User/profilepic", {
                 method: "POST",
                 body: formData
             })
-
             const filePath = await response.text()
             setProfilePic(filePath)
         } catch (error) {
@@ -236,4 +212,4 @@ function CreateUser() {
     )
 }
 
-export default CreateUser
+export default EditProfile

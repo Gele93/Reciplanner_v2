@@ -9,6 +9,7 @@ import Home from "./pages/Home.jsx"
 import Navbar from './components/Navbar.jsx';
 import CreateUser from './pages/CreateUser.jsx';
 import Profile from './components/Profile.jsx';
+import TEST from './components/TEST.jsx';
 import { Link } from 'react-router-dom';
 import { RecipeContext } from "./ContextProvider"
 import EditProfile from './pages/EditProfile.jsx';
@@ -22,21 +23,19 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [recipes, setRecipes] = useState([])
   const [isLoginHighlight, setIsLoginHighlight] = useState(false)
-  const [loginError, setLoginError] = useState("")
+  const [loginError, setLoginError] = useState("")  
 
   const { user, setUser } = useContext(RecipeContext)
 
 
   const updateCalendar = () => {
     let updatedCalendar = { ...calendar }
-
-
     recipes.map((recipe) => {
 
-      let counter = recipe.servings
+      let counter = recipe.yield
       let curDate = new Date(recipe.startDate)
 
-      for (let i = 0; i < recipe.servings;) {
+      for (let i = 0; i < recipe.yield;) {
 
         curDate = new Date(curDate)
         if (i !== 0) {
@@ -73,12 +72,25 @@ function App() {
     setCalendar(updatedCalendar)
   }
 
+  const fetchLogedInUser = async (userId) => {
+    try {
+      const response = await fetch(`https://localhost:7034/User/${userId}`)
+      if (!response.ok) {
+        return null
+      }
+      const user = await response.json()
+      return setUser(user)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
     setCalendar({})
     setRecipes([])
   }, [user])
 
+  /*
   useEffect(() => {
     if (localStorage.getItem("curUserId")) {
       const curUserId = localStorage.getItem("curUserId")
@@ -97,14 +109,15 @@ function App() {
       fetchUser()
     }
   }, [localStorage.getItem("curUserId")])
-
-
-
+*/
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch(`/api/recipes/${user._id}`)
+        const response = await fetch(`https://localhost:7034/Recipes`, {
+          method: "GET",
+          credentials: "include",
+        })
         if (!response.ok) {
           throw new Error("fetching recipes went wrong")
         }
@@ -126,6 +139,12 @@ function App() {
     }
   }, [recipes, user])
 
+  useEffect(() => {
+    const logedInUserId = localStorage.getItem("curUserId")
+    if (logedInUserId) {
+      fetchLogedInUser(logedInUserId)
+    }
+  }, [])
 
   return (
     <Router>
@@ -144,10 +163,11 @@ function App() {
           <Route path='/create-user' element={<CreateUser />} />
           <Route path='/edit-profile/:userid' element={<EditProfile />} />
           <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
-          <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
+          <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar}/>} />
           <Route path='/calendar-month' element={<CalendarMonth isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
+          <Route path='/test' element={<TEST />} />
         </Routes>
-        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
+        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar}/>}
         <footer className='footer'>
           <p className='copyright'>&copy; 2024 reciPlanner. All rights reserved.</p>
         </footer>

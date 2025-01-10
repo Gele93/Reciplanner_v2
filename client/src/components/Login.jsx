@@ -6,51 +6,48 @@ import { RecipeContext } from "../ContextProvider"
 function Login({ isLoginHighlight, loginError, setLoginError, setIsLoginHighlight }) {
 
     const [isLogedIn, setIsLogedIn] = useState(false)
-    const [allUsers, setAllUsers] = useState([])
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     const { user, setUser } = useContext(RecipeContext)
 
-    const fetchUsers = async () => {
+    const fetchLogin = async (loginData) => {
         try {
-            const response = await fetch("/api/users")
+            const response = await fetch("https://localhost:7034/User/login", {
+                method: 'POST',
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                    loginData,
+                ),
+            })
             if (!response.ok) {
-                throw new Error("fetching users went wrong")
+                return null
             }
-            const users = await response.json()
-            setAllUsers(users)
+            const user = await response.json()
+            return user
         } catch (error) {
             console.error(error)
         }
     }
 
-
-    useEffect(() => {
-        fetchUsers()
-    }, [])
-
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
         setIsLoginHighlight(false)
         const loginData = { username, password }
-        const curUser = allUsers.find(u => u.username === username)
+        const curUser = await fetchLogin(loginData)
 
         if (!curUser) {
             setLoginError("invalid username or password")
             return
-        } else if (curUser.password !== password) {
-            setLoginError("invalid username or password")
-            return
         } else {
             setIsLogedIn(true)
-            localStorage.setItem("curUserId", curUser._id)
+            localStorage.setItem("curUserId", curUser.id)
             setUser(curUser)
         }
-
     }
-
-
 
     return (
         <>

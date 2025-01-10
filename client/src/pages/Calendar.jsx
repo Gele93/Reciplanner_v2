@@ -4,7 +4,7 @@ import Piechart from "../components/Piechart.jsx"
 import { RecipeContext } from '../ContextProvider.jsx'
 import { Link } from "react-router-dom"
 
-function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar, setCalendar }) {
+function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar }) {
 
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     const meals = ["breakfast", "lunch", "dinner"]
@@ -142,7 +142,6 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
     }
 
     const handleFoodClick = (recipe) => {
-
         setIsRecipeModal(true)
         setIsRecipeModalAdd(false)
         setSelectedRecipe(recipe)
@@ -183,8 +182,6 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
         return daysOfWeek[dayOfWeek]
     }
 
-
-
     const calculateDailyCalNeeded = () => {
         let calNeed = 0
         if (user.gender === "male") {
@@ -197,7 +194,6 @@ function Calendar({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeMod
 
     const calculateDailyCalTook = (d, i) => {
         let dailyCalTook = 0
-        console.log(calendar[d])
         if (calendar[d]) {
             calendar[d].map(m => {
                 if (m.caloriesPerServing) {

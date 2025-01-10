@@ -25,6 +25,8 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
         }
     }, [today])
 
+    console.log(calendar)
+    
     useEffect(() => {
         if (today) {
             let firstDayOfMonth = today.split("-")

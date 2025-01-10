@@ -9,7 +9,23 @@ function Profile() {
 
     const navigate = useNavigate()
 
-    const handleLogout = () => {
+    const fetchLogout = async () => {
+        try {
+            const response = await fetch("https://localhost:7034/User/logout", {
+                method: 'POST',
+                credentials: "include",
+            })
+            if (!response.ok) {
+                throw new Error("Logout went wrong")
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+
+    const handleLogout = async () => {
+        await fetchLogout()
         setUser("")
         setIsProfileOpen(false)
         navigate("/")
@@ -30,17 +46,19 @@ function Profile() {
         )
     }, [])
 
+    //<img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src="https://a0.anyrgb.com/pngimg/1002/238/anonim-user-profile-account-avatar-icon-design-user-hat-female-woman-silhouette.png" id="profile-pic" />
+
     return (
         <>
             <div className='profile' >
                 {user &&
-                    <img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src={user.profilePic ? `/static/${user.profilePic}` : '/anonimuser.png'} id="profile-pic" />
+                    <img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src={user.profilePic ? `https://localhost:7034/${user.profilePic}` : '/anonimuser.png'} id="profile-pic" />
                 }
             </div>
             {
                 isProfileOpen &&
                 <div className='profile-menu'>
-                    <Link to={`/edit-profile/${user._id}`}><button onClick={() => setIsProfileOpen(false)} className='login-button menu-button' type="button">Profile</button></Link>
+                    <Link to={`/edit-profile/${user.id}`}><button onClick={() => setIsProfileOpen(false)} className='login-button menu-button' type="button">Profile</button></Link>
                     <Link to="/calendar"><button onClick={() => setIsProfileOpen(false)} className='login-button menu-button' type="button">My calendar</button></Link>
                     <button className='login-button menu-button' type="button">My recipes</button>
                     <button onClick={handleLogout} className='login-button menu-button' type="button">Logout</button>
