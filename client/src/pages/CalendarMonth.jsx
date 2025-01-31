@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import "../css/calendarmonth.css"
 import { RecipeContext } from '../ContextProvider.jsx'
 import { Link } from "react-router-dom"
+import { getCurFood, fillMealDetails, shortenTitle } from '../scripts.js'
+import CalendarStyles from '../components/Calendar/CalendarStyles.jsx'
 
 function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar, setCalendar }) {
 
@@ -16,7 +18,7 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
     const [firstShownDay, setFirstShownDay] = useState("")
     const [lastShownDay, setLastShownDay] = useState("")
     const [hoveredId, setHoveredId] = useState(0)
-    
+
 
     const { user, setUser } = useContext(RecipeContext)
 
@@ -28,7 +30,7 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
     }, [today])
 
     console.log(calendar)
-    
+
     useEffect(() => {
         if (today) {
             let firstDayOfMonth = today.split("-")
@@ -59,92 +61,11 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
         }
     }, [today])
 
-
-    const fillMealDetails = (curDate, curMeal, curKey) => {
-        let mealIndex = 0
-        switch (curMeal) {
-            case "breakfast": mealIndex = 0
-                break;
-            case "lunch": mealIndex = 1
-                break;
-            case "dinner": mealIndex = 2
-                break;
-        }
-
-        if (calendar[curDate]) {
-            if (calendar[curDate][mealIndex] !== curMeal) {
-                if (curKey === "caloriesPerServing") {
-                    const kcalPerServing = Math.round(calendar[curDate][mealIndex][curKey])
-                    return kcalPerServing
-                } else {
-                    return calendar[curDate][mealIndex][curKey]
-                }
-            }
-        }
-        return false
-    }
-
-
-    const getCurFood = (curDate, curMeal) => {
-        let mealIndex = 0
-
-        console.log(curDate, curMeal)
-
-        switch (curMeal) {
-            case "breakfast": mealIndex = 0
-                break;
-            case "lunch": mealIndex = 1
-                break;
-            case "dinner": mealIndex = 2
-                break;
-        }
-
-        console.log(calendar)
-
-        if (calendar[curDate]) {
-            if (calendar[curDate][mealIndex] !== curMeal) {
-                return calendar[curDate][mealIndex]
-            }
-        }
-        return false
-    }
-
     const handleFoodClick = (recipe) => {
         setIsRecipeModal(true)
         setIsRecipeModalAdd(false)
         setSelectedRecipe(recipe)
     }
-
-    const shortenTitle = (title) => {
-        if (!title) return
-        const maxLength = 20
-        if (title.length < maxLength) {
-            return title
-        }
-
-        const words = title.split(" ")
-        let wordIndex = 0
-        let totalChar = 0
-
-        for (let i = 0; i < words.length; i++) {
-            totalChar += words[i].length + 1
-            if (totalChar > maxLength) {
-                wordIndex = i - 1
-                break
-            }
-        }
-
-        const wordsOfShortTitle = []
-        for (let i = 0; i < wordIndex; i++) {
-            wordsOfShortTitle.push(words[i])
-        }
-
-        let shortenedTitle = wordsOfShortTitle.join(" ")
-        shortenedTitle = shortenedTitle + "..."
-        return shortenedTitle
-
-    }
-
 
     const calculateCurDayFromMonday = (monday, index, isDayOnly) => {
         let curDay = new Date(monday)
@@ -167,9 +88,9 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
         setToday(nextMonthFirstDay.toISOString().slice(0, 10))
 
     }
-    
+
     const handleMouseOver = (day, meal) => {
-        setHoveredId(fillMealDetails(day, meal, "id"))
+        setHoveredId(fillMealDetails(day, meal, "id", calendar))
     }
 
     const handleMouseLeave = () => {
@@ -201,12 +122,12 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
                                 <div className='meal-container-month' key={`${d}`}>
                                     {meals.map((m) => (
                                         <>
-                                            {fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label") &&
-                                                <div onClick={() => handleFoodClick(getCurFood(calculateCurDayFromMonday(d, j, false), m))} 
+                                            {fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label", calendar) &&
+                                                <div onClick={() => handleFoodClick(getCurFood(calculateCurDayFromMonday(d, j, false), m, calendar))}
                                                     onMouseOver={() => handleMouseOver(d, m)}
-                                                    onMouseLeave ={() => handleMouseLeave()}
-                                                    className={`food-title-month ${fillMealDetails(d, m, "id") === hoveredId && "hovered-recipe"}`}>
-                                                    {shortenTitle(fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label"))}
+                                                    onMouseLeave={() => handleMouseLeave()}
+                                                    className={`food-title-month ${fillMealDetails(d, m, "id", calendar) === hoveredId && "hovered-recipe"}`}>
+                                                    {shortenTitle(fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label", calendar))}
                                                 </div>
                                             }
 
@@ -218,10 +139,7 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
                     ))
                 ))}
             </div>
-            <div className='calendar-styles'>
-                <Link to="/calendar-month"><button type='button' className='calendar-style monthly'>Monthly</button></Link>
-                <Link to="/calendar"><button type='button' className='calendar-style weekly'>Weekly</button></Link>
-            </div>
+            <CalendarStyles />
         </div >
     )
 }

@@ -2,11 +2,12 @@ import React, { useEffect, useState, useContext } from 'react'
 import "../css/calendar.css"
 import { RecipeContext } from '../ContextProvider.jsx'
 import { Link } from "react-router-dom"
-import DateButtons from '../components/Calendar/DateButtons.jsx'
-import MealGrid from '../components/Calendar/MealGrid.jsx'
-import CalSummary from '../components/Calendar/CalSummary.jsx'
-import WeeklyStats from '../components/Calendar/WeeklyStats.jsx'
+import DateButtons from '../components/Calendar/Weekly/DateButtons.jsx'
+import MealGrid from '../components/Calendar/Weekly/MealGrid.jsx'
+import CalSummary from '../components/Calendar/Weekly/CalSummary.jsx'
+import WeeklyStats from '../components/Calendar/Weekly/WeeklyStats.jsx'
 import CalendarStyles from '../components/Calendar/CalendarStyles.jsx'
+import { fillMealDetails, getCurFood } from '../scripts.js'
 
 function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar }) {
 
@@ -50,34 +51,6 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
         setCurFirstDay(nextWeekStart)
     }
 
-    const fillMealDetails = (curDate, curMeal, curKey) => {
-
-        let mealIndex = 0
-
-        switch (curMeal) {
-            case "breakfast": mealIndex = 0
-                break;
-            case "lunch": mealIndex = 1
-                break;
-            case "dinner": mealIndex = 2
-                break;
-        }
-
-        if (calendar[curDate]) {
-            if (calendar[curDate][mealIndex] !== curMeal) {
-                if (curKey === "caloriesPerServing") {
-                    const kcalPerServing = Math.round(calendar[curDate][mealIndex][curKey])
-                    //  const kcal = Math.round(totalKcal / parseInt(calendar[curDate][mealIndex].servings))
-                    return kcalPerServing
-                } else {
-                    return calendar[curDate][mealIndex][curKey]
-                }
-            }
-        }
-
-        return false
-    }
-
     const calculateTotalWeeklyKcal = () => {
         try {
             let updatedTotalWeeklyKcal = 0
@@ -104,26 +77,6 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
         calculateTotalWeeklyKcal()
     }, [curWeek])
 
-
-    const getCurFood = (curDate, curMeal) => {
-        let mealIndex = 0
-
-        switch (curMeal) {
-            case "breakfast": mealIndex = 0
-                break;
-            case "lunch": mealIndex = 1
-                break;
-            case "dinner": mealIndex = 2
-                break;
-        }
-
-        if (calendar[curDate]) {
-            if (calendar[curDate][mealIndex] !== curMeal) {
-                return calendar[curDate][mealIndex]
-            }
-        }
-        return false
-    }
 
     const handleFoodClick = (recipe) => {
         setIsRecipeModal(true)
@@ -160,7 +113,7 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
     }
 
     const handleMouseOver = (day, meal) => {
-        setHoveredId(fillMealDetails(day, meal, "id"))
+        setHoveredId(fillMealDetails(day, meal, "id", calendar))
     }
 
     const handleMouseLeave = () => {
@@ -184,16 +137,17 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
                         <div className='day-date'>{d}</div>
                         <div className='day-title'>{writeDayFromDate(d)}</div>
                         {meals.map((m) => (
-                            fillMealDetails(d, m, "label") ? (
+                            fillMealDetails(d, m, "label", calendar) ? (
                                 <MealGrid
                                     day={d}
                                     meal={m}
                                     hoveredId={hoveredId}
                                     handleFoodClick={handleFoodClick}
-                                    curFood={getCurFood(d, m)}
+                                    curFood={getCurFood(d, m, calendar)}
                                     handleMouseOver={handleMouseOver}
                                     handleMouseLeave={handleMouseLeave}
                                     fillMealDetails={fillMealDetails}
+                                    calendar={calendar}
                                 />
                             ) : (
                                 <div key={`${d}${m}`}></div>
@@ -204,7 +158,7 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
                 ))}
                 <WeeklyStats weeklyTotalKcal={weeklyTotalKcal} curFirstDay={curFirstDay} calendar={calendar} />
             </div>
-            <CalendarStyles/>
+            <CalendarStyles />
         </div >
     )
 }

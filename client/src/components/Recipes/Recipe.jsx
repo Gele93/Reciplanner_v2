@@ -1,36 +1,7 @@
 import React from 'react'
+import { shortenTitle } from '../../scripts'
 
 function Recipe({recipe, openModal, index}) {
-
-    const shortenTitle = (title) => {
-
-        const maxLength = 25
-        if (title.length < maxLength) {
-          return title
-        }
-    
-        const words = title.split(" ")
-        let wordIndex = 0
-        let totalChar = 0
-    
-        for (let i = 0; i < words.length; i++) {
-          totalChar += words[i].length + 1
-          if (totalChar > maxLength) {
-            wordIndex = i - 1
-            break
-          }
-        }
-    
-        const wordsOfShortTitle = []
-        for (let i = 0; i < wordIndex; i++) {
-          wordsOfShortTitle.push(words[i])
-        }
-    
-        let shortenedTitle = wordsOfShortTitle.join(" ")
-        shortenedTitle = shortenedTitle + "..."
-        return shortenedTitle
-    
-      }
 
     return (
         <div className='recipe' key={`${recipe.label}recipes${index}`} onClick={() => openModal(recipe)}>

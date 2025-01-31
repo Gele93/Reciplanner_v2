@@ -1,5 +1,5 @@
 import React from 'react'
-import Piechart from "../Piechart.jsx"
+import Piechart from "../../Piechart.jsx"
 
 
 function WeeklyStats({weeklyTotalKcal, curFirstDay, calendar}) {
