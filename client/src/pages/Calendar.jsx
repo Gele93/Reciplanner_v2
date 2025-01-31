@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react'
 import "../css/calendar.css"
-import Piechart from "../components/Piechart.jsx"
 import { RecipeContext } from '../ContextProvider.jsx'
 import { Link } from "react-router-dom"
+import DateButtons from '../components/Calendar/DateButtons.jsx'
+import MealGrid from '../components/Calendar/MealGrid.jsx'
+import CalSummary from '../components/Calendar/CalSummary.jsx'
+import WeeklyStats from '../components/Calendar/WeeklyStats.jsx'
+import CalendarStyles from '../components/Calendar/CalendarStyles.jsx'
 
 function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar }) {
 
@@ -127,35 +131,6 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
         setSelectedRecipe(recipe)
     }
 
-    const shortenTitle = (title) => {
-        const maxLength = 18
-        if (title.length < maxLength) {
-            return title
-        }
-
-        const words = title.split(" ")
-        let wordIndex = 0
-        let totalChar = 0
-
-        for (let i = 0; i < words.length; i++) {
-            totalChar += words[i].length + 1
-            if (totalChar > maxLength) {
-                wordIndex = i - 1
-                break
-            }
-        }
-
-        const wordsOfShortTitle = []
-        for (let i = 0; i < wordIndex; i++) {
-            wordsOfShortTitle.push(words[i])
-        }
-
-        let shortenedTitle = wordsOfShortTitle.join(" ")
-        shortenedTitle = shortenedTitle + "..."
-        return shortenedTitle
-
-    }
-
     const writeDayFromDate = (date) => {
         const currentDate = new Date(date)
         const dayOfWeek = currentDate.getDay()
@@ -194,10 +169,7 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
 
     return (
         <div className='calendar'>
-            <div className='date'>
-                <button className='date-minus' onClick={handleDateMinusClick} type='button'>← prev</button>
-                <button className='date-plus' onClick={handleDatePlusClick} type='button'>next →</button>
-            </div>
+            <DateButtons handleDateMinusClick={handleDateMinusClick} handleDatePlusClick={handleDatePlusClick} />
             <div className='days-of-week'>
                 <div className='meal-type-labels'>
                     <div className='meal-type-bf'>Breakfast</div>
@@ -211,48 +183,28 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
                     <div key={d} className={`${daysOfWeek[i]} day`} >
                         <div className='day-date'>{d}</div>
                         <div className='day-title'>{writeDayFromDate(d)}</div>
-                        {meals.map((m, i) => (
+                        {meals.map((m) => (
                             fillMealDetails(d, m, "label") ? (
-                                <div key={`${d}${m}`}
-                                    className={`${m} food ${fillMealDetails(d, m, "id") === hoveredId && "hovered-recipe"} `}
-                                    onClick={() => handleFoodClick(getCurFood(d, m))}
-                                    onMouseOver={() => handleMouseOver(d, m)}
-                                    onMouseLeave ={() => handleMouseLeave()}>
-                                    {fillMealDetails(d, m, "label") &&
-                                        <div className='food-title'>{shortenTitle(fillMealDetails(d, m, "label"))}</div>
-                                    }
-                                    {fillMealDetails(d, m, "image") &&
-                                        <img className='food-img' src={fillMealDetails(d, m, "image")} alt="Original Image" onError={(e) => e.target.src = "/altfood.png"} />
-                                    }
-                                    {fillMealDetails(d, m, "calories") &&
-                                        <div className='food-kcal'>{fillMealDetails(d, m, "caloriesPerServing")} kcal</div>
-                                    }
-                                </div>
+                                <MealGrid
+                                    day={d}
+                                    meal={m}
+                                    hoveredId={hoveredId}
+                                    handleFoodClick={handleFoodClick}
+                                    curFood={getCurFood(d, m)}
+                                    handleMouseOver={handleMouseOver}
+                                    handleMouseLeave={handleMouseLeave}
+                                    fillMealDetails={fillMealDetails}
+                                />
                             ) : (
                                 <div key={`${d}${m}`}></div>
                             )
-
                         ))}
-
-                        <div className='kcal-need'>{calculateDailyCalNeeded()}</div>
-                        <div className='kcal-took'>{calculateDailyCalTook(d, i)}</div>
-                        <div className={`kcal-diff ${calculateDailyCalTook(d, i) - calculateDailyCalNeeded() > 0 ? "positive" : "negative"}`}>{calculateDailyCalTook(d, i) - calculateDailyCalNeeded()}</div>
+                        <CalSummary calculateDailyCalNeeded={calculateDailyCalNeeded} calculateDailyCalTook={calculateDailyCalTook} day={d} curWeekIndex={i} />
                     </div>
                 ))}
-
-                <div className='weekly-stat'>
-                    <div className='stat-title'>Stats</div>
-                    <div className='stat-weekly-kcal-title'>Total kcal:</div>
-                    <div className='stat-weekly-kcal'>{weeklyTotalKcal}</div>
-                    <div className='stat-chart'>
-                        <Piechart curFirstDay={curFirstDay} calendar={calendar} />
-                    </div>
-                </div>
+                <WeeklyStats weeklyTotalKcal={weeklyTotalKcal} curFirstDay={curFirstDay} calendar={calendar} />
             </div>
-            <div className='calendar-styles'>
-                <Link to="/calendar-month"><button type='button' className='calendar-style monthly'>Monthly</button></Link>
-                <Link to="/calendar"><button type='button' className='calendar-style weekly'>Weekly</button></Link>
-            </div>
+            <CalendarStyles/>
         </div >
     )
 }
