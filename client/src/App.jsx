@@ -90,27 +90,6 @@ function App() {
     setRecipes([])
   }, [user])
 
-  /*
-  useEffect(() => {
-    if (localStorage.getItem("curUserId")) {
-      const curUserId = localStorage.getItem("curUserId")
-      const fetchUser = async () => {
-        try {
-          const response = await fetch(`/api/users/${curUserId}`)
-          if (!response.ok) {
-            throw new Error(`fetching user went wrong`)
-          }
-          const curUser = await response.json()
-          setUser(curUser)
-        } catch (error) {
-          console.error(error)
-        }
-      }
-      fetchUser()
-    }
-  }, [localStorage.getItem("curUserId")])
-*/
-
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -132,7 +111,6 @@ function App() {
     }
   }, [user])
 
-
   useEffect(() => {
     if (recipes && user) {
       updateCalendar()
@@ -146,13 +124,16 @@ function App() {
     }
   }, [])
 
+  //old header title 
+  //reci<span className='p'>P</span>lanner
+
   return (
     <Router>
       <div className='app'>
         <header className='header'>
           <div className='header-title'>
             <Link to="/">
-              reci<span className='p'>P</span>lanner
+            <img className='logo' src='/reciplanner.png'/>
             </Link>
           </div>
           <Navbar setIsLoginHighlight={setIsLoginHighlight} setLoginError={setLoginError} />

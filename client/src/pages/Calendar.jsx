@@ -12,29 +12,9 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
     const [curFirstDay, setCurFirstDay] = useState(new Date().toISOString().slice(0, 10))
     const [curWeek, setCurWeek] = useState([])
     const [weeklyTotalKcal, setWeeklyTotalkcal] = useState(0)
+    const [hoveredId, setHoveredId] = useState(0)
 
     const { user, setUser } = useContext(RecipeContext)
-
-    /*
-    useEffect(() => {
-        console.log(calendar)
-        const fetchRecipes = async () => {
-            try {
-                const response = await fetch(`/api/recipes/${user._id}`)
-                if (!response.ok) {
-                    throw new Error("fetching recipes went wrong")
-                }
-                const updatedRecipes = await response.json()
-                console.log(updatedRecipes)
-                setRecipes(updatedRecipes)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        fetchRecipes()
-    }, [])
-
-*/
 
     useEffect(() => {
         if (curFirstDay) {
@@ -204,6 +184,13 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
         return Math.round(dailyCalTook)
     }
 
+    const handleMouseOver = (day, meal) => {
+        setHoveredId(fillMealDetails(day, meal, "id"))
+    }
+
+    const handleMouseLeave = () => {
+        setHoveredId(0)
+    }
 
     return (
         <div className='calendar'>
@@ -226,7 +213,11 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
                         <div className='day-title'>{writeDayFromDate(d)}</div>
                         {meals.map((m, i) => (
                             fillMealDetails(d, m, "label") ? (
-                                <div key={`${d}${m}`} className={`${m} food`} onClick={() => handleFoodClick(getCurFood(d, m))}>
+                                <div key={`${d}${m}`}
+                                    className={`${m} food ${fillMealDetails(d, m, "id") === hoveredId && "hovered-recipe"} `}
+                                    onClick={() => handleFoodClick(getCurFood(d, m))}
+                                    onMouseOver={() => handleMouseOver(d, m)}
+                                    onMouseLeave ={() => handleMouseLeave()}>
                                     {fillMealDetails(d, m, "label") &&
                                         <div className='food-title'>{shortenTitle(fillMealDetails(d, m, "label"))}</div>
                                     }

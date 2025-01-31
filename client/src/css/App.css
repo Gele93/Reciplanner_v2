@@ -28,7 +28,15 @@ a {
     left: 50%;
     border-bottom: 6px solid #387F39 ;
     transform: translateX(-50%);
-
+}
+.logo {
+    position: relative;
+    top:1vh;
+    height: 8vh;
+    filter: drop-shadow(3px 1px 1px #387F39);
+}
+.logo:hover {
+    filter: drop-shadow(3px 1px 1px white);
 }
 .header-title {
     position: absolute;

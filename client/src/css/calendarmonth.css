@@ -17,7 +17,7 @@
     flex-direction: column;
     justify-content: start;
     gap: 1vh;
-    height: 12vh;
+    height: 13vh;
     transform: translateY(3vh);
 }
 
@@ -35,7 +35,8 @@
     align-items: center;
     text-align: center;
     width: 11vw;
-    height: 16vh; 
+    height: 13vh; 
+    /*EDIT FROM 16VH*/
     border: solid 1px #387f3971;
 }
 .food-date-month {
@@ -46,11 +47,11 @@
 .food-title-month {
     padding: 0;
     margin: 0;
-    font-size: 2vh;
+    font-size: 1.7vh;
     background-color: #BEDC74;
     border: 1px solid #387F39;
     width: 10vw;
-    border-radius: 20px;
+    border-radius: 5px;
     cursor: pointer;
 }
 .food-title-month:hover {
@@ -116,4 +117,7 @@
     background: rgb(56,127,57);
     background: linear-gradient(45deg, rgba(56,127,57,0) 0%, rgba(191,220,116,1) 50%, rgba(56,127,57,0) 100%);
 */
+    }
+
+    .hovered-recipe {
     }

@@ -73,6 +73,8 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
 
       if (response.ok) {
         alert('Recipe added successfully!');
+        const recipeId = await response.json()
+        return recipeId
       } else {
         console.error('Failed to add recipe');
       }
@@ -200,8 +202,9 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
     recipeToAdd["caloriesPerServing"] = Math.round(recipeToAdd.calories / servings);
 
     if (checkAvailability(recipeToAdd)) {
+      const addedRecipeId = await fetchPostNewRecipe(recipeToAdd)
+      recipeToAdd["id"] = addedRecipeId
       updateCalendar(recipeToAdd)
-      await fetchPostNewRecipe(recipeToAdd)
     } else {
       alert("One or more meals overlapping!")
     }
@@ -338,35 +341,45 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
             <img src={selectedRecipe.image} alt={selectedRecipe.label} onError={(e) => e.target.src = "/altfood.png"} />
           </div>
           <div className="modal-description">
-            <div id='descriptionTitle'>
+            <div class='container-title'>
               <strong>Descriptions</strong>
             </div>
-            <p><strong>Source:</strong> {selectedRecipe.source}</p>
-            <p><strong>Cuisine:</strong> {selectedRecipe.cuisineType}</p>
-            <p><strong>Dish Type:</strong> {selectedRecipe.dishType}</p>
-            <p><strong>Vitamins:</strong> Vitamin A: {adjustedVitaminA.toFixed(2)}Î¼g, Vitamin C: {adjustedVitaminC.toFixed(2)}mg</p>
-            <p><strong>Diet Labels:</strong> {selectedRecipe.dietLabels.join(', ')}</p>
-            <p><strong>Health Labels:</strong> {selectedRecipe.healthLabels.join(', ')}</p>
-            <a href={selectedRecipe.url}>View Full Recipe</a>
+            <div className='box-text-container'>
+              <div><strong>Source:</strong> {selectedRecipe.source}</div>
+              <div><strong>Cuisine:</strong> {selectedRecipe.cuisineType}</div>
+              <div><strong>Dish Type:</strong> {selectedRecipe.dishType}</div>
+              <div><strong>Vitamins:</strong> Vitamin A: {adjustedVitaminA.toFixed(2)}Î¼g, Vitamin C: {adjustedVitaminC.toFixed(2)}mg</div>
+              <div><strong>Diet Labels:</strong> {selectedRecipe.dietLabels.join(', ')}</div>
+              <div><strong>Health Labels:</strong> {selectedRecipe.healthLabels.join(', ')}</div>
+              <a className='full-recipe-button' href={selectedRecipe.url}>View Full Recipe</a>
+            </div>
           </div>
-          <div>
-            <div className="details-container">
-              <h3> Calories: <span className='span'>{adjustedCalories} kcal ({Math.round(selectedRecipe.caloriesPerServing)} kcal / serving)</span></h3>
-              <h3>Preparation time: <span className='span'>{selectedRecipe.totalTime > 0 ? `${selectedRecipe.totalTime} mins` : 'No prep time'}</span></h3>
-              <div className='ingredients'>
-                <h3><strong>Ingredients:</strong></h3>
-                <ul>
-                  {adjustedIngredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
-                </ul>
+          <div className="details-container">
+            <div className='details'>
+              <div class='container-title'>
+                <strong>Meal Details</strong>
               </div>
-              <h3 className='nutrition'><strong>Nutrition:</strong> Fat: <span className='span'>{adjustedFat.toFixed(2)}g, Protein: {adjustedProtein.toFixed(2)}g, Carbs: {adjustedCarbs.toFixed(2)}g</span></h3>
+              <div className='box-text-container'>
+                <h3> Calories: <span className='span'>{adjustedCalories} kcal ({Math.round(selectedRecipe.caloriesPerServing)} kcal / serving)</span></h3>
+                <h3>Preparation time: <span className='span'>{selectedRecipe.totalTime > 0 ? `${selectedRecipe.totalTime} mins` : 'No prep time'}</span></h3>
+                <div className='ingredients'>
+                  <h3><strong>Ingredients:</strong></h3>
+                  <ul>
+                    {adjustedIngredients.map((ingredient, index) => (
+                      <li key={index}>{ingredient}</li>
+                    ))}
+                  </ul>
+                </div>
+                <h3 className='nutrition'><strong>Nutrition:</strong> Fat: <span className='span'>{adjustedFat.toFixed(2)}g, Protein: {adjustedProtein.toFixed(2)}g, Carbs: {adjustedCarbs.toFixed(2)}g</span></h3>
+              </div>
             </div>
           </div>
           <div className="info-container">
+            <div class='container-title'>
+              <strong>Calendar Details</strong>
+            </div>
             <div className="servings-container">
-              <label>Servings</label>
+              <div className='info-label' >Servings:</div>
               <div className="servings-control">
                 <button className="servings-button" onClick={decreaseServings}>-</button>
                 <input type="number" value={servings} readOnly />
@@ -374,19 +387,30 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
               </div>
             </div>
             <div className="date-container">
-              <label>Starting Date:</label>
-              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+              <div className='info-label'>Starting Date:</div>
+              <div className='date-input'>
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+              </div>
               <div className='calendar-modal-div' onMouseOver={handleCalendarMouseOver} onMouseOut={handleCalendarMouseOut}>
                 <img className='calendar-modal-icon' src='/calendar.png'></img>
               </div>
             </div>
             <div className="meal-types-container">
-              <label htmlFor="breakfast">Breakfast</label>
-              <input onChange={(e) => handleCheckChange(e)} type="checkbox" id="breakfast" name='breakfast' checked={mealTypes.includes('breakfast')} />
-              <label htmlFor="lunch">Lunch</label>
-              <input onChange={(e) => handleCheckChange(e)} type="checkbox" id="lunch" name='lunch' checked={mealTypes.includes('lunch')} />
-              <label htmlFor="dinner">Dinner</label>
-              <input onChange={(e) => handleCheckChange(e)} type="checkbox" id="dinner" name='dinner' checked={mealTypes.includes('dinner')} />
+              <div className='info-label'>Meal Types:</div>
+              <div className="meal-type-control">
+                <div className='meal-type-tick'>
+                  <label htmlFor="breakfast">Breakfast</label>
+                  <input onChange={(e) => handleCheckChange(e)} type="checkbox" id="breakfast" name='breakfast' checked={mealTypes.includes('breakfast')} />
+                </div>
+                <div className='meal-type-tick'>
+                  <label htmlFor="lunch">Lunch</label>
+                  <input onChange={(e) => handleCheckChange(e)} type="checkbox" id="lunch" name='lunch' checked={mealTypes.includes('lunch')} />
+                </div>
+                <div className='meal-type-tick'>
+                  <label htmlFor="dinner">Dinner</label>
+                  <input onChange={(e) => handleCheckChange(e)} type="checkbox" id="dinner" name='dinner' checked={mealTypes.includes('dinner')} />
+                </div>
+              </div>
             </div>
           </div>
         </div>

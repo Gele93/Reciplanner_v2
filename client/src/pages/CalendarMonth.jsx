@@ -15,6 +15,8 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
     const [curMonth, setCurMonth] = useState("")
     const [firstShownDay, setFirstShownDay] = useState("")
     const [lastShownDay, setLastShownDay] = useState("")
+    const [hoveredId, setHoveredId] = useState(0)
+    
 
     const { user, setUser } = useContext(RecipeContext)
 
@@ -44,12 +46,14 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
 
             let updatedWeeks = [firstMonday.toLocaleDateString('en-CA')]
 
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 5; i++) {
                 firstMonday = new Date(firstMonday)
                 firstMonday.setDate(firstMonday.getDate() + 7)
                 firstMonday = firstMonday.toISOString().slice(0, 10)
                 updatedWeeks.push(firstMonday)
             }
+
+            console.log(updatedWeeks)
 
             setWeeks(updatedWeeks)
         }
@@ -163,7 +167,16 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
         setToday(nextMonthFirstDay.toISOString().slice(0, 10))
 
     }
+    
+    const handleMouseOver = (day, meal) => {
+        setHoveredId(fillMealDetails(day, meal, "id"))
+    }
 
+    const handleMouseLeave = () => {
+        setHoveredId(0)
+    }
+
+    console.log(calendar)
 
     return (
         <div className='calendar-month'>
@@ -189,7 +202,12 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
                                     {meals.map((m) => (
                                         <>
                                             {fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label") &&
-                                                <div onClick={() => handleFoodClick(getCurFood(calculateCurDayFromMonday(d, j, false), m))} className='food-title-month'>{shortenTitle(fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label"))}</div>
+                                                <div onClick={() => handleFoodClick(getCurFood(calculateCurDayFromMonday(d, j, false), m))} 
+                                                    onMouseOver={() => handleMouseOver(d, m)}
+                                                    onMouseLeave ={() => handleMouseLeave()}
+                                                    className={`food-title-month ${fillMealDetails(d, m, "id") === hoveredId && "hovered-recipe"}`}>
+                                                    {shortenTitle(fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label"))}
+                                                </div>
                                             }
 
                                         </>
