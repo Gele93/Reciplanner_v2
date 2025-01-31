@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import "../css/recipelist.css"
+import "../../css/recipelist.css"
+import Recipe from './Recipe'
+import PageButtons from './PageButtons'
 
 function RecipeList({ setSelectedRecipe, filteredRecepies, setIsRecipeModal, setIsRecipeModalAdd }) {
 
@@ -30,37 +32,6 @@ function RecipeList({ setSelectedRecipe, filteredRecepies, setIsRecipeModal, set
       setRecipesPerPages(updatedRecipesPerPages)
     }
   }, [filteredRecepies])
-
-
-  const shortenTitle = (title) => {
-
-    const maxLength = 25
-    if (title.length < maxLength) {
-      return title
-    }
-
-    const words = title.split(" ")
-    let wordIndex = 0
-    let totalChar = 0
-
-    for (let i = 0; i < words.length; i++) {
-      totalChar += words[i].length + 1
-      if (totalChar > maxLength) {
-        wordIndex = i - 1
-        break
-      }
-    }
-
-    const wordsOfShortTitle = []
-    for (let i = 0; i < wordIndex; i++) {
-      wordsOfShortTitle.push(words[i])
-    }
-
-    let shortenedTitle = wordsOfShortTitle.join(" ")
-    shortenedTitle = shortenedTitle + "..."
-    return shortenedTitle
-
-  }
 
   const handleNextPageClick = () => {
 
@@ -99,32 +70,18 @@ function RecipeList({ setSelectedRecipe, filteredRecepies, setIsRecipeModal, set
 
   return (
     <div className='recipe-list-container'>
-
       {recipesPerPages[curPage] &&
         recipesPerPages[curPage].map((recipe, i) => (
-          <div className='recipe' key={`${recipe.label}recipes${i}`} onClick={() => openModal(recipe)}>
-            <h2 className='recipe-title'>{shortenTitle(recipe.label)}</h2>
-            <img className='recipe-img' src={recipe.image}></img>
-            <div className='recipe-details'>
-              <h3 className='recipe-detail'>{recipe.totalTime} mins</h3>
-              <h3 className='recipe-detail'>{Math.round(recipe.calories / recipe.yield)} kcal</h3>
-            </div>
-            <div className='label-container'>
-              {recipe.dietLabels.map((label, i) => (
-                <h3 key={`${label}label${i}`} className='recipe-labels'>{label}</h3>
-              ))}
-            </div>
-          </div>
+          <Recipe recipe={recipe} openModal={openModal} index={i} />
         ))}
       <div className='pages'>
         {recipesPerPages[curPage] &&
-          <>
-            <button onClick={handlePrevPageClick} type='button' className='prev-page'>← prev</button>
-            {pageNumbers.map(p => (
-              <button key={p} onClick={() => handlePageNumberClick(p)} className='page-number' type='button'>{p}</button>
-            ))}
-            <button onClick={handleNextPageClick} type='button' className='next-page'>next →</button>
-          </>
+          <PageButtons
+            handleNextPageClick={handleNextPageClick}
+            handlePrevPageClick={handlePrevPageClick}
+            handlePageNumberClick={handlePageNumberClick}
+            pageNumbers={pageNumbers}
+            curPage={curPage} />
         }
       </div>
     </div>
