@@ -8,7 +8,7 @@ import RecipeModal from './components/RecipeModal.jsx';
 import Home from "./pages/Home.jsx"
 import Navbar from './components/Navbar.jsx';
 import CreateUser from './pages/CreateUser.jsx';
-import Profile from './components/Profile.jsx';
+import Profile from './components/Profile/Profile.jsx';
 import TEST from './components/TEST.jsx';
 import { Link } from 'react-router-dom';
 import { RecipeContext } from "./ContextProvider"
