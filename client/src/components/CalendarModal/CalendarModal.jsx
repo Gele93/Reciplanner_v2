@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import "../css/calendarmodal.css"
+import MealGrid from './MealGrid'
+import "../../css/calendarmodal.css"
 
 
 function CalendarModal({ calendar, date }) {
@@ -71,7 +72,32 @@ function CalendarModal({ calendar, date }) {
                         <div className='day-title-modal'>{daysOfWeek[i]}</div>
                         {meals.map((m, i) => (
                             fillMealDetails(d, m, "label") ? (
+                                <MealGrid
+                                    day={d}
+                                    meal={m}
+                                    image={fillMealDetails(d, m, "image")}
+                                    calories={fillMealDetails(d, m, "calories")}
+                                    caloriesPerServing={fillMealDetails(d, m, "caloriesPerServing")}
+                                />
+                            ) : (
+                                <div key={`${d}${m}`}></div>
+                            )
+                        ))}
+                        <div className='kcal-daily-modal'></div>
+                    </div>
+                ))}
+            </div>
+        </div >
+    )
+}
+
+export default CalendarModal
+
+
+
+/*
                                 <div key={`${d}${m}`} className={`${m}-modal food-modal`}>
+
 
                                     {fillMealDetails(d, m, "image") &&
                                         <img className='food-img-modal' src={fillMealDetails(d, m, "image")} onError={(e) => e.target.src = "/altfood.png"} />
@@ -80,19 +106,4 @@ function CalendarModal({ calendar, date }) {
                                         <div className='food-kcal-modal'>{fillMealDetails(d, m, "caloriesPerServing")} kcal</div>
                                     }
                                 </div>
-                            ) : (
-                                <div key={`${d}${m}`}></div>
-                            )
-
-                        ))}
-
-                        <div className='kcal-daily-modal'></div>
-                    </div>
-                ))}
-
-            </div>
-        </div >
-    )
-}
-
-export default CalendarModal
+*/

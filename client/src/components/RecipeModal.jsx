@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../css/recipemodal.css';
 import Draggable from "react-draggable";
-import CalendarModal from './CalendarModal';
+import CalendarModal from './CalendarModal/CalendarModal';
 import { RecipeContext } from '../ContextProvider';
 
 const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calendar, setCalendar }) => {

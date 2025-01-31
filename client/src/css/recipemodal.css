@@ -10,9 +10,15 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
 }
+/*
+appbg
+f8f6e8
 
+origi bg
+bfdc74f6
+*/
 .modal-content {
-  background-color: #bfdc74f6;
+  background-color: #dedfa1;
   border-radius: 10px 10px 5px 5px;
   width: 70vw;
   height: 75vh;
@@ -41,7 +47,7 @@ box-shadow: 15px 15px 30px black;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #b6c5a5d5;
+  color: #c9d6b9;
   border-radius: 5px 5px 0 0;
   background-color: #387F39;
   border-bottom: 1px solid black;
