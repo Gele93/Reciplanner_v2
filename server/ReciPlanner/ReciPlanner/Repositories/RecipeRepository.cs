@@ -16,7 +16,7 @@ namespace ReciPlanner.Repositories
         {
         }
 
-        public void Create(Recipe Recipe)
+        public int Create(Recipe Recipe)
         {
             string query = $@"INSERT INTO recipes (label, image, servings, calories, calories_per_serving, total_time, source, start_date, url, user_id)
                             VALUES (@label, @image, @servings, @calories, @calories_per_serving, @total_time, @source, @start_date, @url, @user_id )
@@ -84,6 +84,7 @@ namespace ReciPlanner.Repositories
                     CreateTotalNutrientToRecipe(recipeId, GetIdFromSubtable("nutrients", "nutrient_id", nutrient.Value.label), nutrient.Value.quantity);
                 }
 
+                return recipeId;
             }
         }
 

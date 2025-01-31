@@ -11,7 +11,7 @@ namespace ReciPlanner.Services
         {
             _userRepository = userRepository;
         }
-        public bool IsValidUser(LoginData loginData)
+        public bool IsValidLoginUser(LoginData loginData)
         {
             try
             {
@@ -26,8 +26,27 @@ namespace ReciPlanner.Services
                 Console.WriteLine(ex.Message);
                 return false;
             }
+        }
 
+        public bool IsUniqueUsername(int? userId, string username)
+        {
+            var allUsers = _userRepository.ReadAll();
 
+            var user = allUsers.FirstOrDefault(u => u.Username == username);
+
+            if (user is null || user.Id == userId) return true;
+
+            return false;
+        }
+        public bool IsUniqueEmail(int? userId, string email)
+        {
+            var allUsers = _userRepository.ReadAll();
+
+            var user = allUsers.FirstOrDefault(u => u.Email == email);
+
+            if (user is null || user.Id == userId) return true;
+
+            return false;
         }
 
     }

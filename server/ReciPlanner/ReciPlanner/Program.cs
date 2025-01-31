@@ -26,8 +26,8 @@ namespace ReciPlanner
     .AddCookie(options =>
     {
         options.Cookie.Name = "Reciplanner_User_Cookie";
-        options.LoginPath = "/User/login"; // Endpoint for login
-        options.LogoutPath = "/User/logout"; // Endpoint for logout (if implemented)
+        options.LoginPath = "/User/login"; 
+        options.LogoutPath = "/User/logout"; 
         options.Cookie.HttpOnly = true; // Prevent client-side script access to the cookie
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Enforce HTTPS-only cookies in production
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
