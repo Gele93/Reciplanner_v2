@@ -64,7 +64,7 @@ function CreateUser() {
             if (await fetchPostUser(userToAdd)) {
                 setErrorMsg("")
                 setIsCreated(true)
-           //     setUser(userToAdd)
+                //     setUser(userToAdd)
             }
         }
     }
@@ -221,8 +221,8 @@ function CreateUser() {
                     <div className="create-form-row">
                         <label htmlFor="username">*Username:</label>
                         <input
-                            className={userNameValidity}
                             type="text" id="username" name="username"
+                            className={userNameValidity}
                             onChange={(e) => handleUsernameChange(e)}
                             onFocus={(e) => checkUsernameValidity(e.target.value)}
                             onBlur={() => setUserNameValidity("")}
@@ -231,8 +231,8 @@ function CreateUser() {
                     <div className="create-form-row">
                         <label htmlFor="password">*Password:</label>
                         <input
-                            className={passwordValidy}
                             type="password" id="password" name="password"
+                            className={passwordValidy}
                             onChange={(e) => handlePasswordChange(e)}
                             onFocus={(e) => checkPasswordValidity(e.target.value)}
                             onBlur={() => setPasswordValidity("")}
@@ -240,8 +240,9 @@ function CreateUser() {
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="confirm-password">*Confirm password:</label>
-                        <input className={confirmPasswordValidy}
+                        <input
                             type="password" id="confirm-password" name="confirm-password"
+                            className={confirmPasswordValidy}
                             onChange={(e) => handleConfirmPasswordChange(e)}
                             onFocus={(e) => checkConfirmPasswordValidity(e.target.value)}
                             onBlur={() => setConfirmPasswordValidity("")}
@@ -249,8 +250,9 @@ function CreateUser() {
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="email">*Email:</label>
-                        <input className={emailValidity}
+                        <input
                             type="email" id="email" name="email"
+                            className={emailValidity}
                             onChange={(e) => handleEmailChange(e)}
                             onFocus={(e) => checkEmailValidity(e.target.value)}
                             onBlur={() => setEmailValidity("")}
@@ -267,8 +269,9 @@ function CreateUser() {
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="age">*Age:</label>
-                        <input className={ageValidity}
+                        <input
                             type="number" id="age" name="age"
+                            className={ageValidity}
                             onChange={(e) => handleAgeChange(e)}
                             onFocus={(e) => checkAgeValidity(e.target.value)}
                             onBlur={() => setAgeValidity("")}
@@ -276,8 +279,9 @@ function CreateUser() {
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="weight">*Weight:</label>
-                        <input className={weightValidity}
+                        <input
                             type="number" id="weight" name="weight"
+                            className={weightValidity}
                             onChange={(e) => handleWeightChange(e)}
                             onFocus={(e) => checkWeightValidity(e.target.value)}
                             onBlur={() => setWeightValidity("")}
@@ -285,11 +289,13 @@ function CreateUser() {
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="height">*Height:</label>
-                        <input className={HeightValidity}
+                        <input
                             type="number" id="height" name="height"
+                            className={HeightValidity}
                             onChange={(e) => handleHeightChange(e)}
                             onFocus={(e) => checkHeightValidity(e.target.value)}
-                            onBlur={() => setHeightValidity("")} />
+                            onBlur={() => setHeightValidity("")}
+                        />
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="profile-pic">Profile picture:</label>
