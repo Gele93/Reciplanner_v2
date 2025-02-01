@@ -12,6 +12,7 @@ import Profile from './components/Profile/Profile.jsx';
 import { Link } from 'react-router-dom';
 import { RecipeContext } from "./ContextProvider"
 import EditProfile from './pages/EditProfile.jsx';
+import { fetchLogin } from './scripts.js';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [recipes, setRecipes] = useState([])
   const [isLoginHighlight, setIsLoginHighlight] = useState(false)
-  const [loginError, setLoginError] = useState("")  
+  const [loginError, setLoginError] = useState("")
 
   const { user, setUser } = useContext(RecipeContext)
 
@@ -116,6 +117,7 @@ function App() {
     }
   }, [recipes, user])
 
+  
   useEffect(() => {
     const logedInUserId = localStorage.getItem("curUserId")
     if (logedInUserId) {
@@ -132,7 +134,7 @@ function App() {
         <header className='header'>
           <div className='header-title'>
             <Link to="/">
-            <img className='logo' src='/reciplanner.png'/>
+              <img className='logo' src='/reciplanner.png' />
             </Link>
           </div>
           <Navbar setIsLoginHighlight={setIsLoginHighlight} setLoginError={setLoginError} />
@@ -143,10 +145,10 @@ function App() {
           <Route path='/create-user' element={<CreateUser />} />
           <Route path='/edit-profile/:userid' element={<EditProfile />} />
           <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
-          <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar}/>} />
+          <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
           <Route path='/calendar-month' element={<CalendarMonth isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
         </Routes>
-        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar}/>}
+        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
         <footer className='footer'>
           <p className='copyright'>&copy; 2024 reciPlanner. All rights reserved.</p>
         </footer>

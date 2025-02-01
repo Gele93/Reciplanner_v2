@@ -73,3 +73,25 @@ export const shortenTitle = (title) => {
     return shortenedTitle
 
 }
+
+export const fetchLogin = async (loginData) => {
+    try {
+        const response = await fetch("https://localhost:7034/User/login", {
+            method: 'POST',
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                loginData,
+            ),
+        })
+        if (!response.ok) {
+            return null
+        }
+        const user = await response.json()
+        return user
+    } catch (error) {
+        console.error(error)
+    }
+}

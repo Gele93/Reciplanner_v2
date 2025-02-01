@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
 import "../css/calendarmonth.css"
 import { RecipeContext } from '../ContextProvider.jsx'
-import { Link } from "react-router-dom"
-import { getCurFood, fillMealDetails, shortenTitle } from '../scripts.js'
+import { getCurFood, fillMealDetails } from '../scripts.js'
 import CalendarStyles from '../components/Calendar/CalendarStyles.jsx'
+import Header from '../components/Calendar/Monthly/Header.jsx'
+import DateButtons from '../components/Calendar/Monthly/DateButtons.jsx'
+import MealGrid from '../components/Calendar/Monthly/MealGrid.jsx'
 
-function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar, setCalendar }) {
+function CalendarMonth({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar }) {
 
-    const daysOfWeekFromSunday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const meals = ["breakfast", "lunch", "dinner"]
@@ -19,17 +20,12 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
     const [lastShownDay, setLastShownDay] = useState("")
     const [hoveredId, setHoveredId] = useState(0)
 
-
-    const { user, setUser } = useContext(RecipeContext)
-
     useEffect(() => {
         if (today) {
             const monthIndex = parseInt(today.split("-")[1]) - 1
             setCurMonth(months[monthIndex])
         }
     }, [today])
-
-    console.log(calendar)
 
     useEffect(() => {
         if (today) {
@@ -54,8 +50,6 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
                 firstMonday = firstMonday.toISOString().slice(0, 10)
                 updatedWeeks.push(firstMonday)
             }
-
-            console.log(updatedWeeks)
 
             setWeeks(updatedWeeks)
         }
@@ -89,51 +83,27 @@ function CalendarMonth({ isRecipeModal, setRecipes, setSelectedRecipe, setIsReci
 
     }
 
-    const handleMouseOver = (day, meal) => {
-        setHoveredId(fillMealDetails(day, meal, "id", calendar))
-    }
-
-    const handleMouseLeave = () => {
-        setHoveredId(0)
-    }
-
-    console.log(calendar)
-
     return (
         <div className='calendar-month'>
-
-            <div className='curmonth'>{curMonth}</div>
-
-            <button onClick={handleMonthMinusClick} className='date-minus-month' type='button'>← prev</button>
-            <button onClick={handleMonthPlusClick} className='date-plus-month' type='button'>next →</button>
-
-            <div className='day-titles'>
-                {daysOfWeek.map((d) => (
-                    <div key={d} className='day-title-month'>{d}</div>
-                ))}
-            </div>
-
+            <Header curMonth={curMonth} daysOfWeek={daysOfWeek} />
+            <DateButtons handleMonthMinusClick={handleMonthMinusClick} handleMonthPlusClick={handleMonthPlusClick} />
             <div className='days-of-month'>
                 {weeks.map((d, i) => (
                     daysOfWeek.map((w, j) => (
                         <div key={`${d}${j}`} className='food-month-container'>
                             <div className='food-date-month'>{calculateCurDayFromMonday(d, j, true)}</div>
                             <div key={`${d}${w}`} className={`food-month`} >
-                                <div className='meal-container-month' key={`${d}`}>
-                                    {meals.map((m) => (
-                                        <>
-                                            {fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label", calendar) &&
-                                                <div onClick={() => handleFoodClick(getCurFood(calculateCurDayFromMonday(d, j, false), m, calendar))}
-                                                    onMouseOver={() => handleMouseOver(d, m)}
-                                                    onMouseLeave={() => handleMouseLeave()}
-                                                    className={`food-title-month ${fillMealDetails(d, m, "id", calendar) === hoveredId && "hovered-recipe"}`}>
-                                                    {shortenTitle(fillMealDetails(calculateCurDayFromMonday(d, j, false), m, "label", calendar))}
-                                                </div>
-                                            }
-
-                                        </>
-                                    ))}
-                                </div>
+                                <MealGrid
+                                hoveredId={hoveredId}
+                                setHoveredId={setHoveredId}
+                                    fillMealDetails={fillMealDetails}
+                                    curDay={calculateCurDayFromMonday(d, j, false)}
+                                    meals={meals}
+                                    d={d}
+                                    calendar={calendar}
+                                    handleFoodClick={handleFoodClick}
+                                    getCurFood={getCurFood}
+                                />
                             </div>
                         </div>
                     ))
