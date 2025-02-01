@@ -32,9 +32,31 @@ function ProfileDropdown({ setIsProfileOpen }) {
 
     return (
         <div className='profile-menu'>
-            <Link to={`/edit-profile/${user.id}`}><button onClick={() => setIsProfileOpen(false)} className='login-button menu-button' type="button">Profile</button></Link>
-            <Link to="/calendar"><button onClick={() => setIsProfileOpen(false)} className='login-button menu-button' type="button">My calendar</button></Link>
-            <button className='login-button menu-button' type="button">My recipes</button>
+            <Link to={`/edit-profile/${user.id}`}>
+                <button
+                    onClick={() => setIsProfileOpen(false)}
+                    className='login-button menu-button'
+                    type="button">
+                    Profile
+                </button>
+            </Link>
+            <Link to="/calendar">
+                <button
+                    onClick={() => setIsProfileOpen(false)}
+                    className='login-button menu-button'
+                    type="button">
+                    My calendar
+                </button>
+            </Link>
+            <Link to="/my-recipes">
+                <button
+                    onClick={() => setIsProfileOpen(false)}
+                    className='login-button menu-button'
+                    type="button">
+                    My recipes
+                </button>
+
+            </Link>
             <button onClick={handleLogout} className='login-button menu-button' type="button">Logout</button>
         </div>
     )
