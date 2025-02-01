@@ -73,6 +73,7 @@ export const shortenTitle = (title, maxLength) => {
 
 }
 
+
 export const fetchLogin = async (loginData) => {
     try {
         const response = await fetch("https://localhost:7034/User/login", {
