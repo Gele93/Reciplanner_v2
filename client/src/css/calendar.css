@@ -97,7 +97,8 @@
         border: solid 1px #387f3971;
         cursor: pointer;
     }
-    .food:hover {        
+    /*.food:hover*/
+    .hovered-recipe {        
         background-color: #bfdc74;
         border: solid 1px #387f39;
     }

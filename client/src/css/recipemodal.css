@@ -10,28 +10,35 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
 }
+/*
+appbg
+f8f6e8
 
+origi bg
+bfdc74f6
+*/
 .modal-content {
-  background-color: #bfdc74f6;
-  border-radius: 20px;
+  background-color: #dedfa1;
+  border-radius: 10px 10px 5px 5px;
   width: 70vw;
-  padding: 1vw;
+  height: 75vh;
   display: grid;
   grid-template-areas:
-    "header header"
-    "image description"
-    "kcal info"
-    "time info"
-    "add add";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr auto auto auto;
-  gap: 20px;
+    "header header header"
+    "margin-h margin-h margin-h"
+    "image description description"
+    "margin-b margin-b margin-b"
+    "details details info"
+    "add add add";
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 6vh 1vh 32vh 1vh 25vh 4vh;
   position: relative;
+  top:0px;
   /*
   border: 1.5px solid black;
 */
 border: 2px solid #387F39;
-box-shadow: 5px 5px 15px black;
+box-shadow: 15px 15px 30px black;
   }
 
 .modal-header {
@@ -39,19 +46,17 @@ box-shadow: 5px 5px 15px black;
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 5px;
   justify-content: center;
-  background-color: #98c066d5;
-  border-radius: 10px 10px 0 0;
-  color: #387F39;
-  border: 1px solid black;
+  color: #c9d6b9;
+  border-radius: 5px 5px 0 0;
+  background-color: #387F39;
+  border-bottom: 1px solid black;
   position: relative;
-  right: 0.3vw;  
 }
 .modal-header-title{
   font-size: 5vh;
-  padding: 0;
   margin: 0;
+  letter-spacing: 3px;
 }
 
 .modal-close-button {
@@ -72,26 +77,37 @@ box-shadow: 5px 5px 15px black;
   display: contents;
 }
 
-.modal-image img {
-  grid-area: image;
+.box-text-container{
+display: flex;
+flex-direction: column;
+width: 90;
+  padding-left: 1vw;
+  padding-right: 1vw;
+
+}
+
+.modal-image {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  grid-area: image;
+
+}
+.modal-image img {
   position: relative;
-  width: 29vw;
-  height: 20vw;
   border: 1px solid black;
-  border-radius: 1vw;
-  left: 1vw;
-  top: 0vw;
+  border-radius: 160px;
 }
 
 .modal-description {
   grid-area: description;
   display: flex;
+  top:10%;
+  height: 80%;
   flex-direction: column;
-  padding: 5px; 
   border: 1px solid #000;
-  border-radius: 1vw;
-  height: 20vw;  
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   box-sizing: border-box;
   position: relative;
   right: 1vw;
@@ -103,57 +119,59 @@ box-shadow: 5px 5px 15px black;
 
 
 .modal-description::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
+  background-color: #c4e670ea;
 }
 
 .modal-description::-webkit-scrollbar-thumb {
-  background-color: #387F39; 
-  border-radius: 10px;
-  border: 3px solid #c4e670ea; 
+  background-color: #98c066d5; 
+  border-radius: 4px;
+  border: 1px solid #c4e670ea; 
 }
 
 .modal-description::-webkit-scrollbar-thumb:hover {
   background-color: #285728;
 }
 
-#descriptionTitle {
+.container-title {
+  width: 100%;
   text-align: center;
   align-items: center;
   background-color: #A2CA71;
-  border-radius: 1vw;
-  height: 2.5vw; 
   font-size: 1vw; 
-  border: 1px solid black;
   margin-bottom: 5px; 
   color: #387F39;
   position: relative;
+
 }
 
 .details-container {
-  padding: 1vw;
+  grid-area: details;
   background-color: #fdfcee; 
-  border-radius: 1vw;
-  border: 1px solid #387F39; 
-  display: flex;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px; 
+   border: 1px solid black; 
   flex-direction: column;
-  gap: 13px; 
-  width: 27vw;
   position: relative;
+  width: 90%;
   left:1vw;
-  height: 11vw;
-  top:1vw;
   overflow-y: auto; 
 }
-
+.details {
+  display: flex;
+  flex-direction: column;
+  
+}
 
 .details-container::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
+  background-color: #c4e670ea;
 }
 
 .details-container::-webkit-scrollbar-thumb {
-  background-color: #387F39; 
-  border-radius: 10px;
-  border: 3px solid #c4e670ea; 
+  background-color: #98c066d5; 
+  border-radius: 4px;
+  border: 1px solid #c4e670ea; 
 }
 
 .details-container::-webkit-scrollbar-thumb:hover {
@@ -194,36 +212,34 @@ box-shadow: 5px 5px 15px black;
   grid-area: info;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   position: relative;
   border: 1px solid black;
   right: 1vw;
-  top: 1vw;
   background-color: #fdfcee;
-  border-radius: 1vw;
-  padding: 1vw;
-  height: 11vw;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   align-items: center;
 }
 
 .servings-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 5px;
   padding: 10px;
   border-radius: 10px;
   background-color: #c5e67000;
   width: 80%;
+  justify-content: space-between;
   text-align: center;
   font-weight: bold;
-  font-size: 1.2em;
 }
 
 .servings-control {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-grow: 1;
 }
 
 .servings-button {
@@ -231,7 +247,6 @@ box-shadow: 5px 5px 15px black;
   color: #ffffff;
   border: none;
   border-radius: 5px;
-  padding: 5px 10px;
   cursor: pointer;
   font-size: 1em;
   width: 2vw;
@@ -246,6 +261,12 @@ box-shadow: 5px 5px 15px black;
   text-align: center;
   font-size: 1.2em;
   border-radius: 5px;
+}
+
+.info-label {
+  position: relative;
+  display: flex;
+  width: 9vw;
 }
 
 .info-container input {
@@ -273,17 +294,16 @@ box-shadow: 5px 5px 15px black;
 .date-container {
   display: flex;
   font-weight: bold;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 10px;
-  justify-content: flex-start;
+  justify-content: space-between;
+  width: 80%;
   padding: 5px;
   border-radius: 10px;
   background-color: #c5e67002;
-  width: 80%;
   text-align: center;
 }
-
 .date-container label {
   flex: 1;
 }
@@ -301,11 +321,20 @@ box-shadow: 5px 5px 15px black;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
   border-radius: 10px;
   background-color: #c5e67000;
-  gap: 10px;
+  width: 80%;
   font-weight: bold;
+}
+.meal-type-tick {
+  display: flex;
+}
+
+.meal-type-control{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+flex-grow: 1;
 }
 
 .meal-types-container label {
@@ -318,6 +347,7 @@ box-shadow: 5px 5px 15px black;
 }
 
 .modal-footer {
+  top: 2vh;
   position: relative;
   grid-area: add;
   display: flex;
@@ -325,7 +355,6 @@ box-shadow: 5px 5px 15px black;
 }
 
 .modal-footer-Add {
-  padding: 10px 20px;
   font-size: 3vh;
   border-radius: 25px;
   border: solid 1px #387F39;
@@ -354,7 +383,6 @@ box-shadow: 5px 5px 15px black;
 
 
 .modal-footer-Edit{
-  padding: 10px 20px;
   font-size: 3vh;
   border-radius: 25px;
   border: solid 1px #387F39;
@@ -378,7 +406,6 @@ box-shadow: 5px 5px 15px black;
 }
 
 .modal-footer-Delete{
-  padding: 10px 20px;
   font-size: 3vh;
   border-radius: 25px;
   border: solid 1px #387F39;
@@ -387,9 +414,6 @@ box-shadow: 5px 5px 15px black;
   color: #387F39;
   display: flex;
   position: relative;
-  /*
-  left: 16vw;
-  */
   width: 20vw;
   justify-content: center;
   border: 1px solid black;
@@ -398,31 +422,28 @@ box-shadow: 5px 5px 15px black;
 
 .modal-footer-Delete:hover {
   color: #A2CA71;
-  background-color: #387F39;
+  background-color: #7f3838;
 }
 
-.modal-description a {
+.full-recipe-button {
+  margin-top: 2vh;
+  width: 15vw;
+  align-self: center;
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 15px;
-    background-color: #A2CA71; 
+    background-color: #fffcd1;
     color: #387F39; 
     text-align: center;
     text-decoration: none;
     font-weight: bold;
     border-radius: 25px;
-    border: 1px solid black;
+    border: 0.5px solid #387F39;
 }
   
-.modal-description a:hover {
+.full-recipe-button:hover {
     background-color: #45a049; 
+    color: #A2CA71; 
 }
 
-
-.calendar-modal-div {
-  position: absolute;
-  right: 4vw;
-}
 .calendar-modal-icon {
   width: 4vw;
 }

@@ -95,6 +95,14 @@ transform: scale(1.05);
 .page-number {
     width: 2vw;
 }
+
+.active-page {
+    transform: scale(1.15);
+    font-size: 2vh;
+    font-weight: 900;
+    border-radius: 10%;
+}
+
 .prev-page {
     border-right: none;
     border-bottom-left-radius: 15px;

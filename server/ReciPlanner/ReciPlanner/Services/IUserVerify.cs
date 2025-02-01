@@ -4,6 +4,8 @@ namespace ReciPlanner.Services
 {
     public interface IUserVerify
     {
-        public bool IsValidUser(LoginData loginData);
+        public bool IsValidLoginUser(LoginData loginData);
+        public bool IsUniqueUsername(int? userId, string username);
+        public bool IsUniqueEmail(int? userId, string email);
     }
 }

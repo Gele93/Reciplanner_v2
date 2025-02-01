@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "op7E1HW3bF8hXWyJe4Uoed76eVsMZnhYsmTXEVt+rSc=",
+  "Hash": "/VfIXvo6rUxYU5YRdt5HZJeDjxcE4B7KokHRKOBbojQ=",
   "Source": "ReciPlanner",
   "BasePath": "_content/ReciPlanner",
   "Mode": "Default",
@@ -16,6 +16,44 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\2c74404b-92c0-488e-9cff-480ea0cdf8a7_profil.jpg",
+      "SourceId": "ReciPlanner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\",
+      "BasePath": "_content/ReciPlanner",
+      "RelativePath": "uploads/2c74404b-92c0-488e-9cff-480ea0cdf8a7_profil.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\2c74404b-92c0-488e-9cff-480ea0cdf8a7_profil.jpg"
+    },
+    {
+      "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\2cac480d-b8ec-43dd-8c1b-eb2e12986e39_pokeballpng.png",
+      "SourceId": "ReciPlanner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\",
+      "BasePath": "_content/ReciPlanner",
+      "RelativePath": "uploads/2cac480d-b8ec-43dd-8c1b-eb2e12986e39_pokeballpng.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\2cac480d-b8ec-43dd-8c1b-eb2e12986e39_pokeballpng.png"
+    },
     {
       "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\3df0a0a3-1a43-40aa-90a9-f52eea969ccd_250px-Nurse_Joy_JN.png",
       "SourceId": "ReciPlanner",
@@ -72,6 +110,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\6425b0a3-51b7-4d31-819f-77a74b66e2fc_Durallo2png.png"
+    },
+    {
+      "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\b55feb5a-6a5f-4f96-b3df-3716ed947f41_traced-letöltés.jfif",
+      "SourceId": "ReciPlanner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\",
+      "BasePath": "_content/ReciPlanner",
+      "RelativePath": "uploads/b55feb5a-6a5f-4f96-b3df-3716ed947f41_traced-letöltés.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\b55feb5a-6a5f-4f96-b3df-3716ed947f41_traced-letöltés.jfif"
+    },
+    {
+      "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\e80b5ece-f7ba-4ee5-acdf-f4f798e5af14_gold.png",
+      "SourceId": "ReciPlanner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\",
+      "BasePath": "_content/ReciPlanner",
+      "RelativePath": "uploads/e80b5ece-f7ba-4ee5-acdf-f4f798e5af14_gold.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\e80b5ece-f7ba-4ee5-acdf-f4f798e5af14_gold.png"
     }
   ]
 }

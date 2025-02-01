@@ -2,7 +2,6 @@
     position: absolute;
     left:50%;
     transform: translateX(-50%);
-
 }
 
 .days-of-week-modal {
@@ -145,6 +144,11 @@
 
 .meal-type-labels-modal {
     font-weight: 700;
+}
+
+.hovered-recipe-month {        
+    background-color: #387f39;
+    border: solid 1px #387f39;
 }
 
 .day-date-modal {

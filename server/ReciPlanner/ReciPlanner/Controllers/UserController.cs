@@ -29,6 +29,10 @@ namespace ReciPlanner.Controllers
             {
                 if (user == null) StatusCode(500, "Invalid user data");
 
+                if (!_userVerify.IsUniqueUsername(user.Id, user.Username)) return Conflict(new { error = "username is already taken", field = "username" });
+
+                if (!_userVerify.IsUniqueEmail(user.Id, user.Email)) return Conflict(new { error = "email is already taken", field = "email" });
+
                 _userRepository.Create(user);
                 return Ok(user);
             }
@@ -43,7 +47,7 @@ namespace ReciPlanner.Controllers
         {
             try
             {
-                if (!_userVerify.IsValidUser(loginData)) return Unauthorized("Invalid username or password");
+                if (!_userVerify.IsValidLoginUser(loginData)) return Unauthorized("Invalid username or password");
 
                 int? userId = _userRepository.GetUserId(loginData.username);
 
@@ -113,6 +117,10 @@ namespace ReciPlanner.Controllers
         {
             try
             {
+                if (!_userVerify.IsUniqueUsername(userId, updatedUser.Username)) return Conflict(new { error = "username is already taken", field= "username" });
+
+                if (!_userVerify.IsUniqueEmail(userId, updatedUser.Email)) return Conflict(new { error= "email is already taken", field = "email"});
+
                 _userRepository.Update(updatedUser, userId);
                 return Ok();
             }
@@ -156,6 +164,7 @@ namespace ReciPlanner.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
 
     }
 }

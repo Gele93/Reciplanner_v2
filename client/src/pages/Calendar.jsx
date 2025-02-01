@@ -1,8 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react'
 import "../css/calendar.css"
-import Piechart from "../components/Piechart.jsx"
 import { RecipeContext } from '../ContextProvider.jsx'
 import { Link } from "react-router-dom"
+import DateButtons from '../components/Calendar/Weekly/DateButtons.jsx'
+import MealGrid from '../components/Calendar/Weekly/MealGrid.jsx'
+import CalSummary from '../components/Calendar/Weekly/CalSummary.jsx'
+import WeeklyStats from '../components/Calendar/Weekly/WeeklyStats.jsx'
+import CalendarStyles from '../components/Calendar/CalendarStyles.jsx'
+import { fillMealDetails, getCurFood } from '../scripts.js'
 
 function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, calendar }) {
 
@@ -12,29 +17,9 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
     const [curFirstDay, setCurFirstDay] = useState(new Date().toISOString().slice(0, 10))
     const [curWeek, setCurWeek] = useState([])
     const [weeklyTotalKcal, setWeeklyTotalkcal] = useState(0)
+    const [hoveredId, setHoveredId] = useState(0)
 
     const { user, setUser } = useContext(RecipeContext)
-
-    /*
-    useEffect(() => {
-        console.log(calendar)
-        const fetchRecipes = async () => {
-            try {
-                const response = await fetch(`/api/recipes/${user._id}`)
-                if (!response.ok) {
-                    throw new Error("fetching recipes went wrong")
-                }
-                const updatedRecipes = await response.json()
-                console.log(updatedRecipes)
-                setRecipes(updatedRecipes)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        fetchRecipes()
-    }, [])
-
-*/
 
     useEffect(() => {
         if (curFirstDay) {
@@ -66,34 +51,6 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
         setCurFirstDay(nextWeekStart)
     }
 
-    const fillMealDetails = (curDate, curMeal, curKey) => {
-
-        let mealIndex = 0
-
-        switch (curMeal) {
-            case "breakfast": mealIndex = 0
-                break;
-            case "lunch": mealIndex = 1
-                break;
-            case "dinner": mealIndex = 2
-                break;
-        }
-
-        if (calendar[curDate]) {
-            if (calendar[curDate][mealIndex] !== curMeal) {
-                if (curKey === "caloriesPerServing") {
-                    const kcalPerServing = Math.round(calendar[curDate][mealIndex][curKey])
-                    //  const kcal = Math.round(totalKcal / parseInt(calendar[curDate][mealIndex].servings))
-                    return kcalPerServing
-                } else {
-                    return calendar[curDate][mealIndex][curKey]
-                }
-            }
-        }
-
-        return false
-    }
-
     const calculateTotalWeeklyKcal = () => {
         try {
             let updatedTotalWeeklyKcal = 0
@@ -121,59 +78,10 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
     }, [curWeek])
 
 
-    const getCurFood = (curDate, curMeal) => {
-        let mealIndex = 0
-
-        switch (curMeal) {
-            case "breakfast": mealIndex = 0
-                break;
-            case "lunch": mealIndex = 1
-                break;
-            case "dinner": mealIndex = 2
-                break;
-        }
-
-        if (calendar[curDate]) {
-            if (calendar[curDate][mealIndex] !== curMeal) {
-                return calendar[curDate][mealIndex]
-            }
-        }
-        return false
-    }
-
     const handleFoodClick = (recipe) => {
         setIsRecipeModal(true)
         setIsRecipeModalAdd(false)
         setSelectedRecipe(recipe)
-    }
-
-    const shortenTitle = (title) => {
-        const maxLength = 18
-        if (title.length < maxLength) {
-            return title
-        }
-
-        const words = title.split(" ")
-        let wordIndex = 0
-        let totalChar = 0
-
-        for (let i = 0; i < words.length; i++) {
-            totalChar += words[i].length + 1
-            if (totalChar > maxLength) {
-                wordIndex = i - 1
-                break
-            }
-        }
-
-        const wordsOfShortTitle = []
-        for (let i = 0; i < wordIndex; i++) {
-            wordsOfShortTitle.push(words[i])
-        }
-
-        let shortenedTitle = wordsOfShortTitle.join(" ")
-        shortenedTitle = shortenedTitle + "..."
-        return shortenedTitle
-
     }
 
     const writeDayFromDate = (date) => {
@@ -204,13 +112,17 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
         return Math.round(dailyCalTook)
     }
 
+    const handleMouseOver = (day, meal) => {
+        setHoveredId(fillMealDetails(day, meal, "id", calendar))
+    }
+
+    const handleMouseLeave = () => {
+        setHoveredId(0)
+    }
 
     return (
         <div className='calendar'>
-            <div className='date'>
-                <button className='date-minus' onClick={handleDateMinusClick} type='button'>← prev</button>
-                <button className='date-plus' onClick={handleDatePlusClick} type='button'>next →</button>
-            </div>
+            <DateButtons handleDateMinusClick={handleDateMinusClick} handleDatePlusClick={handleDatePlusClick} />
             <div className='days-of-week'>
                 <div className='meal-type-labels'>
                     <div className='meal-type-bf'>Breakfast</div>
@@ -224,44 +136,29 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
                     <div key={d} className={`${daysOfWeek[i]} day`} >
                         <div className='day-date'>{d}</div>
                         <div className='day-title'>{writeDayFromDate(d)}</div>
-                        {meals.map((m, i) => (
-                            fillMealDetails(d, m, "label") ? (
-                                <div key={`${d}${m}`} className={`${m} food`} onClick={() => handleFoodClick(getCurFood(d, m))}>
-                                    {fillMealDetails(d, m, "label") &&
-                                        <div className='food-title'>{shortenTitle(fillMealDetails(d, m, "label"))}</div>
-                                    }
-                                    {fillMealDetails(d, m, "image") &&
-                                        <img className='food-img' src={fillMealDetails(d, m, "image")} alt="Original Image" onError={(e) => e.target.src = "/altfood.png"} />
-                                    }
-                                    {fillMealDetails(d, m, "calories") &&
-                                        <div className='food-kcal'>{fillMealDetails(d, m, "caloriesPerServing")} kcal</div>
-                                    }
-                                </div>
+                        {meals.map((m) => (
+                            fillMealDetails(d, m, "label", calendar) ? (
+                                <MealGrid
+                                    day={d}
+                                    meal={m}
+                                    hoveredId={hoveredId}
+                                    handleFoodClick={handleFoodClick}
+                                    curFood={getCurFood(d, m, calendar)}
+                                    handleMouseOver={handleMouseOver}
+                                    handleMouseLeave={handleMouseLeave}
+                                    fillMealDetails={fillMealDetails}
+                                    calendar={calendar}
+                                />
                             ) : (
                                 <div key={`${d}${m}`}></div>
                             )
-
                         ))}
-
-                        <div className='kcal-need'>{calculateDailyCalNeeded()}</div>
-                        <div className='kcal-took'>{calculateDailyCalTook(d, i)}</div>
-                        <div className={`kcal-diff ${calculateDailyCalTook(d, i) - calculateDailyCalNeeded() > 0 ? "positive" : "negative"}`}>{calculateDailyCalTook(d, i) - calculateDailyCalNeeded()}</div>
+                        <CalSummary calculateDailyCalNeeded={calculateDailyCalNeeded} calculateDailyCalTook={calculateDailyCalTook} day={d} curWeekIndex={i} />
                     </div>
                 ))}
-
-                <div className='weekly-stat'>
-                    <div className='stat-title'>Stats</div>
-                    <div className='stat-weekly-kcal-title'>Total kcal:</div>
-                    <div className='stat-weekly-kcal'>{weeklyTotalKcal}</div>
-                    <div className='stat-chart'>
-                        <Piechart curFirstDay={curFirstDay} calendar={calendar} />
-                    </div>
-                </div>
+                <WeeklyStats weeklyTotalKcal={weeklyTotalKcal} curFirstDay={curFirstDay} calendar={calendar} />
             </div>
-            <div className='calendar-styles'>
-                <Link to="/calendar-month"><button type='button' className='calendar-style monthly'>Monthly</button></Link>
-                <Link to="/calendar"><button type='button' className='calendar-style weekly'>Weekly</button></Link>
-            </div>
+            <CalendarStyles />
         </div >
     )
 }

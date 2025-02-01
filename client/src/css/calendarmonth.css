@@ -2,7 +2,7 @@
         display: grid;
         position: absolute;
         grid-template-columns: repeat(7, 11vw);
-        grid-template-rows: auto; 
+        grid-template-rows: repeat(6, 13vh); 
         top: 14vh;
         left: 50%;
         background: rgb(56,127,57);
@@ -12,13 +12,33 @@
         z-index: -1;
 }
 
+/*GRID CONTAINER*/
 .meal-container-month {
-    display: flex;
+    display: grid;
+    grid-template-rows: repeat(3, 2.3vh); 
     flex-direction: column;
     justify-content: start;
     gap: 1vh;
-    height: 12vh;
-    transform: translateY(3vh);
+    height: 10vh;
+    transform: translateY(1vh);
+}
+.breakfast-month{
+    grid-row: 1/2;
+}
+.lunch-month{
+    grid-row: 2/3;
+}
+.dinner-month{
+    grid-row: 3/4
+}
+
+.food-title-month {
+    font-size: 1.7vh;
+    background-color: #BEDC74;
+    border: 1px solid #387F39;
+    width: 10vw;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .food-month-container {
@@ -26,8 +46,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 }
+
 .food-month {
     display: flex;
     flex-direction: column;
@@ -35,7 +55,9 @@
     align-items: center;
     text-align: center;
     width: 11vw;
-    height: 16vh; 
+    height: 13vh; 
+    
+    /*EDIT FROM 16VH*/
     border: solid 1px #387f3971;
 }
 .food-date-month {
@@ -43,21 +65,13 @@
     transform: translate(-4.5vw, -5.5vh);
     font-weight: 600;    
 }
-.food-title-month {
-    padding: 0;
-    margin: 0;
-    font-size: 2vh;
-    background-color: #BEDC74;
-    border: 1px solid #387F39;
-    width: 10vw;
-    border-radius: 20px;
-    cursor: pointer;
-}
-.food-title-month:hover {
+
+.hovered-recipe-month {
     background-color: #387f39a5;
     color: white;
 }
 .day-titles{
+    z-index: -1;
     display: flex;
     position: absolute;
     top:11.5vh;
@@ -103,6 +117,7 @@
     background-color: #558a56;
 }
 .curmonth {
+    z-index: -1;
     position: relative;
     left:15vw;
     width: 70vw;
@@ -116,4 +131,7 @@
     background: rgb(56,127,57);
     background: linear-gradient(45deg, rgba(56,127,57,0) 0%, rgba(191,220,116,1) 50%, rgba(56,127,57,0) 100%);
 */
+    }
+
+    .hovered-recipe {
     }

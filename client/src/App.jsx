@@ -4,15 +4,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Recipes from "./pages/Recipes.jsx"
 import Calendar from "./pages/Calendar.jsx"
 import CalendarMonth from "./pages/CalendarMonth.jsx"
-import RecipeModal from './components/RecipeModal.jsx';
+import RecipeModal from './components/RecipeModal/RecipeModal.jsx';
 import Home from "./pages/Home.jsx"
 import Navbar from './components/Navbar.jsx';
 import CreateUser from './pages/CreateUser.jsx';
-import Profile from './components/Profile.jsx';
-import TEST from './components/TEST.jsx';
+import Profile from './components/Profile/Profile.jsx';
 import { Link } from 'react-router-dom';
 import { RecipeContext } from "./ContextProvider"
 import EditProfile from './pages/EditProfile.jsx';
+import { fetchLogin } from './scripts.js';
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [recipes, setRecipes] = useState([])
   const [isLoginHighlight, setIsLoginHighlight] = useState(false)
-  const [loginError, setLoginError] = useState("")  
+  const [loginError, setLoginError] = useState("")
 
   const { user, setUser } = useContext(RecipeContext)
 
@@ -90,27 +90,6 @@ function App() {
     setRecipes([])
   }, [user])
 
-  /*
-  useEffect(() => {
-    if (localStorage.getItem("curUserId")) {
-      const curUserId = localStorage.getItem("curUserId")
-      const fetchUser = async () => {
-        try {
-          const response = await fetch(`/api/users/${curUserId}`)
-          if (!response.ok) {
-            throw new Error(`fetching user went wrong`)
-          }
-          const curUser = await response.json()
-          setUser(curUser)
-        } catch (error) {
-          console.error(error)
-        }
-      }
-      fetchUser()
-    }
-  }, [localStorage.getItem("curUserId")])
-*/
-
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -132,19 +111,23 @@ function App() {
     }
   }, [user])
 
-
   useEffect(() => {
     if (recipes && user) {
       updateCalendar()
     }
   }, [recipes, user])
 
+  
   useEffect(() => {
     const logedInUserId = localStorage.getItem("curUserId")
     if (logedInUserId) {
       fetchLogedInUser(logedInUserId)
+
     }
   }, [])
+
+  //old header title 
+  //reci<span className='p'>P</span>lanner
 
   return (
     <Router>
@@ -152,7 +135,7 @@ function App() {
         <header className='header'>
           <div className='header-title'>
             <Link to="/">
-              reci<span className='p'>P</span>lanner
+              <img className='logo' src='/reciplanner.png' />
             </Link>
           </div>
           <Navbar setIsLoginHighlight={setIsLoginHighlight} setLoginError={setLoginError} />
@@ -163,11 +146,10 @@ function App() {
           <Route path='/create-user' element={<CreateUser />} />
           <Route path='/edit-profile/:userid' element={<EditProfile />} />
           <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
-          <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar}/>} />
+          <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
           <Route path='/calendar-month' element={<CalendarMonth isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
-          <Route path='/test' element={<TEST />} />
         </Routes>
-        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar}/>}
+        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
         <footer className='footer'>
           <p className='copyright'>&copy; 2024 reciPlanner. All rights reserved.</p>
         </footer>

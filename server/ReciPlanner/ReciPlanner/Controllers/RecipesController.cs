@@ -24,15 +24,15 @@ namespace ReciPlanner.Controllers
         {
             try
             {
-                _recipeRepository.Create(Recipe);
-                return Ok();
+                int recipeId = _recipeRepository.Create(Recipe);
+                return Ok(recipeId);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
         }
-        
+
         [Authorize]
         [HttpGet]
         public IActionResult GetRecipes()
