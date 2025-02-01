@@ -44,9 +44,8 @@ export const getCurFood = (curDate, curMeal, calendar) => {
 }
 
 
-export const shortenTitle = (title) => {
+export const shortenTitle = (title, maxLength) => {
     if (!title) return
-    const maxLength = 20
     if (title.length < maxLength) {
         return title
     }

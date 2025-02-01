@@ -22,7 +22,7 @@ function MealGrid({ meals, fillMealDetails, curDay, m, d, calendar, handleFoodCl
                     onMouseOver={() => handleMouseOver(curDay, m)}
                     onMouseLeave={() => handleMouseLeave()}
                     className={`${m}-month food-title-month ${fillMealDetails(curDay, m, "id", calendar) === hoveredId ? "hovered-recipe-month" : ""}`}>
-                    {shortenTitle(fillMealDetails(curDay, m, "label", calendar))}
+                    {shortenTitle(fillMealDetails(curDay, m, "label", calendar), 25)}
                 </div>
 
             ))}

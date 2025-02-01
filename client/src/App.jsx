@@ -122,6 +122,7 @@ function App() {
     const logedInUserId = localStorage.getItem("curUserId")
     if (logedInUserId) {
       fetchLogedInUser(logedInUserId)
+
     }
   }, [])
 

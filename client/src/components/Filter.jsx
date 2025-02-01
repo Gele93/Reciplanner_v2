@@ -1,6 +1,5 @@
 import React from 'react'
 import "../css/filter.css"
-import { useEffect, useState } from 'react'
 import { APP_ID, APP_KEY } from "../apikey.js"
 
 

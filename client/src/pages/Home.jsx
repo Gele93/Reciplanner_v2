@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Login from "../components/Login/Login.jsx"
+import { shortenTitle } from '../scripts.js';
 import '../css/home.css';
 
 function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLoginHighlight, loginError, setLoginError, setIsLoginHighlight }) {
@@ -17,38 +17,6 @@ function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLogi
         "cabbage", "kale", "sweet potato", "turkey", "bacon",
         "peanut butter", "almond", "walnut", "cucumber", "chickpeas"
     ];
-
-
-    const shortenTitle = (title) => {
-        const maxLength = 25
-        if (title.length < maxLength) {
-            return title
-        }
-
-        const words = title.split(" ")
-        let wordIndex = 0
-        let totalChar = 0
-
-        for (let i = 0; i < words.length; i++) {
-            totalChar += words[i].length + 1
-            if (totalChar > maxLength) {
-                wordIndex = i - 1
-                break
-            }
-        }
-
-        const wordsOfShortTitle = []
-        for (let i = 0; i < wordIndex; i++) {
-            wordsOfShortTitle.push(words[i])
-        }
-
-        let shortenedTitle = wordsOfShortTitle.join(" ")
-        shortenedTitle = shortenedTitle + "..."
-        return shortenedTitle
-
-    }
-
-
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -110,7 +78,7 @@ function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLogi
                             <div className='slide-elements'>
                                 {recipes.map((recipe) => (
                                     <div className='slide-recipe' key={recipe.label} onClick={() => openModal(recipe)}>
-                                        <h2 className='slide-recipe-title'>{shortenTitle(recipe.label)}</h2>
+                                        <h2 className='slide-recipe-title'>{shortenTitle(recipe.label, 20)}</h2>
                                         <img className='slide-recipe-img' src={recipe.image}></img>
                                         <div className='slide-recipe-details'>
                                             <h3 className='slide-recipe-detail'>{recipe.totalTime} mins</h3>

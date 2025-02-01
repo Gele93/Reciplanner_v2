@@ -5,7 +5,7 @@ function Recipe({recipe, openModal, index}) {
 
     return (
         <div className='recipe' key={`${recipe.label}recipes${index}`} onClick={() => openModal(recipe)}>
-            <h2 className='recipe-title'>{shortenTitle(recipe.label)}</h2>
+            <h2 className='recipe-title'>{shortenTitle(recipe.label, 30)}</h2>
             <img className='recipe-img' src={recipe.image}></img>
             <div className='recipe-details'>
                 <h3 className='recipe-detail'>{recipe.totalTime} mins</h3>
