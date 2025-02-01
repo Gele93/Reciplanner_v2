@@ -1,28 +1,28 @@
 import "../css/create.css"
 import { Link } from "react-router-dom"
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext } from "react"
 import { RecipeContext } from "../ContextProvider"
 
 function CreateUser() {
 
     const [username, setUsername] = useState("")
-    const [isUsernameValid, setIsUsernameValid] = useState(true)
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
-    const [isPasswordValid, setIsPasswordValid] = useState(true)
     const [email, setEmail] = useState("")
-    const [isEmailValid, setIsEmailValid] = useState(true)
     const [gender, setGender] = useState("")
-    const [isGenderValid, setIsGenderValid] = useState(true)
     const [age, setAge] = useState(0)
-    const [isAgeValid, setIsAgeValid] = useState(true)
     const [weight, setWeight] = useState(0)
-    const [isWeightValid, setIsWeightValid] = useState(true)
     const [height, setHeight] = useState(0)
-    const [isHeightValid, setIsHeightValid] = useState(true)
     const [profilePic, setProfilePic] = useState("")
 
-    const [allUsers, setAllUsers] = useState([])
+    const [userNameValidity, setUserNameValidity] = useState("")
+    const [passwordValidy, setPasswordValidity] = useState("")
+    const [confirmPasswordValidy, setConfirmPasswordValidity] = useState("")
+    const [emailValidity, setEmailValidity] = useState("")
+    const [ageValidity, setAgeValidity] = useState("")
+    const [weightValidity, setWeightValidity] = useState("")
+    const [HeightValidity, setHeightValidity] = useState("")
+
     const [errorMsg, setErrorMsg] = useState("")
     const [isCreated, setIsCreated] = useState(false)
 
@@ -54,60 +54,17 @@ function CreateUser() {
         }
     }
 
-    const checkValidity = () => {
-        let validity = true
-        if (!username) {
-            setIsUsernameValid(false)
-            validity = false
-        }
-        if (!password) {
-            setIsPasswordValid(false)
-            validity = false
-        }
-        if (!email) {
-            setIsEmailValid(false)
-            validity = false
-        }
-        if (!gender) {
-            setIsGenderValid(false)
-            validity = false
-        }
-        if (!age) {
-            setIsAgeValid(false)
-            validity = false
-        }
-        if (!weight) {
-            setIsWeightValid(false)
-            validity = false
-        }
-        if (!height) {
-            setIsHeightValid(false)
-            validity = false
-        }
-        return validity
-    }
-
     const handleCreateUser = async (e) => {
         e.preventDefault()
         const userToAdd = { username, password, email, gender, age, weight, height, profilePic }
 
-        if (password !== confirmPassword) {
-            setIsPasswordValid(false)
-            setErrorMsg("Password confirmation failed ")
-            return
-        }
+        console.log(userToAdd)
 
         if (checkValidity()) {
             if (await fetchPostUser(userToAdd)) {
-                setIsUsernameValid(true)
-                setIsPasswordValid(true)
-                setIsEmailValid(true)
-                setIsAgeValid(true)
-                setIsWeightValid(true)
-                setIsHeightValid(true)
                 setErrorMsg("")
                 setIsCreated(true)
-                setUser(userToAdd)
+           //     setUser(userToAdd)
             }
         }
     }
@@ -129,26 +86,175 @@ function CreateUser() {
         }
     }
 
+    const checkValidity = () => {
+        let validity = true
+
+        if (!checkUsernameValidity(username)) validity = false
+        if (!checkPasswordValidity(password)) validity = false
+        if (!checkConfirmPasswordValidity(confirmPassword)) validity = false
+        if (!checkEmailValidity(email)) validity = false
+        if (!checkAgeValidity(age)) validity = false
+        if (!checkWeightValidity(weight)) validity = false
+        if (!checkHeightValidity(height)) validity = false
+
+        if (!validity) setErrorMsg("One or more fields are invalid!")
+
+        return validity
+    }
+
+    const checkUsernameValidity = (curUsername) => {
+        if (curUsername.length < 5) {
+            setErrorMsg("Username must be at least 5 characters!")
+            setUserNameValidity("invalid")
+            return false
+        } else {
+            setErrorMsg("")
+            setUserNameValidity("valid")
+            return true
+        }
+    }
+    const handleUsernameChange = (e) => {
+        checkUsernameValidity(e.target.value)
+        setUsername(e.target.value)
+    }
+
+    const checkPasswordValidity = (curPassword) => {
+        if (curPassword.length < 6) {
+            setErrorMsg("Password must be at least 6 characters!")
+            setPasswordValidity("invalid")
+            return false
+        } else {
+            setErrorMsg("")
+            setPasswordValidity("valid")
+            return true
+        }
+    }
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value)
+        checkPasswordValidity(e.target.value)
+    }
+
+    const checkConfirmPasswordValidity = (curConfPassword) => {
+        if (curConfPassword !== password) {
+            setErrorMsg("Passwords are not matching")
+            setConfirmPasswordValidity("invalid")
+            return false
+        } else {
+            setErrorMsg("")
+            setConfirmPasswordValidity("valid")
+            return true
+        }
+    }
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value)
+        checkConfirmPasswordValidity(e.target.value)
+    }
+
+    const checkEmailValidity = (curEmail) => {
+        if (!curEmail.includes("@") || !curEmail.includes(".")) {
+            setErrorMsg("Invalid Email format")
+            setEmailValidity("invalid")
+            return false
+        } else {
+            setErrorMsg("")
+            setEmailValidity("valid")
+            return true
+        }
+    }
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value)
+        checkEmailValidity(e.target.value)
+    }
+
+    const checkAgeValidity = (curAge) => {
+        if (curAge < 1) {
+            setErrorMsg("Please isert valid age")
+            setAgeValidity("invalid")
+            return false
+        } else {
+            setErrorMsg("")
+            setAgeValidity("valid")
+            return true
+        }
+    }
+    const handleAgeChange = (e) => {
+        setAge(e.target.value)
+        checkAgeValidity(e.target.value)
+    }
+
+    const checkWeightValidity = (curWeight) => {
+        if (curWeight < 1) {
+            setErrorMsg("Please isert valid age")
+            setWeightValidity("invalid")
+            return false
+        } else {
+            setErrorMsg("")
+            setWeightValidity("valid")
+            return true
+        }
+    }
+    const handleWeightChange = (e) => {
+        setWeight(e.target.value)
+        checkWeightValidity(e.target.value)
+    }
+
+    const checkHeightValidity = (curHeight) => {
+        if (curHeight < 1) {
+            setErrorMsg("Please isert valid age")
+            setHeightValidity("invalid")
+            return false
+        } else {
+            setErrorMsg("")
+            setHeightValidity("valid")
+            return true
+        }
+    }
+    const handleHeightChange = (e) => {
+        setHeight(e.target.value)
+        checkHeightValidity(e.target.value)
+    }
 
     return (
         <>
             <div className="create">
-                <form onSubmit={(e) => handleCreateUser(e)} className="login-form">
+                <form noValidate onSubmit={(e) => handleCreateUser(e)} className="login-form">
                     <div className="create-form-row">
                         <label htmlFor="username">*Username:</label>
-                        <input className={isUsernameValid ? "" : "invalid"} type="text" id="username" name="username" onChange={(e) => setUsername(e.target.value)} />
+                        <input
+                            className={userNameValidity}
+                            type="text" id="username" name="username"
+                            onChange={(e) => handleUsernameChange(e)}
+                            onFocus={(e) => checkUsernameValidity(e.target.value)}
+                            onBlur={() => setUserNameValidity("")}
+                        />
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="password">*Password:</label>
-                        <input className={isPasswordValid ? "" : "invalid"} type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} />
+                        <input
+                            className={passwordValidy}
+                            type="password" id="password" name="password"
+                            onChange={(e) => handlePasswordChange(e)}
+                            onFocus={(e) => checkPasswordValidity(e.target.value)}
+                            onBlur={() => setPasswordValidity("")}
+                        />
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="confirm-password">*Confirm password:</label>
-                        <input className={isPasswordValid ? "" : "invalid"} type="password" id="confirm-password" name="confirm-password" onChange={(e) => setConfirmPassword(e.target.value)} />
+                        <input className={confirmPasswordValidy}
+                            type="password" id="confirm-password" name="confirm-password"
+                            onChange={(e) => handleConfirmPasswordChange(e)}
+                            onFocus={(e) => checkConfirmPasswordValidity(e.target.value)}
+                            onBlur={() => setConfirmPasswordValidity("")}
+                        />
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="email">*Email:</label>
-                        <input className={isEmailValid ? "" : "invalid"} type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)} />
+                        <input className={emailValidity}
+                            type="email" id="email" name="email"
+                            onChange={(e) => handleEmailChange(e)}
+                            onFocus={(e) => checkEmailValidity(e.target.value)}
+                            onBlur={() => setEmailValidity("")}
+                        />
                     </div>
                     <div className="create-form-row">
                         <div className='radio-title'>*Gender:</div>
@@ -161,15 +267,29 @@ function CreateUser() {
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="age">*Age:</label>
-                        <input className={isAgeValid ? "" : "invalid"} type="number" id="age" name="age" onChange={(e) => setAge(e.target.value)} />
+                        <input className={ageValidity}
+                            type="number" id="age" name="age"
+                            onChange={(e) => handleAgeChange(e)}
+                            onFocus={(e) => checkAgeValidity(e.target.value)}
+                            onBlur={() => setAgeValidity("")}
+                        />
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="weight">*Weight:</label>
-                        <input className={isWeightValid ? "" : "invalid"} type="number" id="weight" name="weight" onChange={(e) => setWeight(e.target.value)} />
+                        <input className={weightValidity}
+                            type="number" id="weight" name="weight"
+                            onChange={(e) => handleWeightChange(e)}
+                            onFocus={(e) => checkWeightValidity(e.target.value)}
+                            onBlur={() => setWeightValidity("")}
+                        />
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="height">*Height:</label>
-                        <input className={isHeightValid ? "" : "invalid"} type="number" id="height" name="height" onChange={(e) => setHeight(e.target.value)} />
+                        <input className={HeightValidity}
+                            type="number" id="height" name="height"
+                            onChange={(e) => handleHeightChange(e)}
+                            onFocus={(e) => checkHeightValidity(e.target.value)}
+                            onBlur={() => setHeightValidity("")} />
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="profile-pic">Profile picture:</label>

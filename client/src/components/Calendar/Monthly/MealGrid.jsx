@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { React } from 'react'
 import { shortenTitle } from '../../../scripts'
 
 function MealGrid({ meals, fillMealDetails, curDay, m, d, calendar, handleFoodClick, getCurFood, hoveredId, setHoveredId }) {
@@ -11,6 +11,8 @@ function MealGrid({ meals, fillMealDetails, curDay, m, d, calendar, handleFoodCl
     const handleMouseLeave = () => {
         setHoveredId(0)
     }
+
+    console.log(calendar)
 
     return (
         <div key={`${d}-${fillMealDetails(curDay, m, "id", calendar)}`} className='meal-container-month'>

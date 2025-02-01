@@ -57,17 +57,38 @@ bottom:0;
 .create-form-row > label {
 width: 60%;
 }
-.create-form-row > input {
-width: 40%;
-}
 .create-form-row > .radio-title {
     text-align: left;
 width: 30%;
 }
-
-.invalid {
-    background-color: rgba(255, 0, 0, 0.192);
+.create-form-row > input {
+width: 40%;
 }
+
+.create-form-row input:focus {
+    outline: none;
+    border: none;
+    background-color: none;
+    background: none;
+}
+
+.create-form-row input.valid:focus{
+    border:  1px #387F39 solid ;
+    background-color: #9cd69d;
+}
+.create-form-row input.invalid:focus{
+    border: 1px rgb(228, 77, 17) solid ;
+    background-color: rgb(226, 144, 112);
+}
+.create-form-row input.valid{
+    border:  1px #387F39 solid ;
+    background-color: #9cd69d;
+}
+.create-form-row input.invalid{
+    border: 1px rgb(228, 77, 17) solid ;
+    background-color: rgb(226, 144, 112);
+}
+
 .error {
     margin-top: 2vh;
     text-align: center;
