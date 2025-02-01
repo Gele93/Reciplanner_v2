@@ -1,13 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import Login from "../components/Login/Login.jsx"
-import { shortenTitle } from '../scripts.js';
+import Slide from '../components/Home/Slide.jsx';
 import '../css/home.css';
 
 function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLoginHighlight, loginError, setLoginError, setIsLoginHighlight }) {
     const [recipes, setRecipes] = useState([]);
     const [randomIngredient, setRandomIngredient] = useState('');
     const [isLoading, setIsLoading] = useState(false)
+
+
 
     const ingredients = [
         "chicken", "beef", "carrot", "broccoli", "tofu", "salmon",
@@ -68,11 +70,25 @@ function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLogi
             <div className="login-container">
                 <h1 className='welcome-title'>Welcome to reciPlanner!</h1>
                 <p className='welcome-msg'> Dive into a culinary journey with reciPlanner, your ultimate tool for meal planning and recipe discovery. Whether you're a seasoned chef or just getting started in the kitchen, our platform is designed to help you organize your meals with ease.</p>
-                <Login isLoginHighlight={isLoginHighlight} loginError={loginError} setLoginError={setLoginError} setIsLoginHighlight={setIsLoginHighlight}/>
+                <Login isLoginHighlight={isLoginHighlight} loginError={loginError} setLoginError={setLoginError} setIsLoginHighlight={setIsLoginHighlight} />
             </div>
             <div className='slide-outter-container'>
-                {isLoading ? <div className='loading'></div> :
-                    <>
+                {isLoading ?
+                    <div className='loading'></div>
+                    :
+                    <Slide randomIngredient={randomIngredient} recipes={recipes} openModal={openModal} />
+                }
+            </div>
+        </div>
+    );
+}
+
+export default Home
+
+
+/*
+
+                    <div className='slide-wraper'>
                         <div className='slide-title'> {`Dishes with ${randomIngredient}`} </div>
                         <div className='slide-container'>
                             <div className='slide-elements'>
@@ -93,11 +109,5 @@ function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLogi
                                 ))}
                             </div>
                         </div>
-                    </>
-                }
-            </div>
-        </div>
-    );
-}
-
-export default Home
+                    </div>
+*/
