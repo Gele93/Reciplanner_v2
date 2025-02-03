@@ -95,3 +95,19 @@ export const fetchLogin = async (loginData) => {
         console.error(error)
     }
 }
+
+export const calculateEndDateOfRecipe = (recipe) => {
+    let daysPassed = 0
+    const startDate = new Date(recipe.startDate)
+    let endDate = new Date(startDate)
+
+    for (let i = 0; i < recipe.yield;) {
+        for (const mealType of recipe.mealTypes) {
+            i++
+        }
+        daysPassed++
+    }
+
+    endDate.setDate(startDate.getDate() + daysPassed)
+    return endDate
+}

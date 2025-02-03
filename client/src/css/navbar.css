@@ -1,3 +1,6 @@
+.header {
+    z-index: 1;
+}
 .navbar {
     display: flex;
     flex-direction: row;
@@ -55,7 +58,6 @@
     flex-direction: column;
     height: 20vh;
     overflow: hidden;
-    z-index: 100;
     animation: slidedown 0.5s;
     box-shadow: 2px 2px 7px black;
 
