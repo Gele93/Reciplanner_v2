@@ -2,10 +2,11 @@ import { React, useState, useEffect } from 'react'
 import "../css/myrecipes.css"
 import SavedRecipe from '../components/MyRecipes/SavedRecipe'
 import ActiveRecipe from '../components/MyRecipes/ActiveRecipe'
-import ConfirmToast from '../components/Toast/ConfirmToast'
+import ConfirmToast from '../components/Toasts/ConfirmToast'
 import { calculateEndDateOfRecipe } from '../scripts'
+import AlertToast from '../components/Toasts/AlertToast'
 
-function MyRecipes({ recipes, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd }) {
+function MyRecipes({ recipes, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, useAlertToast, isAlertToast, alertToastText, setIsAlertToast }) {
 
     const [activeRecipes, setActiveRecipes] = useState([])
     const [isSavedShown, setIsSavedShown] = useState(true)
@@ -58,7 +59,7 @@ function MyRecipes({ recipes, setRecipes, setSelectedRecipe, setIsRecipeModal, s
             });
 
             if (response.ok) {
-                alert('Recipe deleted successfully!');
+                useAlertToast(`${recipe.label} has been deleted!`)
             } else {
                 console.error('Failed to delete recipe');
             }

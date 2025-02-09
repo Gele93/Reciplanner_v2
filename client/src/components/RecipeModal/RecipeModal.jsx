@@ -8,7 +8,7 @@ import Details from './Details';
 import CalendarDetails from './CalendarDetails';
 import Footer from './Footer';
 
-const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calendar, setCalendar }) => {
+const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calendar, setCalendar, useAlertToast, isAlertToast, alertToastText, setIsAlertToast, recipes, setRecipes }) => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [mealTypes, setMealTypes] = useState([]);
   const [servings, setServings] = useState(1);
@@ -45,7 +45,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
       });
 
       if (response.ok) {
-        alert('Recipe added successfully!');
+        useAlertToast(`${recipe.label} added successfully!`);
         const recipeId = await response.json()
         return recipeId
       } else {
@@ -55,6 +55,9 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
       console.error('Error adding recipe:', error);
     } finally {
       handleCloseModal();
+      let updatedRecipes = [...recipes]
+      updatedRecipes.push(recipeToAdd)
+      setRecipes(updatedRecipes)
     }
   };
 
@@ -170,9 +173,8 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
 
     if (checkEditAvailability(recipeToEdit)) {
       await fetchPatchEditedRecipe(recipeToEdit);
-      window.location.reload()
     } else {
-      alert("Editing would cause overlapping")
+      useAlertToast("Editing would cause overlapping")
     }
 
   };
@@ -192,7 +194,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
       recipeToAdd["id"] = addedRecipeId
       updateCalendar(recipeToAdd)
     } else {
-      alert("One or more meals overlapping!")
+      useAlertToast("One or more meals overlapping!")
     }
 
   }
@@ -211,7 +213,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
       });
 
       if (response.ok) {
-        alert('Recipe updated successfully!');
+        useAlertToast(`${recipe.label} updated successfully!`);
       } else {
         console.error('Failed to update recipe');
       }
@@ -219,6 +221,9 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
       console.error('Error updating recipe:', error);
     } finally {
       handleCloseModal();
+      let updatedRecipes = [...recipes]
+      updatedRecipes = updatedRecipes.map(r => r.id === recipe.id ? { ...recipe } : r)
+      setRecipes(updatedRecipes)
     }
   };
 
@@ -233,7 +238,8 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
       });
 
       if (response.ok) {
-        alert('Recipe deleted successfully!');
+        useAlertToast(`${selectedRecipe.label} has been deleted!`)
+        //        alert('Recipe deleted successfully!');
       } else {
         console.error('Failed to delete recipe');
       }
@@ -241,7 +247,10 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
       console.error('Error deleting recipe:', error);
     } finally {
       handleCloseModal();
-      window.location.reload()
+      let updatedRecipes = [...recipes]
+      updatedRecipes = updatedRecipes.filter(r => r.id != selectedRecipe.id)
+      setRecipes(updatedRecipes)
+      //  setIsConfirmToast(false)
     }
   };
 
@@ -323,6 +332,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
           <CalendarModal calendar={calendar} date={date} />
         }
       </div>
+
     </div>
   );
 };

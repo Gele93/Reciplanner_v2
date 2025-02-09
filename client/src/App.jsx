@@ -13,6 +13,7 @@ import MyRecipes from './pages/MyRecipes.jsx';
 import { Link } from 'react-router-dom';
 import { RecipeContext } from "./ContextProvider"
 import EditProfile from './pages/EditProfile.jsx';
+import AlertToast from './components/Toasts/AlertToast.jsx';
 
 
 
@@ -25,11 +26,13 @@ function App() {
   const [recipes, setRecipes] = useState([])
   const [isLoginHighlight, setIsLoginHighlight] = useState(false)
   const [loginError, setLoginError] = useState("")
-
+  const [isAlertToast, setIsAlertToast] = useState(false)
+  const [alertToastText, setAlertToastText] = useState(false)
   const { user, setUser } = useContext(RecipeContext)
 
+
   const updateCalendar = () => {
-    let updatedCalendar = {  }  //deleted {...calendar}
+    let updatedCalendar = {}  //deleted {...calendar}
     recipes.map((recipe) => {
 
       let counter = recipe.yield
@@ -128,6 +131,13 @@ function App() {
     }
   }, [])
 
+
+  const useAlertToast = (alertText) => {
+    setAlertToastText(alertText)
+    setIsAlertToast(true)
+    setTimeout(() => setIsAlertToast(false), 5000);
+  }
+
   //old header title 
   //reci<span className='p'>P</span>lanner
 
@@ -150,12 +160,19 @@ function App() {
           <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
           <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
           <Route path='/calendar-month' element={<CalendarMonth isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
-          <Route path='/my-recipes' element={<MyRecipes recipes={recipes} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} updateCalendar={updateCalendar} />} />
+          <Route path='/my-recipes' element={<MyRecipes recipes={recipes} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} updateCalendar={updateCalendar} useAlertToast={useAlertToast} isAlertToast={isAlertToast} setIsAlertToast={setIsAlertToast} alertToastText={alertToastText} />} />
         </Routes>
-        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
+        {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} useAlertToast={useAlertToast} isAlertToast={isAlertToast} alertToastText={alertToastText} setIsAlertToast={setIsAlertToast} recipes={recipes} setRecipes={setRecipes} />}
         <footer className='footer'>
           <p className='copyright'>&copy; 2024 reciPlanner. All rights reserved.</p>
         </footer>
+        {
+          <AlertToast
+            alertToastText={alertToastText}
+            isAlertToast={isAlertToast}
+            setIsAlertToast={setIsAlertToast}
+          />
+        }
       </div>
     </Router>
   )
