@@ -71,8 +71,6 @@ function App() {
         }
       }
     })
-    console.log(recipes)
-    console.log(updatedCalendar)
     setCalendar(updatedCalendar)
   }
 

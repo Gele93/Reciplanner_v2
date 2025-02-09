@@ -7,8 +7,9 @@ import Description from './Description';
 import Details from './Details';
 import CalendarDetails from './CalendarDetails';
 import Footer from './Footer';
+import ConfirmToast from '../Toasts/ConfirmToast';
 
-const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calendar, setCalendar, useAlertToast, isAlertToast, alertToastText, setIsAlertToast, recipes, setRecipes }) => {
+const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calendar, setCalendar, useAlertToast, recipes, setRecipes }) => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [mealTypes, setMealTypes] = useState([]);
   const [servings, setServings] = useState(1);
@@ -21,6 +22,9 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
   const [adjustedVitaminC, setAdjustedVitaminC] = useState(0)
   const [adjustedIngredients, setAdjustedIngredients] = useState([]);
   const [isCalendarModal, setIsCalendarModal] = useState(false)
+  const [toastText, setToastText] = useState("")
+  const [toastHeader, setToastHeader] = useState("")
+  const [isConfirmToast, setIsConfirmToast] = useState(false)
 
   const { user, setUser } = useContext(RecipeContext)
 
@@ -291,6 +295,10 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
     }
   }, [selectedRecipe, servings])
 
+  useEffect(() => {
+    setToastText(`Would you like to delete ${selectedRecipe.label} from your recipes and calendar?`)
+    setToastHeader(`Deleting ${selectedRecipe.label}`)
+  }, [selectedRecipe])
 
   useEffect(() => {
     if (selectedRecipe && !isRecipeModalAdd) {
@@ -327,12 +335,18 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
             mealTypes={mealTypes}
           />
         </div>
-        <Footer isRecipeModalAdd={isRecipeModalAdd} handleAddRecipe={handleAddRecipe} handleEditRecipe={handleEditRecipe} fetchDeleteRecipe={fetchDeleteRecipe} />
+        <Footer isRecipeModalAdd={isRecipeModalAdd} handleAddRecipe={handleAddRecipe} handleEditRecipe={handleEditRecipe} setIsConfirmToast={setIsConfirmToast} />
         {isCalendarModal &&
           <CalendarModal calendar={calendar} date={date} />
         }
       </div>
-
+      {isConfirmToast &&
+        <ConfirmToast
+          confirmFunction={fetchDeleteRecipe}
+          toastText={toastText}
+          toastHeader={toastHeader}
+          setIsConfirmToast={setIsConfirmToast}
+        />}
     </div>
   );
 };
