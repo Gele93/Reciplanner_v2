@@ -1,9 +1,17 @@
-import React from 'react'
+import { React, useEffect, useState } from 'react'
 
 function SavedRecipe({ recipe }) {
+
     return (
         <div className='saved-recipe'>
-            <img src={recipe.image} alt="Original Image" onError={(e) => e.target.src = "/altfood.png"} />
+            <img
+                src={recipe.image}
+                alt="Recipe"
+                onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/altfood.png"
+                }}
+            />
             <div>{recipe.label}</div>
             <div>{recipe.dietLabels[0]}</div>
             <div>{recipe.totalTime} mins</div>

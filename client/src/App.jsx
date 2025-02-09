@@ -28,9 +28,8 @@ function App() {
 
   const { user, setUser } = useContext(RecipeContext)
 
-
   const updateCalendar = () => {
-    let updatedCalendar = { ...calendar }
+    let updatedCalendar = {  }  //deleted {...calendar}
     recipes.map((recipe) => {
 
       let counter = recipe.yield
@@ -60,7 +59,6 @@ function App() {
               break;
           }
           if (counter > 0) {
-
             updatedCalendar[curDate][mealIndex] = recipe
           }
 
@@ -70,6 +68,8 @@ function App() {
         }
       }
     })
+    console.log(recipes)
+    console.log(updatedCalendar)
     setCalendar(updatedCalendar)
   }
 
@@ -115,6 +115,7 @@ function App() {
   useEffect(() => {
     if (recipes && user) {
       updateCalendar()
+      console.log("calendar updated")
     }
   }, [recipes, user])
 
@@ -122,8 +123,8 @@ function App() {
   useEffect(() => {
     const logedInUserId = localStorage.getItem("curUserId")
     if (logedInUserId) {
+      console.log(logedInUserId)
       fetchLogedInUser(logedInUserId)
-
     }
   }, [])
 
@@ -149,7 +150,7 @@ function App() {
           <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
           <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
           <Route path='/calendar-month' element={<CalendarMonth isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
-          <Route path='/my-recipes' element={<MyRecipes recipes={recipes} setRecipes={setRecipes} />} />
+          <Route path='/my-recipes' element={<MyRecipes recipes={recipes} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} updateCalendar={updateCalendar} />} />
         </Routes>
         {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} />}
         <footer className='footer'>

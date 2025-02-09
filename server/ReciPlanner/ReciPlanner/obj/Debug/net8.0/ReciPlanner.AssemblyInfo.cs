@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReciPlanner")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec8d3f7f78a981e5260820596afa70f048d2b0fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9821156d74e86c1bb5ff380f47a46f1e21bc14b1")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReciPlanner")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReciPlanner")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
