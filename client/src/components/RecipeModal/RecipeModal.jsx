@@ -258,7 +258,6 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
     }
   };
 
-
   const adjustDetails = () => {
     const baseServings = isRecipeModalAdd ? selectedRecipe.yield : selectedRecipe.servings; //Á
     const multiplier = servings / baseServings;  //Á

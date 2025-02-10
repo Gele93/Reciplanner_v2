@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import { RecipeContext } from "./ContextProvider"
 import EditProfile from './pages/EditProfile.jsx';
 import AlertToast from './components/Toasts/AlertToast.jsx';
-
+import { fetchRecipes, fetchLogedInUser } from './scripts.js';
 
 
 function App() {
@@ -67,67 +67,46 @@ function App() {
 
           counter--
           i++
-          // if (i.toString() === counter) break
         }
       }
     })
     setCalendar(updatedCalendar)
   }
 
-  const fetchLogedInUser = async (userId) => {
-    try {
-      const response = await fetch(`https://localhost:7034/User/${userId}`)
-      if (!response.ok) {
-        return null
-      }
-      const user = await response.json()
-      return setUser(user)
-    } catch (error) {
-      console.error(error)
-    }
+  const getRecipes = async () => {
+    const recipes = await fetchRecipes()
+    setRecipes(recipes)
   }
 
-  useEffect(() => {
-    setCalendar({})
-    setRecipes([])
-  }, [user])
+  const getLogedInUser = async (userId) => {
+    const user = await fetchLogedInUser(userId)
+    setUser(user)
+    return user
+  }
+
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await fetch(`https://localhost:7034/Recipes`, {
-          method: "GET",
-          credentials: "include",
-        })
-        if (!response.ok) {
-          throw new Error("fetching recipes went wrong")
-        }
-        const recipes = await response.json()
-        setRecipes(recipes)
-      } catch (error) {
-        console.error(error)
+    const logedInUserId = localStorage.getItem("curUserId")
+    if (logedInUserId) {
+      if (getLogedInUser(logedInUserId)) {
+        localStorage.setItem("curUserId", 0)
       }
     }
+  }, [])
+
+  useEffect(() => {
     if (user) {
-      fetchRecipes()
+      setCalendar({})
+      setRecipes([])
+      getRecipes()
     }
   }, [user])
 
   useEffect(() => {
     if (recipes && user) {
       updateCalendar()
-      console.log("calendar updated")
     }
   }, [recipes, user])
-
-
-  useEffect(() => {
-    const logedInUserId = localStorage.getItem("curUserId")
-    if (logedInUserId) {
-      console.log(logedInUserId)
-      fetchLogedInUser(logedInUserId)
-    }
-  }, [])
 
 
   const useAlertToast = (alertText) => {
@@ -135,9 +114,6 @@ function App() {
     setIsAlertToast(true)
     setTimeout(() => setIsAlertToast(false), 5000);
   }
-
-  //old header title 
-  //reci<span className='p'>P</span>lanner
 
   return (
     <Router>

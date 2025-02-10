@@ -96,6 +96,52 @@ export const fetchLogin = async (loginData) => {
     }
 }
 
+export const fetchLogout = async () => {
+    try {
+        const response = await fetch("https://localhost:7034/User/logout", {
+            method: 'POST',
+            credentials: "include",
+        })
+        if (!response.ok) {
+            throw new Error("Logout went wrong")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const fetchLogedInUser = async (userId) => {
+    try {
+        const response = await fetch(`https://localhost:7034/User/${userId}`, {
+            method: "GET",
+            credentials: "include"
+        })
+        if (!response.ok) {
+            return null
+        }
+        const user = await response.json()
+        return user
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const fetchRecipes = async () => {
+    try {
+        const response = await fetch(`https://localhost:7034/Recipes`, {
+            method: "GET",
+            credentials: "include"
+        })
+        if (!response.ok) {
+            throw new Error("fetching recipes went wrong")
+        }
+        const recipes = await response.json()
+        return recipes
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export const calculateEndDateOfRecipe = (recipe) => {
     let daysPassed = 0
     const startDate = new Date(recipe.startDate)

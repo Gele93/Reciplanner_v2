@@ -8,7 +8,7 @@ function Slide({ randomIngredient, recipes, openModal }) {
             <div className='slide-container'>
                 <div className='slide-elements'>
                     {recipes.map((recipe) => (
-                        <SlidingRecipe recipe={recipe} openModal={openModal} />
+                        <SlidingRecipe  key={recipe.uri} recipe={recipe} openModal={openModal} />
                     ))}
                 </div>
             </div>

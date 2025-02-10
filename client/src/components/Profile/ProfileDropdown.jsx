@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom'
 import React, { useContext } from 'react'
 import { RecipeContext } from '../../ContextProvider'
+import { fetchLogout } from '../../scripts'
 
 function ProfileDropdown({ setIsProfileOpen }) {
 
@@ -8,26 +9,14 @@ function ProfileDropdown({ setIsProfileOpen }) {
 
     const navigate = useNavigate()
 
-    const fetchLogout = async () => {
-        try {
-            const response = await fetch("https://localhost:7034/User/logout", {
-                method: 'POST',
-                credentials: "include",
-            })
-            if (!response.ok) {
-                throw new Error("Logout went wrong")
-            }
-        } catch (error) {
-            console.error(error)
-        }
-    }
+
 
     const handleLogout = async () => {
         await fetchLogout()
         setUser("")
         setIsProfileOpen(false)
         navigate("/")
-        localStorage.setItem("curUserId", "")
+        localStorage.setItem("curUserId", 0)
     }
 
     return (

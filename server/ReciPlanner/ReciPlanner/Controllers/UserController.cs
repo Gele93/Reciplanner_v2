@@ -97,6 +97,7 @@ namespace ReciPlanner.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet("{userId}")]
         public IActionResult GetUserById(int userId)
         {
