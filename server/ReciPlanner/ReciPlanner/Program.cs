@@ -30,7 +30,7 @@ namespace ReciPlanner
         options.LogoutPath = "/User/logout"; 
         options.Cookie.HttpOnly = true; // Prevent client-side script access to the cookie
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Enforce HTTPS-only cookies in production
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+        options.ExpireTimeSpan = TimeSpan.FromHours(24);
         options.SlidingExpiration = true;
         options.Cookie.SameSite = SameSiteMode.None;
     });

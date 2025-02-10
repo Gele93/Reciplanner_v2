@@ -88,7 +88,7 @@ function App() {
   useEffect(() => {
     const logedInUserId = localStorage.getItem("curUserId")
     if (logedInUserId) {
-      if (getLogedInUser(logedInUserId)) {
+      if (!getLogedInUser(logedInUserId)) {
         localStorage.setItem("curUserId", 0)
       }
     }
