@@ -1,10 +1,10 @@
 import React from 'react'
 import { shortenTitle } from '../../scripts'
 
-function Recipe({recipe, openModal, index}) {
+function Recipe({recipe, openAddModal, index}) {
 
     return (
-        <div className='recipe' key={`${recipe.label}recipes${index}`} onClick={() => openModal(recipe)}>
+        <div className='recipe' key={`${recipe.label}recipes${index}`} onClick={() => openAddModal(recipe)}>
             <h2 className='recipe-title'>{shortenTitle(recipe.label, 30)}</h2>
             <img className='recipe-img' src={recipe.image}></img>
             <div className='recipe-details'>

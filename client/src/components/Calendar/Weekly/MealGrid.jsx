@@ -1,11 +1,7 @@
 import React from 'react'
 import { shortenTitle } from '../../../scripts'
 
-function MealGrid({ day, meal, hoveredId, handleFoodClick, curFood, handleMouseOver, handleMouseLeave, fillMealDetails, calendar
-
- }) {
-
-
+function MealGrid({ day, meal, hoveredId, handleFoodClick, curFood, handleMouseOver, handleMouseLeave, fillMealDetails, calendar }) {
     return (
         <div key={`${day}${meal}`}
             className={`${meal} food ${fillMealDetails(day, meal, "id", calendar) === hoveredId && "hovered-recipe"} `}

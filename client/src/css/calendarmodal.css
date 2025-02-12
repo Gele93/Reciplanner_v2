@@ -146,9 +146,9 @@
     font-weight: 700;
 }
 
-.hovered-recipe-month {        
+.hovered {        
     background-color: #387f39;
-    border: solid 1px #387f39;
+    border: solid 1px #bfdc747e;
 }
 
 .day-date-modal {

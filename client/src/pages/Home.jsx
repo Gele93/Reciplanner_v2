@@ -4,7 +4,7 @@ import Login from "../components/Login/Login.jsx"
 import Slide from '../components/Home/Slide.jsx';
 import '../css/home.css';
 
-function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLoginHighlight, loginError, setLoginError, setIsLoginHighlight }) {
+function Home({ openAddModal, isLoginHighlight, loginError, setLoginError, setIsLoginHighlight }) {
     const [recipes, setRecipes] = useState([]);
     const [randomIngredient, setRandomIngredient] = useState('');
     const [isLoading, setIsLoading] = useState(false)
@@ -59,12 +59,6 @@ function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLogi
         fetchRecipes();
     }, []);
 
-    const openModal = (recipe) => {
-        setSelectedRecipe(recipe);
-        setIsRecipeModalAdd(true);
-        setIsRecipeModal(true);
-    };
-
     return (
         <div className='home'>
             <div className="login-container">
@@ -76,7 +70,7 @@ function Home({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe, isLogi
                 {isLoading ?
                     <div className='loading'></div>
                     :
-                    <Slide randomIngredient={randomIngredient} recipes={recipes} openModal={openModal} />
+                    <Slide randomIngredient={randomIngredient} recipes={recipes} openAddModal={openAddModal} />
                 }
             </div>
         </div>

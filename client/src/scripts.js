@@ -112,7 +112,6 @@ export const fetchLogout = async () => {
 
 export const fetchLogedInUser = async (userId) => {
     try {
-        console.log(userId)
         const response = await fetch(`https://localhost:7034/User/${userId}`, {
             method: "GET",
             credentials: "include"

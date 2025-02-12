@@ -28,6 +28,8 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
 
   const { user, setUser } = useContext(RecipeContext)
 
+  console.log(date)
+
   const handleCloseModal = () => {
     setIsRecipeModal(false);
   };
@@ -336,7 +338,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
         </div>
         <Footer isRecipeModalAdd={isRecipeModalAdd} handleAddRecipe={handleAddRecipe} handleEditRecipe={handleEditRecipe} setIsConfirmToast={setIsConfirmToast} />
         {isCalendarModal &&
-          <CalendarModal calendar={calendar} date={date} />
+          <CalendarModal calendar={calendar} date={date} hoveredId={selectedRecipe.id} setIsCalendarModal={setIsCalendarModal} />
         }
       </div>
       {isConfirmToast &&

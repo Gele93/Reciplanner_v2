@@ -3,7 +3,7 @@ import "../../css/recipelist.css"
 import Recipe from './Recipe'
 import PageButtons from './PageButtons'
 
-function RecipeList({ setSelectedRecipe, filteredRecepies, setIsRecipeModal, setIsRecipeModalAdd }) {
+function RecipeList({ filteredRecepies, openAddModal }) {
 
   const [recipesPerPages, setRecipesPerPages] = useState({})
   const [curPage, setCurPage] = useState(0)
@@ -62,17 +62,11 @@ function RecipeList({ setSelectedRecipe, filteredRecepies, setIsRecipeModal, set
     setCurPage(p - 1)
   }
 
-  const openModal = (recipe) => {
-    setSelectedRecipe(recipe);
-    setIsRecipeModalAdd(true);
-    setIsRecipeModal(true);
-  };
-
   return (
     <div className='recipe-list-container'>
       {recipesPerPages[curPage] &&
         recipesPerPages[curPage].map((recipe, i) => (
-          <Recipe recipe={recipe} openModal={openModal} index={i} />
+          <Recipe recipe={recipe} openAddModal={openAddModal} index={i} />
         ))}
       <div className='pages'>
         {recipesPerPages[curPage] &&

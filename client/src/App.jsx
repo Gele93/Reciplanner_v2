@@ -115,6 +115,18 @@ function App() {
     setTimeout(() => setIsAlertToast(false), 5000);
   }
 
+  const openAddModal = (recipe) => {
+    setSelectedRecipe(recipe);
+    setIsRecipeModalAdd(true);
+    setIsRecipeModal(true);
+  };
+
+  const openEditModal = (recipe) => {
+    setIsRecipeModal(true)
+    setIsRecipeModalAdd(false)
+    setSelectedRecipe(recipe)
+  }
+
   return (
     <Router>
       <div className='app'>
@@ -128,13 +140,13 @@ function App() {
           <Profile />
         </header>
         <Routes>
-          <Route path='/' element={<Home isLoginHighlight={isLoginHighlight} setIsLoginHighlight={setIsLoginHighlight} loginError={loginError} setLoginError={setLoginError} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} setSelectedRecipe={setSelectedRecipe} />} />
+          <Route path='/' element={<Home openAddModal={openAddModal} isLoginHighlight={isLoginHighlight} setIsLoginHighlight={setIsLoginHighlight} loginError={loginError} setLoginError={setLoginError}/>} />
           <Route path='/create-user' element={<CreateUser />} />
           <Route path='/edit-profile/:userid' element={<EditProfile />} />
-          <Route path='/recipes' element={<Recipes setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />} />
+          <Route path='/recipes' element={<Recipes openAddModal={openAddModal} />} />
           <Route path='/calendar' element={<Calendar isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
           <Route path='/calendar-month' element={<CalendarMonth isRecipeModal={isRecipeModal} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} calendar={calendar} setCalendar={setCalendar} />} />
-          <Route path='/my-recipes' element={<MyRecipes recipes={recipes} setRecipes={setRecipes} setSelectedRecipe={setSelectedRecipe} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} updateCalendar={updateCalendar} useAlertToast={useAlertToast} isAlertToast={isAlertToast} setIsAlertToast={setIsAlertToast} alertToastText={alertToastText} />} />
+          <Route path='/my-recipes' element={<MyRecipes recipes={recipes} calendar={calendar} setRecipes={setRecipes} updateCalendar={updateCalendar} useAlertToast={useAlertToast} openEditModal={openEditModal} openAddModal={openAddModal} />} />
         </Routes>
         {isRecipeModal && <RecipeModal isRecipeModal={isRecipeModal} isRecipeModalAdd={isRecipeModalAdd} setIsRecipeModal={setIsRecipeModal} selectedRecipe={selectedRecipe} calendar={calendar} setCalendar={setCalendar} useAlertToast={useAlertToast} isAlertToast={isAlertToast} alertToastText={alertToastText} setIsAlertToast={setIsAlertToast} recipes={recipes} setRecipes={setRecipes} />}
         <footer className='footer'>

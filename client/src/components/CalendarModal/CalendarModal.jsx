@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import MealGrid from './MealGrid'
+import { fillMealDetails } from '../../scripts'
 import "../../css/calendarmodal.css"
 
 
-function CalendarModal({ calendar, date }) {
+function CalendarModal({ calendar, date, hoveredId, setIsCalendarModal }) {
 
     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     const meals = ["breakfast", "lunch", "dinner"]
@@ -30,8 +31,8 @@ function CalendarModal({ calendar, date }) {
 
     }, [date])
 
+    /*
     const fillMealDetails = (curDate, curMeal, curKey) => {
-
         let mealIndex = 0
 
         switch (curMeal) {
@@ -56,9 +57,11 @@ function CalendarModal({ calendar, date }) {
 
         return false
     }
+*/
+
 
     return (
-        <div className='calendar-modal'>
+        <div className='calendar-modal' onMouseOver={() => setIsCalendarModal(true)} onMouseOut={() => setIsCalendarModal(false)}>
             <div className='days-of-week-modal'>
                 <div className='meal-type-labels-modal'>
                     <div className='top-left-corner'>Week of {date} </div>
@@ -71,13 +74,14 @@ function CalendarModal({ calendar, date }) {
                         <div className='day-date-modal'>{d}</div>
                         <div className='day-title-modal'>{daysOfWeek[i]}</div>
                         {meals.map((m, i) => (
-                            fillMealDetails(d, m, "label") ? (
+                            fillMealDetails(d, m, "label", calendar) ? (
                                 <MealGrid
                                     day={d}
                                     meal={m}
-                                    image={fillMealDetails(d, m, "image")}
-                                    calories={fillMealDetails(d, m, "calories")}
-                                    caloriesPerServing={fillMealDetails(d, m, "caloriesPerServing")}
+                                    isHovered={hoveredId === fillMealDetails(d, m, "id", calendar)}
+                                    image={fillMealDetails(d, m, "image", calendar)}
+                                    calories={fillMealDetails(d, m, "calories", calendar)}
+                                    caloriesPerServing={fillMealDetails(d, m, "caloriesPerServing", calendar)}
                                 />
                             ) : (
                                 <div key={`${d}${m}`}></div>
@@ -92,18 +96,3 @@ function CalendarModal({ calendar, date }) {
 }
 
 export default CalendarModal
-
-
-
-/*
-                                <div key={`${d}${m}`} className={`${m}-modal food-modal`}>
-
-
-                                    {fillMealDetails(d, m, "image") &&
-                                        <img className='food-img-modal' src={fillMealDetails(d, m, "image")} onError={(e) => e.target.src = "/altfood.png"} />
-                                    }
-                                    {fillMealDetails(d, m, "calories") &&
-                                        <div className='food-kcal-modal'>{fillMealDetails(d, m, "caloriesPerServing")} kcal</div>
-                                    }
-                                </div>
-*/

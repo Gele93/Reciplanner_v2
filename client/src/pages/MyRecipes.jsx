@@ -4,9 +4,8 @@ import SavedRecipe from '../components/MyRecipes/SavedRecipe'
 import ActiveRecipe from '../components/MyRecipes/ActiveRecipe'
 import ConfirmToast from '../components/Toasts/ConfirmToast'
 import { calculateEndDateOfRecipe } from '../scripts'
-import AlertToast from '../components/Toasts/AlertToast'
 
-function MyRecipes({ recipes, setRecipes, setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, useAlertToast, isAlertToast, alertToastText, setIsAlertToast }) {
+function MyRecipes({ recipes, calendar, setRecipes, useAlertToast, openAddModal, openEditModal }) {
 
     const [activeRecipes, setActiveRecipes] = useState([])
     const [isSavedShown, setIsSavedShown] = useState(true)
@@ -102,15 +101,17 @@ function MyRecipes({ recipes, setRecipes, setSelectedRecipe, setIsRecipeModal, s
                     {
                         isSavedShown ?
                             recipes.map(recipe => (
-                                <SavedRecipe key={recipe.id} recipe={recipe} />
+                                <SavedRecipe key={recipe.id}
+                                    recipe={recipe}
+                                    openAddModal={openAddModal}
+                                />
                             ))
                             :
                             activeRecipes.map(recipe => (
                                 <ActiveRecipe key={recipe.id}
                                     recipe={recipe}
-                                    setSelectedRecipe={setSelectedRecipe}
-                                    setIsRecipeModal={setIsRecipeModal}
-                                    setIsRecipeModalAdd={setIsRecipeModalAdd}
+                                    calendar={calendar}
+                                    openEditModal={openEditModal}
                                     isConfirmToast={isConfirmToast}
                                     setIsConfirmToast={setIsConfirmToast}
                                     setRecipeToDelete={setRecipeToDelete}

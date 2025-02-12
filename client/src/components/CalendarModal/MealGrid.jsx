@@ -1,8 +1,10 @@
 import React from 'react'
 
-function MealGrid({ meal, day, image, calories, caloriesPerServing }) {
+function MealGrid({ meal, day, image, calories, caloriesPerServing, isHovered }) {
+
+
     return (
-        <div key={`${day}${meal}`} className={`${meal}-modal food-modal`}>
+        <div key={`${day}${meal}`} className={`${meal}-modal food-modal ${isHovered ? "hovered" : ""}`}>
             {image &&
                 <img className='food-img-modal' src={image} onError={(e) => e.target.src = "/altfood.png"} />
             }

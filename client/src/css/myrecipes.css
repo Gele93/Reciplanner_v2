@@ -121,7 +121,14 @@
 /*ACTIVE-RECIPE*/
 .active-recipe {
     display: grid;
-    grid-template-columns: 6vw 23vw repeat(4, 12vw);
+    grid-template-columns: 6vw 21vw repeat(5, 10vw);
+    justify-content: center;
+    align-items: center;
+}
+
+.active-recipe .calendar-modal-div {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }

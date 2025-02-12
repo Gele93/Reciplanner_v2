@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react'
 
-function SavedRecipe({ recipe }) {
+function SavedRecipe({ recipe, openAddModal }) {
 
     return (
         <div className='saved-recipe'>
@@ -17,7 +17,7 @@ function SavedRecipe({ recipe }) {
             <div>{recipe.totalTime} mins</div>
             <div>{recipe.caloriesPerServing} cal</div>
             <div>
-                <button className='add'>Add to calendar</button>
+                <button onClick={() => openAddModal(recipe)}  className='add'>Add to calendar</button>
             </div>
         </div>
     )

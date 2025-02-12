@@ -5,7 +5,7 @@ import RecipeList from '../components/Recipes/RecipeList'
 import { useEffect, useState } from 'react'
 
 
-function Recipes({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe  }) {
+function Recipes({ openAddModal  }) {
     const [name, setName] = useState(``)
     const [filteredRecepies, setfilteredRecepies] = useState([])
     const [calories, setCalories] = useState(``)
@@ -24,7 +24,7 @@ function Recipes({ setIsRecipeModal, setIsRecipeModalAdd, setSelectedRecipe  }) 
                 filteredRecepies={filteredRecepies} setfilteredRecepies={setfilteredRecepies}
                 setMealType={setMealType} setHealth={setHealth}
             />
-            <RecipeList setSelectedRecipe={setSelectedRecipe} filteredRecepies={filteredRecepies} setIsRecipeModal={setIsRecipeModal} setIsRecipeModalAdd={setIsRecipeModalAdd} />
+            <RecipeList openAddModal={openAddModal} />
         </div>
     )
 }

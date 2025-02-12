@@ -1,9 +1,9 @@
 import React from 'react'
 import { shortenTitle } from '../../scripts'
 
-function SlidingRecipe({recipe, openModal}) {
+function SlidingRecipe({recipe, openAddModal}) {
     return (
-        <div className='slide-recipe' onClick={() => openModal(recipe)}>
+        <div className='slide-recipe' onClick={() => openAddModal(recipe)}>
             <h2 className='slide-recipe-title'>{shortenTitle(recipe.label, 20)}</h2>
             <img className='slide-recipe-img' src={recipe.image}></img>
             <div className='slide-recipe-details'>
