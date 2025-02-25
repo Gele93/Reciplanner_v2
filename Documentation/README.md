@@ -1,19 +1,20 @@
 # Reciplanner Documentation
 
-## 1. Project Overview
+## Project Overview
 **Name:** Reciplanner  
+
 **Description:**  
 The project was originally a MERN project, which later got modified to ASP.NET core backend, and Postgresql database.
 The app also got extended features in the change.
 
 *Disclaimer: The project was started in an earlier phase of my studies, not being familar with proper version control & github usage.*
 
-### Main features: 
--Choose recipes from external API
--Save recipe with desired date, mealtype, servings amount into local sql db
--Track your calendar of planned food
--Weekly / Monthly calendar
--Edit & delete saved recipes
+##  1. Main features: 
+- Choose recipes from external API
+- Save recipe with desired date, mealtype, servings amount into local sql db
+- Track your calendar of planned food
+- Weekly / Monthly calendar
+- Edit & delete saved recipes
 
 ## 2. Technology Stack
 - **Frontend:** React, Vite
@@ -22,8 +23,7 @@ The app also got extended features in the change.
 
 ## 3. Installation and Running
 
-### 3.0. Github repo
-https://github.com/Gele93/Reciplanner_v2.git
+- **Github repo:** https://github.com/Gele93/Reciplanner_v2.git
 
 ### 3.1. Prerequisites
 - Node.js & npm
@@ -71,7 +71,7 @@ The project is built with an **MVC-based backend** and a **component-based front
 - **Create a branch**
 - **Submit a PR**
 
-## 10. Contact
+## 8. Contact
 Developer: **[Gelecsák Tamás]**  
 Email: **[gelecsak.tamas@gmail.com]**  
 LinkedIn: **[https://www.linkedin.com/in/tamasgelecsak]**
