@@ -5,12 +5,15 @@
 **Description:**  
 The project was originally a MERN project, which later got modified to ASP.NET core backend, and Postgresql database.
 The app also got extended features in the change.
-**Main features:** 
-    -Choose recipes from external API
-    -Save recipe with desired date, mealtype, servings amount into local sql db
-    -Track your calendar of planned food
-    -Weekly / Monthly calendar
-    -Edit & delete saved recipes
+
+*Disclaimer: The project was started in an earlier phase of my studies, not being familar with proper version control & github usage.*
+
+### Main features: 
+-Choose recipes from external API
+-Save recipe with desired date, mealtype, servings amount into local sql db
+-Track your calendar of planned food
+-Weekly / Monthly calendar
+-Edit & delete saved recipes
 
 ## 2. Technology Stack
 - **Frontend:** React, Vite
