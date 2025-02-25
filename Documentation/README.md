@@ -58,10 +58,10 @@ run CreateDatabase.sql
 The project is built with an **MVC-based backend** and a **component-based frontend**.
 
 ## 6. Database Structure (SQL)
-**Users**
-**Recipes**
-*sub-tables* 
-*sub-tables-to-recipes* -> many-to-many relationship 
+- **Users**
+- **Recipes**
+- *sub-tables* 
+- *sub-tables-to-recipes* -> many-to-many relationship 
 
 ## 7. Contribution
 - **Fork the repo**
