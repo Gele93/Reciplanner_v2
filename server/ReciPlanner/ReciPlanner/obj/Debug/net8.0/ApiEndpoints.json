@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "ReciPlanner.Controllers.RecipesController",
+    "ContainingType": "ReciPlanner.Controllers.Recipes.RecipesController",
     "Method": "CreateRecipe",
     "RelativePath": "Recipes",
     "HttpMethod": "POST",
@@ -9,14 +9,14 @@
     "Parameters": [
       {
         "Name": "Recipe",
-        "Type": "ReciPlanner.Models.Recipe",
+        "Type": "ReciPlanner.Models.Recipes.Recipe",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.RecipesController",
+    "ContainingType": "ReciPlanner.Controllers.Recipes.RecipesController",
     "Method": "GetRecipes",
     "RelativePath": "Recipes",
     "HttpMethod": "GET",
@@ -26,7 +26,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.RecipesController",
+    "ContainingType": "ReciPlanner.Controllers.Recipes.RecipesController",
     "Method": "PatchRecipe",
     "RelativePath": "Recipes/{recipeId}",
     "HttpMethod": "PATCH",
@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "recipe",
-        "Type": "ReciPlanner.Models.Recipe",
+        "Type": "ReciPlanner.Models.Recipes.Recipe",
         "IsRequired": true
       },
       {
@@ -47,7 +47,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.RecipesController",
+    "ContainingType": "ReciPlanner.Controllers.Recipes.RecipesController",
     "Method": "DeleteRecipe",
     "RelativePath": "Recipes/{recipeId}",
     "HttpMethod": "DELETE",
@@ -63,7 +63,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.UserController",
+    "ContainingType": "ReciPlanner.Controllers.Users.UserController",
     "Method": "GetUserById",
     "RelativePath": "User/{userId}",
     "HttpMethod": "GET",
@@ -79,7 +79,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.UserController",
+    "ContainingType": "ReciPlanner.Controllers.Users.UserController",
     "Method": "UpdateUser",
     "RelativePath": "User/{userId}",
     "HttpMethod": "PATCH",
@@ -87,8 +87,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "updatedUser",
-        "Type": "ReciPlanner.Models.User",
+        "Name": "user",
+        "Type": "ReciPlanner.Models.Users.CreateUserData",
         "IsRequired": true
       },
       {
@@ -100,7 +100,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.UserController",
+    "ContainingType": "ReciPlanner.Controllers.Users.UserController",
     "Method": "Login",
     "RelativePath": "User/login",
     "HttpMethod": "POST",
@@ -109,14 +109,14 @@
     "Parameters": [
       {
         "Name": "loginData",
-        "Type": "ReciPlanner.Models.LoginData",
+        "Type": "ReciPlanner.Models.Users.LoginData",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.UserController",
+    "ContainingType": "ReciPlanner.Controllers.Users.UserController",
     "Method": "Logout",
     "RelativePath": "User/logout",
     "HttpMethod": "POST",
@@ -126,7 +126,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.UserController",
+    "ContainingType": "ReciPlanner.Controllers.Users.UserController",
     "Method": "UploadProfilePic",
     "RelativePath": "User/profilepic",
     "HttpMethod": "POST",
@@ -142,7 +142,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ReciPlanner.Controllers.UserController",
+    "ContainingType": "ReciPlanner.Controllers.Users.UserController",
     "Method": "Register",
     "RelativePath": "User/register",
     "HttpMethod": "POST",
@@ -151,7 +151,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "ReciPlanner.Models.User",
+        "Type": "ReciPlanner.Models.Users.CreateUserData",
         "IsRequired": true
       }
     ],

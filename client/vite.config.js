@@ -7,17 +7,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:7034', // Your ASP.NET backend URL
+        target: 'https://localhost:7034',
+        rewrite: (path) => path.replace(/^\/api/, ''),
         changeOrigin: true,
-        secure: false, // Set to false if using self-signed certificates
+        secure: false,
       }
-      /*,
-      "/static": {
-        target: "http://localhost:7034",
-        changeOrigin: true,
-        secure: false, // Set to false if using self-signed certificates
-      } 
-        */
     },
   }
 })

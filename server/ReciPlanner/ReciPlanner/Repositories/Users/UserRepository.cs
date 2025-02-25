@@ -1,17 +1,22 @@
 ﻿using Npgsql;
-using ReciPlanner.Models;
+using ReciPlanner.Models.Users;
 using System.Data;
 
-namespace ReciPlanner.Repositories
+namespace ReciPlanner.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {
-        const string _connectionString = "Server = localhost; Username=postgres;Database=reciplanner;Port=5432;Password=admin;SSLMode=Prefer";
+        private string _connectionString;
 
-        public void Create(User user)
+        public UserRepository(IConfiguration config)
         {
-            string query = $@"INSERT INTO users (username, password, email, gender, age, weight, height, profile_pic)
-                              VALUES (@username, @password, @email, @gender, @age, @weight, @height, @profile_pic)";
+            _connectionString = config["ConnectionStrings:Postgres"];
+        }
+
+        public void Create(CreateUserDto user)
+        {
+            string query = $@"INSERT INTO users (username, password, email, gender, age, weight, height, profile_pic, salt)
+                              VALUES (@username, @password, @email, @gender, @age, @weight, @height, @profile_pic, @salt)";
 
             using (var connection = new NpgsqlConnection(_connectionString))
             {
@@ -20,13 +25,14 @@ namespace ReciPlanner.Repositories
                 var command = new NpgsqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("username", user.Username);
-                command.Parameters.AddWithValue("password", user.Password);
+                command.Parameters.AddWithValue("password", user.PasswordHash);
                 command.Parameters.AddWithValue("email", user.Email);
                 command.Parameters.AddWithValue("gender", user.Gender);
                 command.Parameters.AddWithValue("age", user.Age);
                 command.Parameters.AddWithValue("weight", user.Weight);
                 command.Parameters.AddWithValue("height", user.Height);
                 command.Parameters.AddWithValue("profile_pic", user.ProfilePic);
+                command.Parameters.AddWithValue("salt", user.Salt);
 
                 command.ExecuteNonQuery();
             }
@@ -57,8 +63,9 @@ namespace ReciPlanner.Repositories
                         int weight = reader.GetInt32("weight");
                         int height = reader.GetInt32("height");
                         string profile_pic = reader.GetString("profile_pic");
+                        byte[] salt = reader["salt"] as byte[];
 
-                        users.Add(new(user_id, username, password, email, gender, age, weight, height, profile_pic));
+                        users.Add(new(user_id, username, password, email, gender, age, weight, height, profile_pic, salt));
                     }
                 }
 
@@ -90,8 +97,9 @@ namespace ReciPlanner.Repositories
                         int weight = reader.GetInt32("weight");
                         int height = reader.GetInt32("height");
                         string profile_pic = reader.GetString("profile_pic");
+                        byte[] salt = reader["salt"] as byte[];
 
-                        return new(user_id, username, password, email, gender, age, weight, height, profile_pic);
+                        return new(user_id, username, password, email, gender, age, weight, height, profile_pic, salt);
                     }
                 }
                 return null;
@@ -121,8 +129,9 @@ namespace ReciPlanner.Repositories
                         int weight = reader.GetInt32("weight");
                         int height = reader.GetInt32("height");
                         string profile_pic = reader.GetString("profile_pic");
+                        byte[] salt = reader["salt"] as byte[];
 
-                        return new(user_id, username, password, email, gender, age, weight, height, profile_pic);
+                        return new(user_id, username, password, email, gender, age, weight, height, profile_pic, salt);
                     }
                 }
                 return null;
@@ -152,10 +161,10 @@ namespace ReciPlanner.Repositories
             }
         }
 
-        public void Update(User user, int userId)
+        public void Update(CreateUserDto user, int userId)
         {
             string query = $@"UPDATE users 
-                              SET username = @username, password = @password, email = @email, gender = @gender, age = @age, weight = @weight, height = @height, profile_pic = @profile_pic
+                              SET username = @username, password = @password, email = @email, gender = @gender, age = @age, weight = @weight, height = @height, profile_pic = @profile_pic, salt = @salt
                               WHERE user_id = @userId ";
 
             using (var connection = new NpgsqlConnection(_connectionString))
@@ -165,13 +174,14 @@ namespace ReciPlanner.Repositories
                 var command = new NpgsqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("username", user.Username);
-                command.Parameters.AddWithValue("password", user.Password);
+                command.Parameters.AddWithValue("password", user.PasswordHash);
                 command.Parameters.AddWithValue("email", user.Email);
                 command.Parameters.AddWithValue("gender", user.Gender);
                 command.Parameters.AddWithValue("age", user.Age);
                 command.Parameters.AddWithValue("weight", user.Weight);
                 command.Parameters.AddWithValue("height", user.Height);
                 command.Parameters.AddWithValue("profile_pic", user.ProfilePic);
+                command.Parameters.AddWithValue("salt", user.Salt);
                 command.Parameters.AddWithValue("userId", userId);
 
                 command.ExecuteNonQuery();

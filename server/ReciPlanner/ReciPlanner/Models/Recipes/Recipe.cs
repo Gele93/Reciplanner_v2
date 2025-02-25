@@ -1,6 +1,4 @@
-﻿using ReciPlanner.Models.Nutritions;
-
-namespace ReciPlanner.Models
+﻿namespace ReciPlanner.Models.Recipes
 {
     public class Recipe
     {

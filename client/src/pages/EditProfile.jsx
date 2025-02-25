@@ -8,8 +8,8 @@ function EditProfile() {
     const { user, setUser } = useContext(RecipeContext)
 
     const [username, setUsername] = useState(user?.username ?? "")
-    const [password, setPassword] = useState(user?.password ?? "")
-    const [confirmPassword, setConfirmPassword] = useState(user?.password ?? "")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [email, setEmail] = useState(user?.email ?? "")
     const [gender, setGender] = useState(user?.gender ?? "")
     const [age, setAge] = useState(user?.age ?? 0)
@@ -32,8 +32,6 @@ function EditProfile() {
 
     useEffect(() => {
         setUsername(user.username)
-        setPassword(user.password)
-        setConfirmPassword(user.password)
         setEmail(user.email)
         setGender(user.gender)
         setAge(user.age)
@@ -246,7 +244,7 @@ function EditProfile() {
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="password">*Password:</label>
-                        <input defaultValue={user.password}
+                        <input 
                             type="password" id="password" name="password"
                             className={passwordValidy}
                             onChange={(e) => handlePasswordChange(e)}
@@ -256,7 +254,7 @@ function EditProfile() {
                     </div>
                     <div className="create-form-row">
                         <label htmlFor="confirm-password">*Confirm password:</label>
-                        <input defaultValue={user.password}
+                        <input 
                             type="password" id="confirm-password" name="confirm-password"
                             className={confirmPasswordValidy}
                             onChange={(e) => handleConfirmPasswordChange(e)}

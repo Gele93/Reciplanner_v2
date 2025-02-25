@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/VfIXvo6rUxYU5YRdt5HZJeDjxcE4B7KokHRKOBbojQ=",
+  "Hash": "K1KinT5LEZTSqRpsI9oMKjdX1/A4ZdqmLHm5VXCcZ/0=",
   "Source": "ReciPlanner",
   "BasePath": "_content/ReciPlanner",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\1edaef96-6c9f-4e5c-aa35-55b7a1cd974c_Ash.png",
+      "SourceId": "ReciPlanner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\",
+      "BasePath": "_content/ReciPlanner",
+      "RelativePath": "uploads/1edaef96-6c9f-4e5c-aa35-55b7a1cd974c_Ash.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\1edaef96-6c9f-4e5c-aa35-55b7a1cd974c_Ash.png"
+    },
     {
       "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\2c74404b-92c0-488e-9cff-480ea0cdf8a7_profil.jpg",
       "SourceId": "ReciPlanner",
@@ -110,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\6425b0a3-51b7-4d31-819f-77a74b66e2fc_Durallo2png.png"
+    },
+    {
+      "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\97bc2a18-a3ed-4a72-adf2-0fd734737bfb_profil.jpg",
+      "SourceId": "ReciPlanner",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\",
+      "BasePath": "_content/ReciPlanner",
+      "RelativePath": "uploads/97bc2a18-a3ed-4a72-adf2-0fd734737bfb_profil.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\97bc2a18-a3ed-4a72-adf2-0fd734737bfb_profil.jpg"
     },
     {
       "Identity": "D:\\Gele\\Codecool\\practices\\ReciPlanner asp+react\\freestyle-mern-project-react-Gele93\\server\\ReciPlanner\\ReciPlanner\\wwwroot\\uploads\\b55feb5a-6a5f-4f96-b3df-3716ed947f41_traced-letöltés.jfif",

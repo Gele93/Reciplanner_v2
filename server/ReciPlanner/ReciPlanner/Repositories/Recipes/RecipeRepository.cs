@@ -2,18 +2,18 @@
 using Npgsql;
 using System;
 using System.Data;
-using ReciPlanner.Models;
 using System.ComponentModel;
-using ReciPlanner.Models.Nutritions;
+using ReciPlanner.Models.Recipes;
 
-namespace ReciPlanner.Repositories
+namespace ReciPlanner.Repositories.Recipes
 {
     public class RecipeRepository : IRecipeRepository
     {
-        const string _connectionString = "Server = localhost; Username=postgres;Database=reciplanner;Port=5432;Password=admin;SSLMode=Prefer";
+        private string _connectionString;
 
-        public RecipeRepository()
+        public RecipeRepository(IConfiguration config)
         {
+            _connectionString = config["ConnectionStrings:Postgres"];
         }
 
         public int Create(Recipe Recipe)

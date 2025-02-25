@@ -74,9 +74,10 @@ export const shortenTitle = (title, maxLength) => {
 }
 
 
+
 export const fetchLogin = async (loginData) => {
     try {
-        const response = await fetch("https://localhost:7034/User/login", {
+        const response = await fetch("/api/User/login", {
             method: 'POST',
             credentials: "include",
             headers: {
@@ -98,7 +99,7 @@ export const fetchLogin = async (loginData) => {
 
 export const fetchLogout = async () => {
     try {
-        const response = await fetch("https://localhost:7034/User/logout", {
+        const response = await fetch("/api/User/logout", {
             method: 'POST',
             credentials: "include",
         })
@@ -112,7 +113,7 @@ export const fetchLogout = async () => {
 
 export const fetchLogedInUser = async (userId) => {
     try {
-        const response = await fetch(`https://localhost:7034/User/${userId}`, {
+        const response = await fetch(`/api/User/${userId}`, {
             method: "GET",
             credentials: "include"
         })
@@ -128,7 +129,7 @@ export const fetchLogedInUser = async (userId) => {
 
 export const fetchRecipes = async () => {
     try {
-        const response = await fetch(`https://localhost:7034/Recipes`, {
+        const response = await fetch(`/api/Recipes`, {
             method: "GET",
             credentials: "include"
         })

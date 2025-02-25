@@ -1,6 +1,6 @@
 import React from 'react'
-import "../css/filter.css"
-import { APP_ID, APP_KEY } from "../apikey.js"
+import "../../css/filter.css"
+import { APP_ID, APP_KEY } from "../../apikey.js"
 
 
 function Filter({ setfilteredRecepies, health, name, diet, calories, setCalories, setName, setDiet, setMealType, mealType, setHealth }) {
@@ -36,7 +36,6 @@ function Filter({ setfilteredRecepies, health, name, diet, calories, setCalories
             }
             const recipesObj = await response.json()
             setfilteredRecepies(recipesObj.hits)
-
         } catch (error) {
 
         }
@@ -106,11 +105,7 @@ function Filter({ setfilteredRecepies, health, name, diet, calories, setCalories
                             <option value="crustacean-free">Low carb</option>
                             <option value="dairy-free">Diary free</option>
                         </optgroup>
-
-
-
                     </select>
-
                 </div>
                 <div className='filter-row'>
                     <label className='filter-label'>Calories</label>

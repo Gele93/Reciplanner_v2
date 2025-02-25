@@ -1,7 +1,6 @@
-﻿using ReciPlanner.Models;
-using ReciPlanner.Models.Nutritions;
+﻿using ReciPlanner.Models.Recipes;
 
-namespace ReciPlanner.Repositories
+namespace ReciPlanner.Repositories.Recipes
 {
     public interface IRecipeRepository
     {

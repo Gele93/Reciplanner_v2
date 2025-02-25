@@ -1,7 +1,8 @@
 
 using Microsoft.AspNetCore.Authentication.Cookies;
-using ReciPlanner.Repositories;
-using ReciPlanner.Services;
+using ReciPlanner.Repositories.Recipes;
+using ReciPlanner.Repositories.Users;
+using ReciPlanner.Services.UserServices;
 
 namespace ReciPlanner
 {
@@ -21,6 +22,8 @@ namespace ReciPlanner
             builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserVerify, UserVerify>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IHasher, Hasher>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -28,8 +31,8 @@ namespace ReciPlanner
         options.Cookie.Name = "Reciplanner_User_Cookie";
         options.LoginPath = "/User/login"; 
         options.LogoutPath = "/User/logout"; 
-        options.Cookie.HttpOnly = true; // Prevent client-side script access to the cookie
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Enforce HTTPS-only cookies in production
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.ExpireTimeSpan = TimeSpan.FromHours(24);
         options.SlidingExpiration = true;
         options.Cookie.SameSite = SameSiteMode.None;

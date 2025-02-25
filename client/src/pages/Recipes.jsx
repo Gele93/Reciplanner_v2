@@ -1,6 +1,6 @@
 import React from 'react'
 import '../css/recipes.css'
-import Filter from '../components/Filter'
+import Filter from '../components/Recipes/Filter'
 import RecipeList from '../components/Recipes/RecipeList'
 import { useEffect, useState } from 'react'
 
@@ -14,7 +14,6 @@ function Recipes({ openAddModal  }) {
     const[mealType, setMealType]= useState(``)
     const[health, setHealth]=useState(``)
 
-
     return (
         <div className='recipes'>
             <Filter setName={setName} setDiet={setDiet}
@@ -24,7 +23,7 @@ function Recipes({ openAddModal  }) {
                 filteredRecepies={filteredRecepies} setfilteredRecepies={setfilteredRecepies}
                 setMealType={setMealType} setHealth={setHealth}
             />
-            <RecipeList openAddModal={openAddModal} />
+            <RecipeList openAddModal={openAddModal} filteredRecepies={filteredRecepies}/>
         </div>
     )
 }

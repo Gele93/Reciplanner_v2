@@ -26,12 +26,9 @@ function CreateUser() {
     const [errorMsg, setErrorMsg] = useState("")
     const [isCreated, setIsCreated] = useState(false)
 
-    const { user, setUser } = useContext(RecipeContext)
-
-
     const fetchPostUser = async (newUser) => {
         try {
-            const response = await fetch("https://localhost:7034/User/register", {
+            const response = await fetch("/api/User/register", {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -58,8 +55,6 @@ function CreateUser() {
         e.preventDefault()
         const userToAdd = { username, password, email, gender, age, weight, height, profilePic }
 
-        console.log(userToAdd)
-
         if (checkValidity()) {
             if (await fetchPostUser(userToAdd)) {
                 setErrorMsg("")
@@ -75,7 +70,7 @@ function CreateUser() {
         formData.append("profilePic", file)
 
         try {
-            const response = await fetch("https://localhost:7034/User/profilepic", {
+            const response = await fetch("/api/User/profilepic", {
                 method: "POST",
                 body: formData
             })

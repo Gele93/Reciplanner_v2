@@ -26,7 +26,7 @@ function Profile() {
         <>
             <div className='profile' >
                 {user &&
-                    <img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src={user.profilePic ? `https://localhost:7034/${user.profilePic}` : '/anonimuser.png'} id="profile-pic" />
+                    <img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src={user.profilePic ? `/api/${user.profilePic}` : '/anonimuser.png'} id="profile-pic" />
                 }
             </div>
             {
@@ -38,6 +38,3 @@ function Profile() {
 }
 
 export default Profile
-
-
-//<img onClick={() => setIsProfileOpen(!isProfileOpen)} className='profile-pic' src="https://a0.anyrgb.com/pngimg/1002/238/anonim-user-profile-account-avatar-icon-design-user-hat-female-woman-silhouette.png" id="profile-pic" />

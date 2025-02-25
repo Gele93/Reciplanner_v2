@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ReciPlanner.Repositories;
-using ReciPlanner.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Authorization;
+using ReciPlanner.Models.Recipes;
+using ReciPlanner.Repositories.Recipes;
 
 
-namespace ReciPlanner.Controllers
+namespace ReciPlanner.Controllers.Recipes
 {
     [ApiController]
     [Route("[controller]")]
     public class RecipesController : ControllerBase
     {
         private IRecipeRepository _recipeRepository;
+        private ILogger<RecipesController> _logger;
 
-        public RecipesController(IRecipeRepository recipeRepository)
+        public RecipesController(IRecipeRepository recipeRepository, ILogger<RecipesController> logger)
         {
             _recipeRepository = recipeRepository;
+            _logger = logger;
         }
 
         [Authorize]
@@ -29,7 +31,8 @@ namespace ReciPlanner.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex.Message);
+                return StatusCode(500, "Creating recipe failed");
             }
         }
 
@@ -50,7 +53,8 @@ namespace ReciPlanner.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error in controller: {ex.Message}");
+                _logger.LogError(ex.Message);
+                return StatusCode(500, "Getting recipes failed");
             }
 
         }
@@ -66,7 +70,8 @@ namespace ReciPlanner.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex.Message);
+                return StatusCode(500, $"Updating #{recipeId} recipe failed");
             }
         }
 
@@ -81,7 +86,8 @@ namespace ReciPlanner.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex.Message);
+                return StatusCode(500, $"Deleting #{recipeId} failed");
             }
         }
     }
