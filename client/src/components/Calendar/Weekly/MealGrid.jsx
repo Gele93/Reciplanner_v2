@@ -9,7 +9,7 @@ function MealGrid({ day, meal, hoveredId, handleFoodClick, curFood, handleMouseO
             onMouseOver={() => handleMouseOver(day, meal)}
             onMouseLeave={() => handleMouseLeave()}>
             {fillMealDetails(day, meal, "label", calendar) &&
-                <div className='food-title'>{shortenTitle(fillMealDetails(day, meal, "label", calendar), 20)}</div>
+                <div className='food-title'>{shortenTitle(fillMealDetails(day, meal, "label", calendar), 18)}</div>
             }
             {fillMealDetails(day, meal, "image", calendar) &&
                 <img className='food-img' src={fillMealDetails(day, meal, "image", calendar)} alt="Original Image" onError={(e) => e.target.src = "/altfood.png"} />

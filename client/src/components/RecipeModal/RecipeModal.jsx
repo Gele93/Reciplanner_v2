@@ -28,8 +28,6 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
 
   const { user, setUser } = useContext(RecipeContext)
 
-  console.log(date)
-
   const handleCloseModal = () => {
     setIsRecipeModal(false);
   };
@@ -39,7 +37,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
     let recipeToAdd = { ...recipe, userId }
 
     try {
-      const response = await fetch(`https://localhost:7034/Recipes`, {
+      const response = await fetch(`/api/Recipes`, {
         method: 'POST',
         credentials: "include",
         headers: {
@@ -86,7 +84,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
         }
 
         i++
-        if (i.toString() === counter) break
+        if (i === counter) break
       }
     }
     return true
@@ -207,7 +205,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
 
   const fetchPatchEditedRecipe = async (recipe) => {
     try {
-      const response = await fetch(`https://localhost:7034/Recipes/${recipe.id}`, {
+      const response = await fetch(`/api/Recipes/${recipe.id}`, {
         method: 'PATCH',
         credentials: "include",
         headers: {
@@ -235,7 +233,7 @@ const RecipeModal = ({ isRecipeModalAdd, setIsRecipeModal, selectedRecipe, calen
 
   const fetchDeleteRecipe = async () => {
     try {
-      const response = await fetch(`https://localhost:7034/Recipes/${selectedRecipe.id}`, {
+      const response = await fetch(`/api/Recipes/${selectedRecipe.id}`, {
         method: 'DELETE',
         credentials: "include",
         headers: {

@@ -120,6 +120,8 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
         setHoveredId(0)
     }
 
+    console.log(calendar)
+
     return (
         <div className='calendar'>
             <DateButtons handleDateMinusClick={handleDateMinusClick} handleDatePlusClick={handleDatePlusClick} />
@@ -133,12 +135,13 @@ function Calendar({ setSelectedRecipe, setIsRecipeModal, setIsRecipeModalAdd, ca
                     <div className='meal-type-cal-dif'>Cal diff</div>
                 </div>
                 {curWeek.map((d, i) => (
-                    <div key={d} className={`${daysOfWeek[i]} day`} >
+                    <div key={`${d}${i}`} className={`${daysOfWeek[i]} day`} >
                         <div className='day-date'>{d}</div>
                         <div className='day-title'>{writeDayFromDate(d)}</div>
                         {meals.map((m) => (
                             fillMealDetails(d, m, "label", calendar) ? (
                                 <MealGrid
+                                    key={`${d}${m}`}
                                     day={d}
                                     meal={m}
                                     hoveredId={hoveredId}

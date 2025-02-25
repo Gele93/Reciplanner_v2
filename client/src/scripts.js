@@ -70,7 +70,6 @@ export const shortenTitle = (title, maxLength) => {
     let shortenedTitle = wordsOfShortTitle.join(" ")
     shortenedTitle = shortenedTitle + "..."
     return shortenedTitle
-
 }
 
 
