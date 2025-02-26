@@ -7,7 +7,7 @@ namespace ReciPlanner.Services.UserServices
     {
         const int keySize = 64;
         const int iterations = 350000;
-        HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+        readonly HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
 
         public string HashPassword(string password, out byte[] salt)
         {

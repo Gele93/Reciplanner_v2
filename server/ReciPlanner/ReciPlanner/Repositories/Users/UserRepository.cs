@@ -1,12 +1,14 @@
-﻿using Npgsql;
+﻿using System.Data;
+
+using Npgsql;
+
 using ReciPlanner.Models.Users;
-using System.Data;
 
 namespace ReciPlanner.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {
-        private string _connectionString;
+        private readonly string _connectionString;
 
         public UserRepository(IConfiguration config)
         {

@@ -6,7 +6,6 @@ namespace ReciPlanner.Services.UserServices
     {
         public bool IsUniqueUsername(string username);
         public bool IsUniqueUsername(string username, int userId);
-
         public bool IsUniqueEmail(string email);
         public bool IsUniqueEmail(string email, int userId);
 

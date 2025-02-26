@@ -1,13 +1,14 @@
-﻿using ReciPlanner.Models;
-using ReciPlanner.Repositories.Users;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
+
+using ReciPlanner.Models;
+using ReciPlanner.Repositories.Users;
 
 namespace ReciPlanner.Services.UserServices
 {
     public class UserVerify : IUserVerify
     {
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserVerify(IUserRepository userRepository)
         {

@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Hosting.Server;
-using Npgsql;
-using System;
-using System.Data;
+﻿using System;
 using System.ComponentModel;
+using System.Data;
+
+using Microsoft.AspNetCore.Hosting.Server;
+
+using Npgsql;
+
 using ReciPlanner.Models.Recipes;
 
 namespace ReciPlanner.Repositories.Recipes
 {
     public class RecipeRepository : IRecipeRepository
     {
-        private string _connectionString;
+        private readonly string _connectionString;
 
         public RecipeRepository(IConfiguration config)
         {

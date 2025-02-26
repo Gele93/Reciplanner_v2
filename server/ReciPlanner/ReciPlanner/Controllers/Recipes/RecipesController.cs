@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 using ReciPlanner.Models.Recipes;
 using ReciPlanner.Repositories.Recipes;
 
@@ -11,8 +12,8 @@ namespace ReciPlanner.Controllers.Recipes
     [Route("[controller]")]
     public class RecipesController : ControllerBase
     {
-        private IRecipeRepository _recipeRepository;
-        private ILogger<RecipesController> _logger;
+        private readonly IRecipeRepository _recipeRepository;
+        private readonly ILogger<RecipesController> _logger;
 
         public RecipesController(IRecipeRepository recipeRepository, ILogger<RecipesController> logger)
         {

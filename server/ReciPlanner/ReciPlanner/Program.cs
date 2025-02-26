@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Authentication.Cookies;
+
 using ReciPlanner.Repositories.Recipes;
 using ReciPlanner.Repositories.Users;
 using ReciPlanner.Services.UserServices;
@@ -29,8 +30,8 @@ namespace ReciPlanner
     .AddCookie(options =>
     {
         options.Cookie.Name = "Reciplanner_User_Cookie";
-        options.LoginPath = "/User/login"; 
-        options.LogoutPath = "/User/logout"; 
+        options.LoginPath = "/User/login";
+        options.LogoutPath = "/User/logout";
         options.Cookie.HttpOnly = true;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.ExpireTimeSpan = TimeSpan.FromHours(24);
@@ -77,4 +78,3 @@ namespace ReciPlanner
         }
     }
 }
-

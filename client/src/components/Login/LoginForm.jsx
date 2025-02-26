@@ -15,6 +15,8 @@ function LoginForm({setIsLoginHighlight, setLoginError, setUser}) {
         const loginData = { username, password }
         const curUser = await fetchLogin(loginData)
 
+        console.log(loginData, curUser)
+
         if (!curUser) {
             setLoginError("invalid username or password")
             return
