@@ -10,6 +10,7 @@ The app also got extended features in the change.
 *Disclaimer: The project was started in an earlier phase of my studies, not being familar with proper version control & github usage.*
 
 **App demo:**
+
 ![App Demo](demo.gif)
 *https://youtu.be/9zYHoHwPVG0*
 
