@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://backend:5000',
+        target: 'https://reciplanner-v2.onrender.com/',
         rewrite: (path) => path.replace(/^\/api/, ''),
         changeOrigin: true,
         secure: false,
