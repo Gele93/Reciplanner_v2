@@ -12,10 +12,6 @@ cuisine_type_id SERIAL PRIMARY KEY,
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.cuisine_types
-    OWNER to postgres;
-
-
 CREATE TABLE IF NOT EXISTS public.diet_labels
 (
     diet_label_id SERIAL PRIMARY KEY,
@@ -25,9 +21,6 @@ CREATE TABLE IF NOT EXISTS public.diet_labels
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.diet_labels
-    OWNER to postgres;
-
 CREATE TABLE IF NOT EXISTS public.diet_labels
 (
     diet_label_id SERIAL PRIMARY KEY,
@@ -36,9 +29,6 @@ CREATE TABLE IF NOT EXISTS public.diet_labels
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.diet_labels
-    OWNER to postgres;
 
 CREATE TABLE IF NOT EXISTS public.health_labels
 (
@@ -48,9 +38,6 @@ CREATE TABLE IF NOT EXISTS public.health_labels
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.health_labels
-    OWNER to postgres;
 
 
 CREATE TABLE IF NOT EXISTS public.ingredient_lines
@@ -62,10 +49,6 @@ CREATE TABLE IF NOT EXISTS public.ingredient_lines
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.ingredient_lines
-    OWNER to postgres;
-
-
 CREATE TABLE IF NOT EXISTS public.meal_types
 (
     meal_type_id SERIAL PRIMARY KEY,
@@ -74,10 +57,6 @@ CREATE TABLE IF NOT EXISTS public.meal_types
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.meal_types
-    OWNER to postgres;
-
 
 CREATE TABLE IF NOT EXISTS public.nutrients
 (
@@ -89,11 +68,6 @@ CREATE TABLE IF NOT EXISTS public.nutrients
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.nutrients
-    OWNER to postgres;
-
-
 
 CREATE TABLE IF NOT EXISTS public.users
 (
@@ -110,10 +84,6 @@ CREATE TABLE IF NOT EXISTS public.users
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.users
-    OWNER to postgres;
-
 
 
 CREATE TABLE IF NOT EXISTS public.recipes
@@ -137,9 +107,6 @@ CREATE TABLE IF NOT EXISTS public.recipes
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.recipes
-    OWNER to postgres;
-
 
 CREATE TABLE IF NOT EXISTS public.cuisine_types_to_recipes
 (
@@ -157,10 +124,6 @@ CREATE TABLE IF NOT EXISTS public.cuisine_types_to_recipes
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.cuisine_types_to_recipes
-    OWNER to postgres;
-
-
 CREATE TABLE IF NOT EXISTS public.diet_labels_to_recipes
 (
     recipe_id integer,
@@ -176,9 +139,6 @@ CREATE TABLE IF NOT EXISTS public.diet_labels_to_recipes
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.diet_labels_to_recipes
-    OWNER to postgres;
 
 
 CREATE TABLE IF NOT EXISTS public.dish_types_to_recipes
@@ -197,10 +157,6 @@ CREATE TABLE IF NOT EXISTS public.dish_types_to_recipes
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.dish_types_to_recipes
-    OWNER to postgres;
-
-
 CREATE TABLE IF NOT EXISTS public.health_labels_to_recipes
 (
     recipe_id integer,
@@ -216,11 +172,6 @@ CREATE TABLE IF NOT EXISTS public.health_labels_to_recipes
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.health_labels_to_recipes
-    OWNER to postgres;
-
-
 
 CREATE TABLE IF NOT EXISTS public.ingredient_lines_to_recipes
 (
@@ -238,9 +189,6 @@ CREATE TABLE IF NOT EXISTS public.ingredient_lines_to_recipes
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.ingredient_lines_to_recipes
-    OWNER to postgres;
-
 CREATE TABLE IF NOT EXISTS public.meal_types_to_recipes
 (
     recipe_id integer,
@@ -256,10 +204,6 @@ CREATE TABLE IF NOT EXISTS public.meal_types_to_recipes
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.meal_types_to_recipes
-    OWNER to postgres;
-
 
 
 CREATE TABLE IF NOT EXISTS public.total_nutrients_to_recipes
@@ -279,8 +223,6 @@ CREATE TABLE IF NOT EXISTS public.total_nutrients_to_recipes
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.total_nutrients_to_recipes
-    OWNER to postgres;
 ";
     }
 }
