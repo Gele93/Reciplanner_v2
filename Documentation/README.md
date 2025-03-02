@@ -14,6 +14,9 @@ The app also got extended features in the change.
 ![App Demo](demo.gif)
 *https://youtu.be/9zYHoHwPVG0*
 
+**Deployed version**
+https://reciplanner-v2-client.onrender.com/
+
 ##  1. Main features: 
 - Choose recipes from external API
 - Save recipe with desired date, mealtype, servings amount into local sql db
