@@ -6,15 +6,16 @@ using System.Data;
 
 namespace ReciPlanner.Repositories.CreateTables
 {
-    public class CreateTables
+    public class DbCreator
     {
         private readonly string _connectionString;
 
-        public CreateTables(IConfiguration config)
+        
+        public DbCreator(IConfiguration config)
         {
             _connectionString = config["ConnectionStrings:Postgres"];
         }
-
+        
         public void Create()
         {
             string query = CreateTablesScript.query;

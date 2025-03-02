@@ -5,9 +5,8 @@
         public readonly static string query = @"
 CREATE TABLE IF NOT EXISTS public.cuisine_types
 (
-    cuisine_type_id integer NOT NULL DEFAULT nextval('cuisine_types_cuisine_type_id_seq'::regclass),
+cuisine_type_id SERIAL PRIMARY KEY,
     name character varying(255) COLLATE pg_catalog.""default"",
-    CONSTRAINT cuisine_types_pkey PRIMARY KEY (cuisine_type_id),
     CONSTRAINT uq_cuisine_type UNIQUE (name)
 )
 
@@ -19,9 +18,8 @@ ALTER TABLE IF EXISTS public.cuisine_types
 
 CREATE TABLE IF NOT EXISTS public.diet_labels
 (
-    diet_label_id integer NOT NULL DEFAULT nextval('diet_labels_diet_label_id_seq'::regclass),
+    diet_label_id SERIAL PRIMARY KEY,
     name character varying(255) COLLATE pg_catalog.""default"",
-    CONSTRAINT diet_labels_pkey PRIMARY KEY (diet_label_id),
     CONSTRAINT uq_diet_labels UNIQUE (name)
 )
 
@@ -32,9 +30,8 @@ ALTER TABLE IF EXISTS public.diet_labels
 
 CREATE TABLE IF NOT EXISTS public.diet_labels
 (
-    diet_label_id integer NOT NULL DEFAULT nextval('diet_labels_diet_label_id_seq'::regclass),
+    diet_label_id SERIAL PRIMARY KEY,
     name character varying(255) COLLATE pg_catalog.""default"",
-    CONSTRAINT diet_labels_pkey PRIMARY KEY (diet_label_id),
     CONSTRAINT uq_diet_labels UNIQUE (name)
 )
 
@@ -45,9 +42,8 @@ ALTER TABLE IF EXISTS public.diet_labels
 
 CREATE TABLE IF NOT EXISTS public.health_labels
 (
-    health_label_id integer NOT NULL DEFAULT nextval('health_labels_health_label_id_seq'::regclass),
+    health_label_id SERIAL PRIMARY KEY,
     name character varying(255) COLLATE pg_catalog.""default"",
-    CONSTRAINT health_labels_pkey PRIMARY KEY (health_label_id),
     CONSTRAINT uq_health_labels UNIQUE (name)
 )
 
@@ -59,9 +55,8 @@ ALTER TABLE IF EXISTS public.health_labels
 
 CREATE TABLE IF NOT EXISTS public.ingredient_lines
 (
-    ingredient_line_id integer NOT NULL DEFAULT nextval('ingredient_lines_ingredient_line_id_seq'::regclass),
+    ingredient_line_id SERIAL PRIMARY KEY,
     name character varying(255) COLLATE pg_catalog.""default"",
-    CONSTRAINT ingredient_lines_pkey PRIMARY KEY (ingredient_line_id),
     CONSTRAINT uq_ingredient UNIQUE (name)
 )
 
@@ -73,9 +68,8 @@ ALTER TABLE IF EXISTS public.ingredient_lines
 
 CREATE TABLE IF NOT EXISTS public.meal_types
 (
-    meal_type_id integer NOT NULL DEFAULT nextval('meal_types_meal_type_id_seq'::regclass),
+    meal_type_id SERIAL PRIMARY KEY,
     name character varying(255) COLLATE pg_catalog.""default"",
-    CONSTRAINT meal_types_pkey PRIMARY KEY (meal_type_id),
     CONSTRAINT uq_meal_types UNIQUE (name)
 )
 
@@ -87,11 +81,10 @@ ALTER TABLE IF EXISTS public.meal_types
 
 CREATE TABLE IF NOT EXISTS public.nutrients
 (
-    nutrient_id integer NOT NULL DEFAULT nextval('nutrients_nutrient_id_seq'::regclass),
+    nutrient_id SERIAL PRIMARY KEY,
     name character varying(255) COLLATE pg_catalog.""default"",
     unit character varying(255) COLLATE pg_catalog.""default"",
     label character varying(255) COLLATE pg_catalog.""default"",
-    CONSTRAINT nutrients_pkey PRIMARY KEY (nutrient_id),
     CONSTRAINT uq_nutrients UNIQUE (name)
 )
 
@@ -104,7 +97,7 @@ ALTER TABLE IF EXISTS public.nutrients
 
 CREATE TABLE IF NOT EXISTS public.users
 (
-    user_id integer NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
+    user_id SERIAL PRIMARY KEY,
     username character varying(255) COLLATE pg_catalog.""default"",
     password character varying(512) COLLATE pg_catalog.""default"",
     email character varying(255) COLLATE pg_catalog.""default"",
@@ -114,7 +107,6 @@ CREATE TABLE IF NOT EXISTS public.users
     height integer,
     profile_pic character varying(255) COLLATE pg_catalog.""default"",
     salt bytea,
-    CONSTRAINT users_pkey PRIMARY KEY (user_id)
 )
 
 TABLESPACE pg_default;
@@ -126,7 +118,7 @@ ALTER TABLE IF EXISTS public.users
 
 CREATE TABLE IF NOT EXISTS public.recipes
 (
-    recipe_id integer NOT NULL DEFAULT nextval('recipes_recipe_id_seq'::regclass),
+    recipe_id SERIAL PRIMARY KEY,
     label character varying(255) COLLATE pg_catalog.""default"",
     image text COLLATE pg_catalog.""default"",
     servings integer,
@@ -137,7 +129,6 @@ CREATE TABLE IF NOT EXISTS public.recipes
     start_date date,
     url character varying(255) COLLATE pg_catalog.""default"",
     user_id integer,
-    CONSTRAINT recipes_pkey PRIMARY KEY (recipe_id),
     CONSTRAINT recipes_user_id_fkey FOREIGN KEY (user_id)
         REFERENCES public.users (user_id) MATCH SIMPLE
         ON UPDATE NO ACTION

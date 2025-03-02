@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 
+using ReciPlanner.Repositories.CreateTables;
 using ReciPlanner.Repositories.Recipes;
 using ReciPlanner.Repositories.Users;
 using ReciPlanner.Services.UserServices;
@@ -25,6 +26,7 @@ namespace ReciPlanner
             builder.Services.AddScoped<IUserVerify, UserVerify>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IHasher, Hasher>();
+            builder.Services.AddSingleton<DbCreator>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -55,6 +57,15 @@ namespace ReciPlanner
 
 
             var app = builder.Build();
+
+
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbCreator = scope.ServiceProvider.GetRequiredService<DbCreator>();
+                dbCreator.Create();
+            }
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
