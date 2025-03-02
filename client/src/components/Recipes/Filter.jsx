@@ -1,7 +1,8 @@
 import React from 'react'
 import "../../css/filter.css"
-import { APP_ID, APP_KEY } from "../../apikey.js"
-
+//import { APP_ID, APP_KEY } from "../../apikey.js"
+ const APP_ID = "845ae8f8"
+ const APP_KEY = "2f6110ba1f36e61bd33bfdc27d7829f0"
 
 function Filter({ setfilteredRecepies, health, name, diet, calories, setCalories, setName, setDiet, setMealType, mealType, setHealth }) {
 
