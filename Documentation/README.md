@@ -15,6 +15,7 @@ The app also got extended features in the change.
 *https://youtu.be/9zYHoHwPVG0*
 
 **Deployed version**
+
 https://reciplanner-v2-client.onrender.com/
 
 ##  1. Main features: 
