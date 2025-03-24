@@ -11,7 +11,7 @@ The app also got extended features in the change.
 
 **App demo:**
 
-![App Demo](demo.gif)
+![App Demo](./Documentation/demo.gif)
 *https://youtu.be/9zYHoHwPVG0*
 
 **Deployed version**
