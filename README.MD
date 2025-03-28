@@ -26,9 +26,9 @@ https://reciplanner-v2-client.onrender.com/
 - Edit & delete saved recipes
 
 ## 2. Technology Stack
-- **Frontend:** React, Vite
-- **Backend:** ASP.NET Core, C#
-- **Database:** PostgreSQL
+- **Frontend:** [![React][React-logo]][React-url] [![Vite][Vite-logo]][Vite-url]  
+- **Backend:** [![ASP.NET Core][AspNet-logo]][AspNet-url] [![C#][Csharp-logo]][Csharp-url]  
+- **Database:** [![PostgreSQL][Postgres-logo]][Postgres-url]  
 
 ## 3. Installation and Running
 
@@ -84,3 +84,15 @@ The project is built with an **MVC-based backend** and a **component-based front
 Developer: **[Gelecsák Tamás]**  
 Email: **[gelecsak.tamas@gmail.com]**  
 LinkedIn: **[https://www.linkedin.com/in/tamasgelecsak]**
+
+
+[React-logo]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://react.dev/
+[Vite-logo]: https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev/
+[AspNet-logo]: https://img.shields.io/badge/ASP.NET_Core-5C2D91?style=for-the-badge&logo=dotnet&logoColor=white
+[AspNet-url]: https://dotnet.microsoft.com/en-us/apps/aspnet
+[Csharp-logo]: https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white
+[Csharp-url]: https://learn.microsoft.com/en-us/dotnet/csharp/
+[Postgres-logo]: https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white
+[Postgres-url]: https://www.postgresql.org/
